@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/menu_bnv_expInc"
+        android:title="expinc"
+        android:icon="@drawable/exp_inc"/>
+    <item android:id="@+id/menu_bnv_todo"
+        android:title="Todo"
+        android:icon="@drawable/todo_list"/>
+    <item android:id="@+id/menu_bnv_home"
+        android:title="home"
+        android:icon="@drawable/img"/>
+    <item android:id="@+id/menu_bnv_schd"
+        android:title="schd"
+        android:icon="@drawable/img_1"/>
+    <item android:id="@+id/menu_bnv_diary"
+        android:title="Diary"
+        android:icon="@drawable/img_2"/>
+
+</menu>
