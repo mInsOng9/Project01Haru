@@ -8,17 +8,17 @@
     tools:context=".MainActivity">
 
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:elevation="2dp">
+<!--    <com.google.android.material.appbar.AppBarLayout-->
+<!--        android:id="@+id/appbar"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@color/white"-->
+<!--        android:elevation="2dp">-->
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"/>
+            android:layout_height="wrap_content"/>
 
         <androidx.drawerlayout.widget.DrawerLayout
             android:id="@+id/drawerLayout"
@@ -32,13 +32,13 @@
                 app:menu="@menu/dnav"
                 app:headerLayout="@layout/drawer_header"/>
         </androidx.drawerlayout.widget.DrawerLayout>
-    </com.google.android.material.appbar.AppBarLayout>
+<!--    </com.google.android.material.appbar.AppBarLayout>-->
 
     <CalendarView
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/appbar"
+        android:layout_below="@id/toolbar"
         android:layout_gravity="center"
         android:theme="@style/CalenderViewCustom"
         android:dateTextAppearance="@style/CalenderViewDateCustomText"
