@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -17,23 +18,29 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <!-- ToolBar  -->
-                <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/toolbar"
+                <com.google.android.material.appbar.AppBarLayout
+                    android:id="@+id/appbar"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:elevation="2dp">
-                    <TextView
-                        android:id="@+id/tv_title_date"
-                        android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <!-- ToolBar  -->
+                    <androidx.appcompat.widget.Toolbar
+                        android:id="@+id/toolbar"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="2022.10"
-                        android:textSize="30sp"
-                        android:fontFamily="@font/halant_regular"
-                        android:textColor="@color/black"
-                        android:layout_gravity="center"/>
-                </androidx.appcompat.widget.Toolbar>
-                <!--/ToolBar  -->
+                        android:elevation="2dp">
+                        <TextView
+                            android:id="@+id/tv_title_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="2022.10"
+                            android:textSize="30sp"
+                            android:fontFamily="@font/halant_regular"
+                            android:textColor="@color/black"
+                            android:layout_gravity="center"/>
+                    </androidx.appcompat.widget.Toolbar>
+                    <!--/ToolBar  -->
+                </com.google.android.material.appbar.AppBarLayout>
+
 
                 <androidx.fragment.app.FragmentContainerView
                     android:id="@+id/frag_container"
@@ -132,4 +139,4 @@
 
         </androidx.drawerlayout.widget.DrawerLayout>
 
-</RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
