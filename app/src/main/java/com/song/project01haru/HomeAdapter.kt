@@ -2,18 +2,17 @@ package com.song.project01haru
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.song.project01haru.databinding.RecyclerItemBinding
+import com.song.project01haru.databinding.HomeRecyclerItemBinding
 
 class HomeAdapter constructor(val context: Context,var items:MutableList<HomeItem>): RecyclerView.Adapter<HomeAdapter.VH>() {
 
 
 
-    lateinit var binding:RecyclerItemBinding
-    inner class VH constructor(binding: RecyclerItemBinding) : RecyclerView.ViewHolder(binding.root){
+    lateinit var binding:HomeRecyclerItemBinding
+    inner class VH constructor(binding: HomeRecyclerItemBinding) : RecyclerView.ViewHolder(binding.root){
 
 
         var day=binding.tvDay
@@ -29,8 +28,8 @@ class HomeAdapter constructor(val context: Context,var items:MutableList<HomeIte
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
-        val itemView=LayoutInflater.from(context).inflate(R.layout.recycler_item,parent,false)
-        return VH(RecyclerItemBinding.bind(itemView))
+        val itemView=LayoutInflater.from(context).inflate(R.layout.home_recycler_item,parent,false)
+        return VH(HomeRecyclerItemBinding.bind(itemView))
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
