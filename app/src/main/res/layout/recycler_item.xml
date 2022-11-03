@@ -27,7 +27,8 @@
             android:textSize="20sp"
             android:textColor="@color/red"
             android:fontFamily="@font/halant_regular"
-            android:layout_alignParentRight="true"/>
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="16dp"/>
         <TextView
             android:id="@+id/tv_event"
             android:layout_width="wrap_content"
@@ -37,7 +38,7 @@
             android:textColor="@color/blue"
             android:fontFamily="@font/halant_regular"
             android:layout_alignRight="@id/tv_holiday"
-            android:layout_below="@id/tv_holiday"/>
+            android:layout_below="@id/tv_holiday" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -64,6 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="note"
+            android:textSize="17sp"
             android:fontFamily="@font/halant_regular"
             android:layout_alignLeft="@id/tv_schd"
             android:layout_below="@id/tv_schd" />
