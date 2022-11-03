@@ -36,10 +36,7 @@ class EditActivity : AppCompatActivity() {
 
         binding.pager.setAdapter(adapter)
 
-        var tabLayoutMediator:TabLayoutMediator=
-            TabLayoutMediator(binding.tab,binding.pager,{tab,position-> tab.text=expInTitle[position] })
 
-        tabLayoutMediator.attach()
     }
 
     override fun onSupportNavigateUp(): Boolean {
