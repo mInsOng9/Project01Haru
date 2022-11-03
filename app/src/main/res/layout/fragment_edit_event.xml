@@ -1,11 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="16dp">
 
-    <TextView
+    <LinearLayout
+        android:id="@+id/linear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="event"/>
+        android:layout_marginRight="18dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:fontFamily="@font/halant_regular"
+            android:text="WHEN"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:fontFamily="@font/halant_regular"
+            android:text="EVENT"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/linear"
+        android:layout_marginBottom="2dp"
+        android:fontFamily="@font/halant_regular"
+        android:text="2022.10.20"
+        android:textColor="@color/black"
+        android:textSize="24sp"/>
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/tv_date"
+        android:layout_marginLeft="12dp"
+        android:layout_marginBottom="2dp"
+        android:text="10:00 pm"
+        android:textSize="22sp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/halant_regular"/>
+
+    <EditText
+        android:id="@+id/et_skd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_below="@id/tv_date"
+        android:layout_alignLeft="@id/tv_date"
+        android:inputType="numberDecimal"
+        android:maxEms="6"
+        android:textSize="22sp"/>
+
 
 </RelativeLayout>

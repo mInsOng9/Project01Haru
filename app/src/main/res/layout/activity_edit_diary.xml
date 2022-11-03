@@ -1,15 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".EditDiaryActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Diary"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            android:fontFamily="@font/halant_regular"/>
+        <ImageView
+            android:id="@+id/iv_weather"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/weather"
+            android:layout_gravity="right"
+            android:layout_marginRight="20dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10.20"
+            android:fontFamily="@font/halant_regular"
+            android:layout_gravity="right" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <RelativeLayout
+        android:id="@+id/relativelayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:padding="4dp"
+        android:background="#E5E5E5">
+        <TextView
+            android:id="@+id/tv_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2022.10.20"
+            android:textSize="24sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/halant_regular"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"/>
+    </RelativeLayout>
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/relativelayout"
+        android:background="@color/gray"/>
+
     <TextView
+        android:id="@+id/tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="diaryacyivity"/>
+        android:text="Today's"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:fontFamily="@font/halant_regular"
+        android:layout_below="@id/view"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"/>
+    <ImageView
+        android:id="@+id/iv_diary_feels"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginRight="16dp"
+        android:src="@drawable/menu"
+        android:layout_below="@id/view"
+        android:layout_alignBottom="@id/tv"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"/>
 
-</LinearLayout>
+
+    <EditText
+        android:id="@+id/et_diary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lines="18"
+        android:background="@drawable/bg_et"
+        android:layout_below="@id/tv"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:maxEms="50"/>
+    <ImageView
+        android:id="@+id/iv_diary_photo"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginRight="16dp"
+        android:src="@drawable/photo"
+        android:layout_below="@id/et_diary"
+        android:layout_toLeftOf="@id/iv_diary_location"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"/>
+    <ImageView
+        android:id="@+id/iv_diary_location"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginRight="20dp"
+        android:src="@drawable/location"
+        android:layout_below="@id/et_diary"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"/>
+
+
+    <TextView
+        android:id="@+id/tv_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="30dp"
+        android:layout_toLeftOf="@id/verline"
+        android:fontFamily="@font/halant_regular"
+        android:text="CANCEL"
+        android:textColor="@color/black"
+        android:textSize="24sp" />
+    <View
+        android:id="@+id/verline"
+        android:layout_width="2dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:background="@color/black" />
+
+    <TextView
+        android:id="@+id/tv_ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="80dp"
+        android:layout_toRightOf="@id/verline"
+        android:layout_marginBottom="30dp"
+        android:fontFamily="@font/halant_regular"
+        android:text="OK"
+        android:textColor="@color/black"
+        android:textSize="24sp" />
+
+</RelativeLayout>
+
