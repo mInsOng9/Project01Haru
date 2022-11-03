@@ -8,13 +8,11 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.song.project01haru.databinding.ActivityEditBinding
-import com.song.project01haru.databinding.ActivityEditExpFragBinding
-import com.song.project01haru.databinding.ActivityEditIncFragmentBinding
+import com.song.project01haru.databinding.FragmentEditIncBinding
 
 class EditIncFragment : Fragment() {
 
-    lateinit var binding: ActivityEditIncFragmentBinding
+    lateinit var binding: FragmentEditIncBinding
     override fun onCreate(savedInstanceState: Bundle?)  {
         super.onCreate(savedInstanceState)
 
@@ -22,7 +20,7 @@ class EditIncFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) : View?{
 //        return inflater.inflate(R.layout.activity_edit_inc_fragment, container, false)
-        binding = ActivityEditIncFragmentBinding.inflate(inflater, container, false)
+        binding = FragmentEditIncBinding.inflate(inflater, container, false)
         return binding.root
     }
     //위 onCreateView()메소드를 통해 만들어진 뷰 안에 값들을 제어하기 위해 자동으로 실행되는 메소드

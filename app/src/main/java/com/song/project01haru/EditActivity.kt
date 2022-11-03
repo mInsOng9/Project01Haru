@@ -3,6 +3,7 @@ package com.song.project01haru
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -11,7 +12,7 @@ import com.song.project01haru.databinding.ActivityEditBinding
 class EditActivity : AppCompatActivity() {
 
     lateinit var binding:ActivityEditBinding
-    val expInTitle= arrayOf("Income","Expenses")
+    var expInTitle= arrayOf("Income","Expenses")
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,7 +27,12 @@ class EditActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
-        var adapter= EditAdapter(this)
+        if(intent.getStringExtra("frag").toString().equals("expinc")) expInTitle=arrayOf("Income","Expenses")
+        if(intent.getStringExtra("frag").toString().equals("todo")) expInTitle=arrayOf("Todo")
+        if(intent.getStringExtra("frag").toString().equals("skd"))expInTitle=arrayOf("Schedule","Event")
+
+        var adapter= EditAdapter(this,intent.getStringExtra("frag").toString())
+
 
         binding.pager.setAdapter(adapter)
 
