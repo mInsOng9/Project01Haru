@@ -28,7 +28,7 @@ class EditActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
         if(intent.getStringExtra("frag").toString().equals("expinc")) expInTitle=arrayOf("Income","Expenses")
-        if(intent.getStringExtra("frag").toString().equals("todo")) expInTitle=arrayOf("Todo")
+        if(intent.getStringExtra("frag").toString().equals("todo")) expInTitle=arrayOf("Todo","")
         if(intent.getStringExtra("frag").toString().equals("skd"))expInTitle=arrayOf("Schedule","Event")
 
         var adapter= EditAdapter(this,intent.getStringExtra("frag").toString())
