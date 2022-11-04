@@ -20,90 +20,66 @@
             android:fontFamily="@font/halant_regular"
             android:layout_centerVertical="true"/>
         <TextView
-            android:id="@+id/tv_mos_inc"
+            android:id="@+id/tv_holiday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="+20,000"
-            android:textSize="20sp"
-            android:textColor="@color/blue"
-            android:fontFamily="@font/halant_regular"
-            android:layout_toLeftOf="@id/tv_mos_total"
-            android:layout_marginRight="30dp"/>
-        <TextView
-            android:id="@+id/tv_mos_exp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="-10,000"
+            android:text="Holiday"
             android:textSize="20sp"
             android:textColor="@color/red"
             android:fontFamily="@font/halant_regular"
-            android:layout_alignRight="@id/tv_mos_inc"
-            android:layout_below="@id/tv_mos_inc" />
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="16dp"/>
         <TextView
-            android:id="@+id/tv_mos_total"
+            android:id="@+id/tv_event"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="10,000"
-            android:textSize="22sp"
-            android:textColor="@color/black"
+            android:text="Event"
+            android:textSize="20sp"
+            android:textColor="@color/blue"
             android:fontFamily="@font/halant_regular"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="8dp"
-            android:layout_centerVertical="true"/>
+            android:layout_alignRight="@id/tv_holiday"
+            android:layout_below="@id/tv_holiday" />
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="16dp"
-        android:paddingTop="16dp">
+        android:padding="16dp">
         <ImageView
-            android:id="@+id/iv_account"
+            android:id="@+id/iv_schd"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/type_card"/>
+            android:src="@drawable/img_1"/>
         <TextView
-            android:id="@+id/tv_type"
+            android:id="@+id/tv_schd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="type"
-            android:textSize="17sp"
+            android:text="Schedule"
             android:textColor="@color/black"
             android:fontFamily="@font/halant_regular"
-            android:layout_marginLeft="4dp"
-            android:layout_below="@id/iv_account" />
-        <TextView
-            android:id="@+id/tv_category"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Category"
-            android:textColor="@color/black"
-            android:fontFamily="@font/halant_regular"
-            android:textSize="22sp"
-            android:layout_toRightOf="@id/iv_account"
+            android:textSize="20sp"
+            android:layout_toRightOf="@id/iv_schd"
             android:layout_marginLeft="20dp"/>
         <TextView
-            android:id="@+id/tv_expinc_note"
+            android:id="@+id/tv_schd_note"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="note"
-            android:textSize="18sp"
+            android:textSize="17sp"
             android:fontFamily="@font/halant_regular"
-            android:layout_alignLeft="@id/tv_category"
-            android:layout_below="@id/tv_category" />
+            android:layout_alignLeft="@id/tv_schd"
+            android:layout_below="@id/tv_schd" />
         <TextView
-            android:id="@+id/tv_amount"
+            android:id="@+id/tv_schd_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="+20,000"
+            android:text="time"
             android:textColor="@color/black"
-            android:textSize="24sp"
+            android:textSize="17sp"
             android:fontFamily="@font/halant_regular"
-            android:layout_toLeftOf="@id/iv_delete"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="40dp"
-            />
-
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="80dp"
+            android:layout_alignBottom="@id/tv_schd_note"/>
         <ImageView
             android:id="@+id/iv_delete"
             android:layout_width="40dp"
@@ -111,8 +87,8 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="16dp"
             android:src="@drawable/ic_baseline_remove_24" />
-
     </RelativeLayout>
+
 
 
 </LinearLayout>

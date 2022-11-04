@@ -1,6 +1,5 @@
-package com.song.project01haru
+package com.song.project01haru.edit
 
-import android.content.Intent
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -23,12 +22,12 @@ class EditAdapter(fragmentActivity: FragmentActivity,var frag:String) : Fragment
             fragments[1] = EditIncFragment()
         }
         if(frag.equals("todo")){
-            fragments[0]=EditTodoFragment()
+            fragments[0]= EditTodoFragment()
             fragments[1]=null
         }
         if(frag.equals("skd")){
-            fragments[0]=EditSkdFragment()
-            fragments[1]=EditEventFragment()
+            fragments[0]= EditSkdFragment()
+            fragments[1]= EditEventFragment()
         }
     }
 

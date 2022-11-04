@@ -1,11 +1,7 @@
-package com.song.project01haru
+package com.song.project01haru.edit
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
-import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.song.project01haru.databinding.ActivityEditBinding
 

@@ -1,4 +1,4 @@
-package com.song.project01haru
+package com.song.project01haru.edit
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -14,11 +14,12 @@ class EditDiaryActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
 
 
     }
 
-    override fun onNavigateUp(): Boolean {
+    override fun onSupportNavigateUp(): Boolean {
         finish()
         return super.onNavigateUp()
     }

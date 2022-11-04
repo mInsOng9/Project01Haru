@@ -1,10 +1,11 @@
-package com.song.project01haru
+package com.song.project01haru.main.home
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.song.project01haru.R
 import com.song.project01haru.databinding.HomeRecyclerItemBinding
 
 class HomeAdapter constructor(val context: Context,var items:MutableList<HomeItem>): RecyclerView.Adapter<HomeAdapter.VH>() {
@@ -33,7 +34,7 @@ class HomeAdapter constructor(val context: Context,var items:MutableList<HomeIte
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
-        val item:HomeItem=items.get(position)
+        val item: HomeItem =items.get(position)
         holder.day.setText(item.day)
         holder.holiday.setText(item.holiday)
         holder.event.setText(item.event)

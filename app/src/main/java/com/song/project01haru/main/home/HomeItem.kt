@@ -1,4 +1,4 @@
-package com.song.project01haru
+package com.song.project01haru.main.home
 
 data class HomeItem(
     var day:String, var holiday:String, var event:String,

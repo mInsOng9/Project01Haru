@@ -1,6 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:elevation="2dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:background="#E5E5E5">
+        <TextView
+            android:id="@+id/tv_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="24 MON"
+            android:textSize="24sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/halant_regular"
+            android:layout_centerVertical="true"/>
+        <ImageView
+            android:id="@+id/iv_diary_feels"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="8dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/tv_day"
+            android:src="@drawable/menu"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingRight="16dp"
+        android:paddingLeft="16dp"
+        android:paddingTop="16dp">
+        <ImageView
+            android:id="@+id/iv_diary"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/img_2"/>
+        <EditText
+            android:id="@+id/et_diary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Write about your day"
+            android:lines="2"
+            android:fontFamily="@font/halant_regular"
+            android:background="@drawable/bg_et"
+            android:layout_toRightOf="@id/iv_diary"
+            android:paddingLeft="4dp"
+            android:paddingBottom="10dp"
+            android:layout_marginLeft="20dp"/>
+        <ImageView
+            android:id="@+id/iv_diary_photo"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/photo"
+            android:layout_below="@id/et_diary"
+            android:layout_toLeftOf="@id/iv_diary_location"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"/>
+        <ImageView
+            android:id="@+id/iv_diary_location"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/location"
+            android:layout_below="@id/et_diary"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"/>
+
+    </RelativeLayout>
+
+
+</LinearLayout>

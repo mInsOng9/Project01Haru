@@ -17,13 +17,13 @@
             android:name=".ChartActivity"
             android:exported="false" />
         <activity
-            android:name=".EditDiaryActivity"
+            android:name=".edit.EditDiaryActivity"
             android:exported="false" />
         <activity
             android:name=".ContactUsActivity"
             android:exported="false" />
         <activity
-            android:name=".EditActivity"
+            android:name=".edit.EditActivity"
             android:exported="false" />
         <activity
             android:name=".ProfileActivity"
@@ -38,7 +38,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".main.MainActivity"
             android:exported="true" />
     </application>
 

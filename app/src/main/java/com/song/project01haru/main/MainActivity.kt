@@ -1,11 +1,10 @@
-package com.song.project01haru
+package com.song.project01haru.main
 
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
-import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
@@ -14,11 +13,16 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
+import com.song.project01haru.*
 import com.song.project01haru.databinding.*
+import com.song.project01haru.edit.EditActivity
+import com.song.project01haru.edit.EditDiaryActivity
+import com.song.project01haru.main.diary.DiaryFragment
+import com.song.project01haru.main.expinc.ExpIncFragment
+import com.song.project01haru.main.home.HomeFragment
+import com.song.project01haru.main.skd.SkdFragment
+import com.song.project01haru.main.todo.TodoFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -44,18 +48,21 @@ class MainActivity : AppCompatActivity() {
         //drawerlayout
         val drawerLayout:DrawerLayout=binding.drawerLayout
         val nav:NavigationView=binding.nav
-        drawerToggle= ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.drawer_open,R.string.drawer_close)
+        drawerToggle= ActionBarDrawerToggle(this,drawerLayout,toolbar,
+            R.string.drawer_open,
+            R.string.drawer_close
+        )
         drawerToggle.syncState()
         drawerToggle.drawerArrowDrawable
 
         //drawer haeder listener
-        nav.getHeaderView(0).setOnClickListener{ startActivity(Intent(this,ProfileActivity::class.java))}
+        nav.getHeaderView(0).setOnClickListener{ startActivity(Intent(this, ProfileActivity::class.java))}
         
         //navigation item listener
         nav.setNavigationItemSelectedListener (NavigationView.OnNavigationItemSelectedListener { item ->
             when (item.itemId){
-                R.id.menu_dnav_notif-> startActivity(Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS))
-                R.id.menu_dnav_update-> {
+                R.id.menu_dnav_notif -> startActivity(Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS))
+                R.id.menu_dnav_update -> {
                     val intent = Intent(Intent.ACTION_VIEW).apply {
                         data = Uri.parse(
                             "https://play.google.com/store/apps/details?id=com.example.android")
@@ -63,7 +70,7 @@ class MainActivity : AppCompatActivity() {
                     }
                     startActivity(intent)
                 }
-                R.id.menu_dnav_ctc->startActivity(Intent(this,ContactUsActivity::class.java))
+                R.id.menu_dnav_ctc ->startActivity(Intent(this, ContactUsActivity::class.java))
                 else -> {
                     Toast.makeText(this@MainActivity, "else", Toast.LENGTH_SHORT).show()}
             }
@@ -102,21 +109,21 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.menu_bnv_todo -> {
                     if(fragments[2]==null){
-                        fragments[2]=TodoFragment()
+                        fragments[2]= TodoFragment()
                         tran.add(R.id.frag_container,fragments[2]!!)
                     }
                     tran.show(fragments[2]!!)
                 }
                 R.id.menu_bnv_schd -> {
                     if(fragments[3]==null){
-                        fragments[3]=SchdFragment()
+                        fragments[3]= SkdFragment()
                         tran.add(R.id.frag_container,fragments[3]!!)
                     }
                     tran.show(fragments[3]!!)
                 }
-                R.id.menu_bnv_todo -> {
+                R.id.menu_bnv_diary -> {
                     if(fragments[4]==null){
-                        fragments[4]=DiaryFragment()
+                        fragments[4]= DiaryFragment()
                         tran.add(R.id.frag_container,fragments[4]!!)
                     }
                     tran.show(fragments[4]!!)
@@ -152,7 +159,7 @@ class MainActivity : AppCompatActivity() {
                 fabVisible=true
             }
         })
-        val intent=Intent(this,EditActivity::class.java)
+        val intent=Intent(this, EditActivity::class.java)
         binding.fabAddExpinc.setOnClickListener({
             intent.putExtra("frag","expinc")
             startActivity(intent)
@@ -165,7 +172,7 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("frag","skd")
             startActivity(intent)
         })
-        binding.fabAddDiary.setOnClickListener({startActivity(Intent(this,EditDiaryActivity::class.java))})
+        binding.fabAddDiary.setOnClickListener({startActivity(Intent(this, EditDiaryActivity::class.java))})
   
   
     }

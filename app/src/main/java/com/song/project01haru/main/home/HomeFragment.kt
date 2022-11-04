@@ -1,4 +1,4 @@
-package com.song.project01haru
+package com.song.project01haru.main.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.song.project01haru.databinding.FragmentEditIncBinding
 import com.song.project01haru.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -18,6 +17,7 @@ class HomeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?)  {
         super.onCreate(savedInstanceState)
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) : View?{
@@ -31,7 +31,7 @@ class HomeFragment : Fragment() {
         items.add(HomeItem("24 MON","hi","HI","Nothing","non","20:00","Sleep","20,0000","How areyouuu",null))
         items.add(HomeItem("24 MON","hi","HI","Nothing","non","20:00","Sleep","20,0000","How areyouuu",null))
 
-        recyclerView.adapter=HomeAdapter(requireActivity(),items)
+        recyclerView.adapter= HomeAdapter(requireActivity(),items)
         recyclerView.layoutManager= LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL,false)
 
     }

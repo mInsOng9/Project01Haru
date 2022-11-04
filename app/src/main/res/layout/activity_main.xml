@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".main.MainActivity">
 
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawerLayout"
@@ -21,7 +21,8 @@
                 <com.google.android.material.appbar.AppBarLayout
                     android:id="@+id/appbar"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:background="@color/white">
                     <!-- ToolBar  -->
                     <androidx.appcompat.widget.Toolbar
                         android:id="@+id/toolbar"
@@ -46,7 +47,7 @@
                     android:id="@+id/frag_container"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_above="@id/bnv"/>
+                    android:layout_above="@id/bnv" />
 
 
                 <!--Floating Action Button -->
@@ -139,4 +140,4 @@
 
         </androidx.drawerlayout.widget.DrawerLayout>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</RelativeLayout>

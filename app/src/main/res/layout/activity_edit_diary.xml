@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EditDiaryActivity">
+    tools:context=".edit.EditDiaryActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -50,6 +50,7 @@
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"/>
     </RelativeLayout>
+
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
@@ -67,7 +68,7 @@
         android:fontFamily="@font/halant_regular"
         android:layout_below="@id/view"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginBottom="8dp"/>
     <ImageView
         android:id="@+id/iv_diary_feels"
@@ -78,7 +79,7 @@
         android:layout_below="@id/view"
         android:layout_alignBottom="@id/tv"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginBottom="8dp"/>
 
 
