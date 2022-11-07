@@ -173,8 +173,6 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         })
         binding.fabAddDiary.setOnClickListener({startActivity(Intent(this, EditDiaryActivity::class.java))})
-  
-  
     }
     //override fun onCreateOptionsMenu(menu:Menu):Boolean {
     //   menuInflater.inflate(R.menu.item,menu)
@@ -185,4 +183,5 @@ class MainActivity : AppCompatActivity() {
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         return super.onTouchEvent(event)
     }
+
 }

@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.song.project01haru.databinding.FragmentHomeBinding
+import java.text.SimpleDateFormat
+import java.util.*
 
 class HomeFragment : Fragment() {
     lateinit var binding: FragmentHomeBinding
@@ -15,8 +17,18 @@ class HomeFragment : Fragment() {
     //recyclerview
     val recyclerView by lazy {binding.recycler}
 
+    val date=Date()
     override fun onCreate(savedInstanceState: Bundle?)  {
         super.onCreate(savedInstanceState)
+
+        var calendar=binding.calendarView
+        val sdf= SimpleDateFormat("yyyy.MM.dd")
+        val day=sdf.format(date)
+        //simpleDateFormat.format(date);
+        //day+1year== endday
+        date.setTime(date.getTime()+1000*60*60*24*365);
+        val endDay=sdf.format(date);
+
 
     }
 
