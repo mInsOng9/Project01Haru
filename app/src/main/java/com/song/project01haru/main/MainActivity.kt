@@ -200,7 +200,6 @@ class MainActivity : AppCompatActivity() {
         calendar.showOtherDates=0
         calendar.selectionMode=1
         calView()
-
     }
 
 
