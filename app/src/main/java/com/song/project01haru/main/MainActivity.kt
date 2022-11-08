@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.provider.Settings
 import android.view.MotionEvent
 import android.view.View
+import android.widget.CalendarView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -22,6 +23,7 @@ import com.shuhart.materialcalendarview.CalendarDay
 import com.shuhart.materialcalendarview.MaterialCalendarView
 import com.shuhart.materialcalendarview.MaterialCalendarView.Companion.SELECTION_MODE_MULTIPLE
 import com.shuhart.materialcalendarview.MaterialCalendarView.Companion.SELECTION_MODE_RANGE
+import com.shuhart.materialcalendarview.OnDateSelectedListener
 import com.shuhart.materialcalendarview.OnRangeSelectedListener
 import com.song.project01haru.*
 import com.song.project01haru.databinding.*
@@ -34,7 +36,9 @@ import com.song.project01haru.main.skd.SkdFragment
 import com.song.project01haru.main.todo.TodoFragment
 import org.w3c.dom.Text
 import java.text.SimpleDateFormat
+import java.time.Year.from
 import java.util.*
+import java.util.Date.from
 
 class MainActivity : AppCompatActivity() {
 
@@ -55,7 +59,8 @@ class MainActivity : AppCompatActivity() {
    // val calendar by lazy {binding.calendarView}
     val sdf by lazy {SimpleDateFormat("yyyy.MM")}
 
-    //dialog calendar
+    //bundle (to send data to fragments)
+    lateinit var bundle:Bundle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -115,7 +120,6 @@ class MainActivity : AppCompatActivity() {
         fragmentManager.beginTransaction().add(R.id.frag_container,fragments[0]!!).commit()
 
         //bottom navigation view (fragment)
-        // https://velog.io/@jinny_0422/Android-Fragment-Activity%EA%B0%84-%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%A0%84%EB%8B%AC
         bnv.setOnItemSelectedListener {it->
             val tran:FragmentTransaction=fragmentManager.beginTransaction()
 
@@ -129,6 +133,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.menu_bnv_expInc -> {
                     if (fragments[1] == null) {
                         fragments[1] = ExpIncFragment()
+                        fragments[1]?.arguments = bundle //send data which is in bundle to fragment's arguments
+
                         tran.add(R.id.frag_container, fragments[1]!!)
                     }
                     tran.show(fragments[1]!!)
@@ -200,12 +206,28 @@ class MainActivity : AppCompatActivity() {
         })
         binding.fabAddDiary.setOnClickListener({startActivity(Intent(this, EditDiaryActivity::class.java))})
 
-
-        binding.calendarView.addOnRangeSelectedListener(object :OnRangeSelectedListener{
+        bundle=Bundle()
+        calendar.addOnRangeSelectedListener(object :OnRangeSelectedListener{
             override fun onRangeSelected(widget: MaterialCalendarView, dates: List<CalendarDay>) {
-                Toast.makeText(this@MainActivity, "aaa", Toast.LENGTH_SHORT).show()
+                binding.tvTitleDate.text =
+                     calendar.selectedDates?.get(0).year.toString() + "."+
+                             calendar.selectedDates?.get(0).month.toString()
             }
+        })
 
+        calendar.addOnDateChangedListener(object : OnDateSelectedListener{
+            override fun onDateSelected(
+                widget: MaterialCalendarView,
+                date: CalendarDay,
+                selected: Boolean
+            ) {
+                this@MainActivity.date=Date()
+                binding.tvTitleDate.text=calendar.selectedDate?.year.toString()+"."+
+                        calendar.selectedDate?.month.toString()
+                val weekdaySdf=SimpleDateFormat("EE")
+                bundle.putString("date",calendar.selectedDate?.day.toString()+" "+weekdaySdf.format(calendar.selectedDate?.date))
+                Toast.makeText(this@MainActivity, ""+weekdaySdf.format(calendar.selectedDate?.date), Toast.LENGTH_SHORT).show()
+            }
         })
 
         //abt calendarView
@@ -221,20 +243,6 @@ class MainActivity : AppCompatActivity() {
        // day=CalendarDay()
        // day=sdf.format()
 
-
-        fun MaterialCalendarView.setWeekDayFormatter(formatter: SimpleDateFormat) {
-            formatter.format("E")
-        }
-//        binding.calendarView.setOnClickListener {
-//            fun MaterialCalendarView.addOnRangeSelectedListener(listener: () -> Unit) {
-//                calendar.addOnRangeSelectedListener() {
-//                    Toast.makeText(this@MainActivity, "asd", Toast.LENGTH_SHORT).show()
-//                    binding.tvTitleDate.text =
-//                        binding.calendarView.selectedDates?.get(0).year.toString() + "." +
-//                                binding.calendarView.selectedDates?.get(0).month.toString()
-//                }
-//            }
-//        }
     }
 
 
@@ -261,6 +269,8 @@ class MainActivity : AppCompatActivity() {
 
     }//calDialog
 }
+
+
 
 
 

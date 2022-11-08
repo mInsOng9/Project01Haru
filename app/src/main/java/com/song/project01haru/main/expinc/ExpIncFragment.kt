@@ -12,9 +12,14 @@ class ExpIncFragment:Fragment() {
 
     lateinit var binding:FragmentExpIncBinding
     var items = mutableListOf<ExpIncItem>()
+    lateinit var item : ExpIncItem
+    lateinit var day:String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
+
     }
 
     override fun onCreateView(
@@ -28,19 +33,20 @@ class ExpIncFragment:Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        day = arguments?.getString("date").toString()
 
-        items.add(
-            ExpIncItem("24 MON","20,000","10,000","10,000",
-                R.drawable.type_cash,"","Hobby","hihih","+20,000")
-        )
-        items.add(
-            ExpIncItem("24 MON","20,000","10,000","10,000",
-                R.drawable.type_card,"NH","Hobby","hihih","+20,000")
-        )
-        items.add(
-            ExpIncItem("24 MON","20,000","10,000","10,000",
-                R.drawable.type_card,"WOORI","Hobby","hihih","+20,000")
-        )
+        item=ExpIncItem()
+
+        item.day=day
+        item.mosInc="20,000"
+        item.mosExp="10,000"
+        item.mosTotal="10,000"
+        item.account= R.drawable.type_card
+        item.type="WOORI"
+        item.category="HObby"
+        item.note="hihi"
+        item.amount="+20,000"
+        items.add(item)
         binding.recycler.adapter= ExpIncAdapter(requireActivity(),items)
     }
 }

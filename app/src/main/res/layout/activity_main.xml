@@ -35,46 +35,32 @@
                             android:layout_height="wrap_content"
                             android:text="2022.10"
                             android:textSize="30sp"
+                            android:layout_marginTop="8dp"
                             android:fontFamily="@font/halant_regular"
                             android:textColor="@color/black"
                             android:layout_gravity="center"/>
 
                     </androidx.appcompat.widget.Toolbar>
                     <!--/ToolBar  -->
-<!--                    <CalendarView-->
-<!--                        android:id="@+id/calendarView"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_gravity="center"-->
-<!--                        android:theme="@style/CalenderViewCustom"-->
-<!--                        android:dateTextAppearance="@style/CalenderViewDateCustomText"-->
-<!--                        android:weekDayTextAppearance="@style/CalenderViewWeekCustomText"-->
-<!--                        app:layout_scrollFlags="scroll"/>-->
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:layout_scrollFlags="scroll">
+
                         <com.shuhart.materialcalendarview.MaterialCalendarView
                             xmlns:app="http://schemas.android.com/apk/res-auto"
                             android:id="@+id/calendarView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="8dp"
-                            app:mcv_showOtherDates="out_of_range"
+                            app:mcv_showOtherDates="all"
                             app:mcv_selectionColor="@color/gray"
                             app:mcv_selectionRangeColor="@color/light_gray"
                             />
-                    </FrameLayout>
-
-
-
                 </com.google.android.material.appbar.AppBarLayout>
 
                 <!-- fragment-->
                 <androidx.fragment.app.FragmentContainerView
                     android:id="@+id/frag_container"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/appbar"
                     android:layout_above="@id/bnv" />
 
 
