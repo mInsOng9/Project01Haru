@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.provider.Settings
 import android.view.MotionEvent
 import android.view.View
+import android.widget.CalendarView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.drawerlayout.widget.DrawerLayout
@@ -14,6 +16,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.navigation.NavigationView
+
+import com.shuhart.materialcalendarview.MaterialCalendarView
 import com.song.project01haru.*
 import com.song.project01haru.databinding.*
 import com.song.project01haru.edit.EditActivity
@@ -23,17 +27,28 @@ import com.song.project01haru.main.expinc.ExpIncFragment
 import com.song.project01haru.main.home.HomeFragment
 import com.song.project01haru.main.skd.SkdFragment
 import com.song.project01haru.main.todo.TodoFragment
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivityMainBinding
+    lateinit var binding:ActivityMainBinding
     lateinit var drawerToggle:ActionBarDrawerToggle
 
     //bottomNavigationView
     val bnv by lazy { binding.bnv}
 
+    //fragment
     var fragments=ArrayList<Fragment?>()
     lateinit var fragmentManager:FragmentManager
+
+    //abt calendar view
+    val date= Date()
+    lateinit var day:String
+    val calendar by lazy{binding.calendarView}
+   // val calendar by lazy {binding.calendarView}
+    val sdf by lazy {SimpleDateFormat("yyyy.MM")}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -173,11 +188,34 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         })
         binding.fabAddDiary.setOnClickListener({startActivity(Intent(this, EditDiaryActivity::class.java))})
+
+
+
+        //abt calendarView
+        //simpleDateFormat.format(date);
+        //day+1year== endday
+        // date.setTime(date.getTime()+1000*60*60*24*365);
+        date.time=date.time
+        calendar.monthIndicatorVisible=false
+        calendar.showOtherDates=0
+        calendar.selectionMode=1
+        calView()
+
     }
-    //override fun onCreateOptionsMenu(menu:Menu):Boolean {
-    //   menuInflater.inflate(R.menu.item,menu)
-    //  return super.onCreateOptionsMenu(menu)
-    //}
+
+
+    fun calView(){
+//        calendar.setOnDateChangeListener({ calendarView: CalendarView, i1: Int, i2: Int, i3: Int ->
+//            date.year=i1-1900
+//            date.month=i2
+//            date.date=i3
+//
+//            var tvTitleDate=binding.tvTitleDate
+//            tvTitleDate.text=sdf.format(date)
+//
+//
+//        })
+    }//clView
 
     //to hide fab
     override fun onTouchEvent(event: MotionEvent?): Boolean {
