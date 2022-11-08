@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.shuhart.materialcalendarview.MaterialCalendarView
+        android:id="@+id/calDialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:mcv_selectionColor="@color/gray"
+        app:mcv_selectionRangeColor="@color/light_gray"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="50dp"
+            android:layout_marginBottom="30dp"
+            android:layout_toLeftOf="@id/verline"
+            android:fontFamily="@font/halant_regular"
+            android:text="CANCEL"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+        <View
+            android:id="@+id/verline"
+            android:layout_width="2dp"
+            android:layout_height="20dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="30dp"
+            android:background="@color/black" />
+
+        <TextView
+            android:id="@+id/tv_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="80dp"
+            android:layout_toRightOf="@id/verline"
+            android:layout_marginBottom="30dp"
+            android:fontFamily="@font/halant_regular"
+            android:text="OK"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+    </RelativeLayout>
+</LinearLayout>
