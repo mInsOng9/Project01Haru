@@ -22,6 +22,7 @@ import com.shuhart.materialcalendarview.CalendarDay
 import com.shuhart.materialcalendarview.MaterialCalendarView
 import com.shuhart.materialcalendarview.MaterialCalendarView.Companion.SELECTION_MODE_MULTIPLE
 import com.shuhart.materialcalendarview.MaterialCalendarView.Companion.SELECTION_MODE_RANGE
+import com.shuhart.materialcalendarview.OnRangeSelectedListener
 import com.song.project01haru.*
 import com.song.project01haru.databinding.*
 import com.song.project01haru.edit.EditActivity
@@ -200,6 +201,12 @@ class MainActivity : AppCompatActivity() {
         binding.fabAddDiary.setOnClickListener({startActivity(Intent(this, EditDiaryActivity::class.java))})
 
 
+        binding.calendarView.addOnRangeSelectedListener(object :OnRangeSelectedListener{
+            override fun onRangeSelected(widget: MaterialCalendarView, dates: List<CalendarDay>) {
+                Toast.makeText(this@MainActivity, "aaa", Toast.LENGTH_SHORT).show()
+            }
+
+        })
 
         //abt calendarView
         //simpleDateFormat.format(date);
@@ -218,16 +225,16 @@ class MainActivity : AppCompatActivity() {
         fun MaterialCalendarView.setWeekDayFormatter(formatter: SimpleDateFormat) {
             formatter.format("E")
         }
-        binding.calendarView.setOnClickListener {
-            fun MaterialCalendarView.addOnRangeSelectedListener(listener: () -> Unit) {
-                calendar.addOnRangeSelectedListener() {
-                    Toast.makeText(this@MainActivity, "asd", Toast.LENGTH_SHORT).show()
-                    binding.tvTitleDate.text =
-                        binding.calendarView.selectedDates?.get(0).year.toString() + "." +
-                                binding.calendarView.selectedDates?.get(0).month.toString()
-                }
-            }
-        }
+//        binding.calendarView.setOnClickListener {
+//            fun MaterialCalendarView.addOnRangeSelectedListener(listener: () -> Unit) {
+//                calendar.addOnRangeSelectedListener() {
+//                    Toast.makeText(this@MainActivity, "asd", Toast.LENGTH_SHORT).show()
+//                    binding.tvTitleDate.text =
+//                        binding.calendarView.selectedDates?.get(0).year.toString() + "." +
+//                                binding.calendarView.selectedDates?.get(0).month.toString()
+//                }
+//            }
+//        }
     }
 
 
