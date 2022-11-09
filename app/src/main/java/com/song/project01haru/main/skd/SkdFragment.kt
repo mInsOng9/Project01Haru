@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.song.project01haru.databinding.FragmentSchdBinding
+import com.song.project01haru.main.diary.DiaryAdapter
+import com.song.project01haru.main.diary.DiaryItem
 
 class SkdFragment :Fragment() {
 
@@ -27,11 +29,22 @@ class SkdFragment :Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
-        items.add(SkdItem("24 MON","Holiday","Eventttt","Hang out","w/ friendssss","20:00"))
-        items.add(SkdItem("24 MON","Holiday","Eventttt","Hang out","w/ friendssss","20:00"))
-        items.add(SkdItem("24 MON","Holiday","Eventttt","Hang out","w/ friendssss","20:00"))
+
+        recycler.adapter= SkdAdapter(requireActivity(),items)
+    }
+    fun changeDay(day:String){
+        items.clear()
+        items.add(SkdItem(day,"Holiday","Eventttt","Hang out","w/ friendssss","20:00"))
+
+        recycler.adapter= SkdAdapter(requireActivity(),items)
+    }
+
+    fun changeDays(days:MutableList<String>){
+        items.clear()
+        days.forEach{ day->
+            items.add(SkdItem(day,"Holiday","Eventttt","Hang out","w/ friendssss","20:00"))
+        }
 
         recycler.adapter= SkdAdapter(requireActivity(),items)
     }

@@ -62,6 +62,7 @@ class MainActivity : AppCompatActivity() {
     //bundle (to send data to fragments)
     lateinit var bundle:Bundle
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding=ActivityMainBinding.inflate(layoutInflater)
@@ -110,14 +111,18 @@ class MainActivity : AppCompatActivity() {
 
         //fragment
         //first fragment to show
+        fragments.add(ExpIncFragment())
+        fragments.add(TodoFragment())
         fragments.add(HomeFragment())
-        fragments.add(null)
-        fragments.add(null)
-        fragments.add(null)
-        fragments.add(null)
+        fragments.add(SkdFragment())
+        fragments.add(DiaryFragment())
         //fragment manager
         fragmentManager=supportFragmentManager
-        fragmentManager.beginTransaction().add(R.id.frag_container,fragments[0]!!).commit()
+        fragmentManager.beginTransaction().add(R.id.frag_container,fragments[0]!!).hide(fragments[0]!!).commit()
+        fragmentManager.beginTransaction().add(R.id.frag_container,fragments[1]!!).hide(fragments[1]!!).commit()
+        fragmentManager.beginTransaction().add(R.id.frag_container,fragments[2]!!).commit()
+        fragmentManager.beginTransaction().add(R.id.frag_container,fragments[3]!!).hide(fragments[3]!!).commit()
+        fragmentManager.beginTransaction().add(R.id.frag_container,fragments[4]!!).hide(fragments[4]!!).commit()
 
         //bottom navigation view (fragment)
         bnv.setOnItemSelectedListener {it->
@@ -128,38 +133,13 @@ class MainActivity : AppCompatActivity() {
             if(fragments[2]!=null) tran.hide(fragments[2]!!)
             if(fragments[3]!=null) tran.hide(fragments[3]!!)
             if(fragments[4]!=null) tran.hide(fragments[4]!!)
-            when(it.itemId){
-                R.id.menu_bnv_home -> tran.show(fragments[0]!!)
-                R.id.menu_bnv_expInc -> {
-                    if (fragments[1] == null) {
-                        fragments[1] = ExpIncFragment()
-                        fragments[1]?.arguments = bundle //send data which is in bundle to fragment's arguments
 
-                        tran.add(R.id.frag_container, fragments[1]!!)
-                    }
-                    tran.show(fragments[1]!!)
-                }
-                R.id.menu_bnv_todo -> {
-                    if(fragments[2]==null){
-                        fragments[2]= TodoFragment()
-                        tran.add(R.id.frag_container,fragments[2]!!)
-                    }
-                    tran.show(fragments[2]!!)
-                }
-                R.id.menu_bnv_schd -> {
-                    if(fragments[3]==null){
-                        fragments[3]= SkdFragment()
-                        tran.add(R.id.frag_container,fragments[3]!!)
-                    }
-                    tran.show(fragments[3]!!)
-                }
-                R.id.menu_bnv_diary -> {
-                    if(fragments[4]==null){
-                        fragments[4]= DiaryFragment()
-                        tran.add(R.id.frag_container,fragments[4]!!)
-                    }
-                    tran.show(fragments[4]!!)
-                }
+            when(it.itemId){
+                R.id.menu_bnv_expInc -> tran.show(fragments[0]!!)
+                R.id.menu_bnv_todo -> tran.show(fragments[1]!!)
+                R.id.menu_bnv_home -> tran.show(fragments[2]!!)
+                R.id.menu_bnv_schd -> tran.show(fragments[3]!!)
+                R.id.menu_bnv_diary -> tran.show(fragments[4]!!)
             }
             tran.commit()
             true
@@ -206,12 +186,26 @@ class MainActivity : AppCompatActivity() {
         })
         binding.fabAddDiary.setOnClickListener({startActivity(Intent(this, EditDiaryActivity::class.java))})
 
-        bundle=Bundle()
+
+        //range Listener
         calendar.addOnRangeSelectedListener(object :OnRangeSelectedListener{
             override fun onRangeSelected(widget: MaterialCalendarView, dates: List<CalendarDay>) {
-                binding.tvTitleDate.text =
-                     calendar.selectedDates?.get(0).year.toString() + "."+
-                             calendar.selectedDates?.get(0).month.toString()
+                binding.tvTitleDate.text =sdf.format(calendar.selectedDates?.get(0).date)
+
+                val weekdaySdf=SimpleDateFormat("dd EE")
+                val days:MutableList<String> = mutableListOf()
+
+                dates.forEach {
+                    val s= weekdaySdf.format( it.date )
+                    days.add(s)
+                }
+
+                (fragments[0] as ExpIncFragment).changeDays(days)
+                (fragments[1] as TodoFragment).changeDays(days)
+                (fragments[2] as HomeFragment).changeDays(days)
+                (fragments[3] as SkdFragment).changeDays(days)
+                (fragments[4] as DiaryFragment).changeDays(days)
+
             }
         })
 
@@ -222,11 +216,14 @@ class MainActivity : AppCompatActivity() {
                 selected: Boolean
             ) {
                 this@MainActivity.date=Date()
-                binding.tvTitleDate.text=calendar.selectedDate?.year.toString()+"."+
-                        calendar.selectedDate?.month.toString()
-                val weekdaySdf=SimpleDateFormat("EE")
-                bundle.putString("date",calendar.selectedDate?.day.toString()+" "+weekdaySdf.format(calendar.selectedDate?.date))
-                Toast.makeText(this@MainActivity, ""+weekdaySdf.format(calendar.selectedDate?.date), Toast.LENGTH_SHORT).show()
+                binding.tvTitleDate.text=sdf.format(calendar.selectedDate?.date)
+                val weekdaySdf=SimpleDateFormat("dd EE")
+                //bundle.putString("date",weekdaySdf.format(calendar.selectedDate?.date))
+                (fragments[0] as ExpIncFragment).changeDay(weekdaySdf.format(calendar.selectedDate?.date))
+                (fragments[1] as TodoFragment).changeDay(weekdaySdf.format(calendar.selectedDate?.date))
+                (fragments[2] as HomeFragment).changeDay(weekdaySdf.format(calendar.selectedDate?.date))
+                (fragments[3] as SkdFragment).changeDay(weekdaySdf.format(calendar.selectedDate?.date))
+                (fragments[4] as DiaryFragment).changeDay(weekdaySdf.format(calendar.selectedDate?.date))
             }
         })
 

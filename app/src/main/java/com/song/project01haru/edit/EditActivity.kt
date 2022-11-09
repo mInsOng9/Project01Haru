@@ -1,9 +1,13 @@
 package com.song.project01haru.edit
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.tabs.TabLayoutMediator
 import com.song.project01haru.databinding.ActivityEditBinding
+import com.song.project01haru.main.todo.TodoItem
+import retrofit2.Call
+import retrofit2.Retrofit
+import retrofit2.converter.scalars.ScalarsConverterFactory
 
 class EditActivity : AppCompatActivity() {
 
@@ -23,6 +27,7 @@ class EditActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
+        //Tab
         if(intent.getStringExtra("frag").toString().equals("expinc")) expInTitle=arrayOf("Income","Expenses")
         if(intent.getStringExtra("frag").toString().equals("todo")) expInTitle=arrayOf("Todo","")
         if(intent.getStringExtra("frag").toString().equals("skd"))expInTitle=arrayOf("Schedule","Event")
@@ -36,6 +41,12 @@ class EditActivity : AppCompatActivity() {
             TabLayoutMediator(binding.tab,binding.pager,{tab,position-> tab.text=expInTitle[position] })
 
         tabLayoutMediator.attach()
+
+
+
+
+
+
     }
 
     override fun onSupportNavigateUp(): Boolean {
