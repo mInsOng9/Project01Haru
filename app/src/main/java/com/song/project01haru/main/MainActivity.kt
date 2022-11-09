@@ -227,18 +227,9 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        //abt calendarView
-        //simpleDateFormat.format(date);
-        //day+1year== endday
-        // date.setTime(date.getTime()+1000*60*60*24*365);
-
         calendar.monthIndicatorVisible=false
         calendar.selectionMode= SELECTION_MODE_RANGE
 
-        calendar.selectedDates
-        //selectedDates
-       // day=CalendarDay()
-       // day=sdf.format()
 
     }
 

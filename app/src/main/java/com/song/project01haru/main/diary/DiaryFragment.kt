@@ -29,7 +29,6 @@ class DiaryFragment : Fragment(){
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         recyclerView.adapter= DiaryAdapter(requireActivity(),items)
     }
     fun changeDay(day:String){

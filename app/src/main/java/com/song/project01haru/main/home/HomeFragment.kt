@@ -19,6 +19,7 @@ class HomeFragment : Fragment() {
     lateinit var binding: FragmentHomeBinding
     var items:MutableList<HomeItem> = mutableListOf<HomeItem>()
 
+    val daySdf= SimpleDateFormat("dd EE")
     //recyclerview
     val recyclerView by lazy {binding.recycler}
 
@@ -38,7 +39,7 @@ class HomeFragment : Fragment() {
         //add items
 //        items.add(HomeItem("24 MON","hi","HI","Nothing","non","20:00","Sleep","20,0000","How areyouuu",null))
 //        items.add(HomeItem("24 MON","hi","HI","Nothing","non","20:00","Sleep","20,0000","How areyouuu",null))
-      //  items.add(HomeItem(,"hi","HI","Nothing","non","20:00","Sleep","20,0000","How areyouuu",null))
+       items.add(HomeItem(daySdf.format(Date()),"hi","HI","Nothing","non","20:00","Sleep","20,0000","How areyouuu",null))
 
         recyclerView.adapter= HomeAdapter(requireActivity(),items)
         recyclerView.layoutManager= LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL,false)
@@ -49,7 +50,7 @@ class HomeFragment : Fragment() {
         items.clear()
         items.add(HomeItem(day,"hi","HI","Nothing","non","20:00","Sleep","20,0000","How areyouuu",null))
         binding.recycler.adapter = HomeAdapter(requireActivity(), items)
-    }
+    }//changeDay(..)
 
     fun changeDays(days:MutableList<String>){
         items.clear()
@@ -58,5 +59,5 @@ class HomeFragment : Fragment() {
         }
         binding.recycler.adapter = HomeAdapter(requireActivity(), items)
 
-    }
+    }//changeDays(..)
 }

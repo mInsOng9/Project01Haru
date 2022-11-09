@@ -13,6 +13,6 @@ class LoginActivity : AppCompatActivity() {
         binding=ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.btnKakao.setOnClickListener { startActivity(Intent(this,ProfileActivity::class.java)) }
+        binding.btnKakao.setOnClickListener { startActivity(Intent(this, ProfileActivity::class.java)) }
     }
 }

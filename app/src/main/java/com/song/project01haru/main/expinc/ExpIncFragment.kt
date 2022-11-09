@@ -11,6 +11,8 @@ import com.song.project01haru.databinding.ActivityMainBinding
 import com.song.project01haru.databinding.FragmentExpIncBinding
 import com.song.project01haru.main.home.HomeAdapter
 import com.song.project01haru.main.home.HomeItem
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ExpIncFragment:Fragment() {
 
@@ -20,6 +22,7 @@ class ExpIncFragment:Fragment() {
     lateinit var day:String
     val recyclerView by lazy {binding.recycler}
 
+    val daySdf= SimpleDateFormat("dd EE")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,23 +42,24 @@ class ExpIncFragment:Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 //        day = arguments?.getString("date").toString()
 //
-//        item = ExpIncItem()
-//
-//        item.day = day
-//        item.mosInc = "20,000"
-//        item.mosExp = "10,000"
-//        item.mosTotal = "10,000"
-//        item.account = R.drawable.type_card
-//        item.type = "WOORI"
-//        item.category = "HObby"
-//        item.note = "hihi"
-//        item.amount = "+20,000"
-//        items.add(item)
+        item = ExpIncItem()
+
+        item.day = daySdf.format(Date())
+        item.mosInc = "20,000"
+        item.mosExp = "10,000"
+        item.mosTotal = "10,000"
+        item.account = R.drawable.type_card
+        item.type = "WOORI"
+        item.category = "HObby"
+        item.note = "hihi"
+        item.amount = "+20,000"
+        items.add(item)
        recyclerView.adapter = ExpIncAdapter(requireActivity(), items)
 
     }
 
     fun changeDay(day:String){
+        items.clear()
         item = ExpIncItem()
 
         item.day = day

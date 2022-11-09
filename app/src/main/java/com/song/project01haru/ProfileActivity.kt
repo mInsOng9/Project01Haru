@@ -16,5 +16,6 @@ class ProfileActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.tvOk.setOnClickListener { startActivity(Intent(this, MainActivity::class.java)) }
+        binding.tvCancel.setOnClickListener { finish() }
     }
 }
