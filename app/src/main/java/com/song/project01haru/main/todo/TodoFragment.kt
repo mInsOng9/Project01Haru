@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.song.project01haru.databinding.FragmentTodoBinding
 import com.song.project01haru.edit.RetrofitService
@@ -57,7 +58,8 @@ class TodoFragment : Fragment() {
                     var aaa:List<String> = item.date.split("-")
                     val a:GregorianCalendar = GregorianCalendar(aaa[0].toInt(), aaa[1].toInt(), aaa[2].toInt())
                     item.date= SimpleDateFormat("dd EE").format( a.time )
-                    //todoItems.add(TodoItem(item.date, item.time,item.todo ))
+                    Toast.makeText(requireActivity(), ""+date+"Dfsd  "+item.date, Toast.LENGTH_SHORT).show()
+                   // todoItems.add(TodoItem(item.date, item.time,item.todo ))
                     if(item.date.equals(date)){
                         todoItems.add(TodoItem(item.date,item.time,item.todo))
                     }
@@ -66,7 +68,6 @@ class TodoFragment : Fragment() {
                recyclerView.adapter= TodoAdapter(requireActivity(),todoItems)
 
             }
-
             override fun onFailure(call: Call<ArrayList<TodoItem>>, t: Throwable) {
                 //Toast.makeText(requireActivity(), "${t.message}", Toast.LENGTH_SHORT).show()
             }
@@ -80,7 +81,6 @@ class TodoFragment : Fragment() {
        //todoItems.add(TodoItem(day,time,todo))
         loadDB()
         recyclerView.adapter= TodoAdapter(requireActivity(),todoItems)
-
     }
 
     fun changeDays(days:MutableList<String>){
