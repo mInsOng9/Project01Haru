@@ -6,10 +6,15 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface RetrofitService {
-    @GET("Haru/insertDB.php")
-    fun getTodoItem(
+
+    @GET("haru/insertDB.php")
+    fun setTodoItem(
         @Query("date") date: String?,
         @Query("time") time: String?,
         @Query("todo") todo: String?
-    ): Call<TodoItem>
+    ): Call<String>
+
+    @GET("haru/loadDB.php")
+    fun getTodoItem(): Call<ArrayList<TodoItem>>
+
 }

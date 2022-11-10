@@ -70,7 +70,7 @@
         android:layout_marginBottom="8dp"
         android:layout_below="@id/tv_date"
         android:layout_alignLeft="@id/tv_date"
-        android:inputType="numberDecimal"
+        android:inputType="text"
         android:textSize="22sp"/>
 
     <EditText
@@ -80,7 +80,7 @@
         android:layout_marginBottom="8dp"
         android:layout_below="@id/et_skd"
         android:layout_alignLeft="@id/tv_date"
-        android:inputType="numberDecimal"/>
+        android:inputType="text"/>
 
 
 

@@ -23,7 +23,7 @@ class TodoAdapter constructor(var context: Context, var items:MutableList<TodoIt
 
     override fun onBindViewHolder(holder: VH, position: Int) {
 
-        holder.binding.tvDay.setText(items[position].day)
+        holder.binding.tvDay.setText(items[position].date)
         holder.binding.tvTodo.setText(items[position].todo)
 
     }
