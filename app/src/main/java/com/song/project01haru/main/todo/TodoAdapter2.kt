@@ -21,7 +21,8 @@ class TodoAdapter2 constructor(var context:Context,var items:MutableList<TodoIte
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
-        holder.binding.
+        holder.binding.tvTodo.text=items[position].todo
+
     }
 
     override fun getItemCount(): Int = items.size

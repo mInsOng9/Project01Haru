@@ -7,11 +7,18 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.TimePicker
 import android.widget.TimePicker.OnTimeChangedListener
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.shuhart.materialcalendarview.MaterialCalendarView
 import com.song.project01haru.R
 import com.song.project01haru.databinding.FragmentEditTodoBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -22,6 +29,9 @@ class EditTodoFragment():Fragment() {
     lateinit var binding: FragmentEditTodoBinding
     val sdf: SimpleDateFormat = SimpleDateFormat("yyyy.MM.dd")
 
+    lateinit var date:String
+    lateinit var time:String
+    lateinit var todo:String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,18 +51,47 @@ class EditTodoFragment():Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding= FragmentEditTodoBinding.bind(view)
 
-        binding.tvDate.text=sdf.format(Date())
+        date=sdf.format(Date())
+        binding.tvDate.text=date
         binding.tvDate.setOnClickListener { calDialog() }
 
-        binding.tvTime.text=SimpleDateFormat("hh:mm a").format(Date())
+        time=SimpleDateFormat("hh:mm a").format(Date())
+        binding.tvTime.text=time
         binding.tvTime.setOnClickListener { timeDialog() }
 
+        todo=" "
+        binding.tvOk.setOnClickListener { uploadDB() }
 
     }//onViewCreated(..)
 
 
+    fun uploadDB() {
+        todo=binding.etTask.text.toString()
+        val builder = Retrofit.Builder().baseUrl("http://mins22.dothome.co.kr")
+            .addConverterFactory(ScalarsConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(RetrofitService::class.java)
 
+            //var binding = FragmentEditTodoBinding.inflate(layoutInflater)
+            //Toast.makeText(this, ""+dates, Toast.LENGTH_SHORT).show()
+            val call: Call<String> = builder.setTodoItem(
+                date,
+                time,
+                todo
+            )
+            call.enqueue(object : Callback<String> {
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+                    var a: String? = response.body()
+                    Toast.makeText(requireContext(), "" + a, Toast.LENGTH_SHORT).show()
+                }
 
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                    Toast.makeText(requireContext(), "fail : ${t.message}", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            })
+    }
     fun calDialog(){
         val dialog : AlertDialog = AlertDialog.Builder(requireActivity()).setView(R.layout.dialog_date).create()
         dialog.show()

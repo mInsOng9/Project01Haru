@@ -192,11 +192,11 @@ class MainActivity : AppCompatActivity() {
             override fun onRangeSelected(widget: MaterialCalendarView, dates: List<CalendarDay>) {
                 binding.tvTitleDate.text =sdf.format(calendar.selectedDates?.get(0).date)
 
-                val weekdaySdf=SimpleDateFormat("dd EE")
+                val weekdaySdf=SimpleDateFormat("yyyy-MM-dd")
                 val days:MutableList<String> = mutableListOf()
 
                 dates.forEach {
-                    val s= weekdaySdf.format( it.date )
+                   val s= weekdaySdf.format( it.date )
                     days.add(s)
                 }
 
@@ -220,7 +220,7 @@ class MainActivity : AppCompatActivity() {
                 val weekdaySdf=SimpleDateFormat("dd EE")
                 //bundle.putString("date",weekdaySdf.format(calendar.selectedDate?.date))
                 (fragments[0] as ExpIncFragment).changeDay(weekdaySdf.format(calendar.selectedDate?.date))
-                (fragments[1] as TodoFragment).changeDay(weekdaySdf.format(calendar.selectedDate?.date),"","")
+                (fragments[1] as TodoFragment).changeDay(calendar.selectedDate?.date!!)
                 (fragments[2] as HomeFragment).changeDay(weekdaySdf.format(calendar.selectedDate?.date))
                 (fragments[3] as SkdFragment).changeDay(weekdaySdf.format(calendar.selectedDate?.date))
                 (fragments[4] as DiaryFragment).changeDay(weekdaySdf.format(calendar.selectedDate?.date))

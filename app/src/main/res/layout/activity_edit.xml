@@ -39,45 +39,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"/>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp">
-        <TextView
-            android:id="@+id/tv_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="CANCEL"
-            android:textSize="24sp"
-            android:layout_alignParentBottom="true"
-            android:textColor="@color/black"
-            android:layout_marginBottom="50dp"
-            android:fontFamily="@font/halant_regular"
-            android:layout_toLeftOf="@id/verline"
-            android:layout_marginRight="60dp"/>
 
-        <View
-            android:id="@+id/verline"
-            android:layout_width="2dp"
-            android:layout_height="50dp"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="50dp"
-            android:background="@color/black"/>
-
-        <TextView
-            android:id="@+id/tv_ok"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="OK"
-            android:textSize="24sp"
-            android:layout_alignParentBottom="true"
-            android:textColor="@color/black"
-            android:layout_marginBottom="50dp"
-            android:fontFamily="@font/halant_regular"
-            android:layout_toRightOf="@id/verline"
-            android:layout_marginLeft="80dp"/>
-    </RelativeLayout>
 
 
 

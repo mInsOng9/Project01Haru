@@ -57,4 +57,7 @@ dependencies {
 
     implementation 'com.github.shuhart:material-calendar:1.1.0'
 
+    implementation "com.kakao.sdk:v2-all:2.11.2" // 전체 모듈 설치, 2.11.0 버전부터 지원
+    implementation "com.kakao.sdk:v2-user:2.11.2" // 카카오 로그인
+    implementation "com.kakao.sdk:v2-navi:2.11.2" // 카카오내비
 }

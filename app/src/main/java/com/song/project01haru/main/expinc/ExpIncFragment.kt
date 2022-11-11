@@ -1,25 +1,12 @@
 package com.song.project01haru.main.expinc
 
-import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.song.project01haru.R
-import com.song.project01haru.databinding.ActivityMainBinding
 import com.song.project01haru.databinding.FragmentExpIncBinding
-import com.song.project01haru.edit.RetrofitService
-import com.song.project01haru.main.home.HomeAdapter
-import com.song.project01haru.main.home.HomeItem
-import com.song.project01haru.main.todo.TodoAdapter
-import com.song.project01haru.main.todo.TodoItem
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -54,9 +41,9 @@ class ExpIncFragment:Fragment() {
         item = ExpIncItem()
 
         item.day = daySdf.format(Date())
-        item.mosInc = "20,000"
-        item.mosExp = "10,000"
-        item.mosTotal = "10,000"
+        item.totalInc = "20,000"
+        item.totalExp = "10,000"
+        item.total = "10,000"
         item.account = R.drawable.type_card
         item.type = "WOORI"
         item.category = "HObby"
@@ -102,9 +89,9 @@ class ExpIncFragment:Fragment() {
         item = ExpIncItem()
 
         item.day = day
-        item.mosInc = "20,000"
-        item.mosExp = "10,000"
-        item.mosTotal = "10,000"
+        item.totalInc = "20,000"
+        item.totalExp = "10,000"
+        item.total = "10,000"
         item.account = R.drawable.type_card
         item.type = "WOORI"
         item.category = "HObby"
@@ -118,9 +105,9 @@ class ExpIncFragment:Fragment() {
         items.clear()
         days.forEach{ day->
             item.day = day
-            item.mosInc = "20,000"
-            item.mosExp = "10,000"
-            item.mosTotal = "10,000"
+            item.totalInc = "20,000"
+            item.totalExp = "10,000"
+            item.total = "10,000"
             item.account = R.drawable.type_card
             item.type = "WOORI"
             item.category = "HObby"

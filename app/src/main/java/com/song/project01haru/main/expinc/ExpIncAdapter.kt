@@ -22,9 +22,9 @@ class ExpIncAdapter constructor(var context:Context, var items:MutableList<ExpIn
 
     override fun onBindViewHolder(holder: VH, position: Int) {
         holder.binding.tvDay.setText(items[position].day)
-        holder.binding.tvMosInc.setText("+"+items[position].mosInc)
-        holder.binding.tvMosExp.setText("-"+items[position].mosExp)
-        holder.binding.tvMosTotal.setText(items[position].mosTotal)
+        holder.binding.tvMosInc.setText("+"+items[position].totalInc)
+        holder.binding.tvMosExp.setText("-"+items[position].totalExp)
+        holder.binding.tvMosTotal.setText(items[position].total)
         Glide.with(context).load(items[position].account).into(holder.binding.ivAccount)
         holder.binding.tvType.setText(items[position].type)
         holder.binding.tvCategory.setText(items[position].category)
