@@ -41,20 +41,9 @@
         android:text="2022.10.20"
         android:textColor="@color/black"
         android:textSize="24sp"/>
-    <TextView
-        android:id="@+id/tv_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/tv_date"
-        android:layout_marginLeft="18dp"
-        android:text="10:00 pm"
-        android:textSize="22sp"
-        android:layout_alignBottom="@id/tv_date"
-        android:textColor="@color/black"
-        android:fontFamily="@font/halant_regular"/>
 
     <EditText
-        android:id="@+id/et_skd"
+        android:id="@+id/et_evt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -63,6 +52,42 @@
         android:inputType="text"
         android:maxEms="6"
         android:textSize="22sp"/>
+
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CANCEL"
+            android:textSize="24sp"
+            android:layout_alignParentBottom="true"
+            android:textColor="@color/black"
+            android:layout_marginBottom="50dp"
+            android:fontFamily="@font/halant_regular"
+            android:layout_toLeftOf="@id/verline"
+            android:layout_marginRight="60dp"/>
+
+        <View
+            android:id="@+id/verline"
+            android:layout_width="2dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="50dp"
+            android:background="@color/black"/>
+
+        <TextView
+            android:id="@+id/tv_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="OK"
+            android:textSize="24sp"
+            android:layout_alignParentBottom="true"
+            android:textColor="@color/black"
+            android:layout_marginBottom="50dp"
+            android:fontFamily="@font/halant_regular"
+            android:layout_toRightOf="@id/verline"
+            android:layout_marginLeft="80dp"
+            />
 
 
 </RelativeLayout>

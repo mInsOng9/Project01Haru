@@ -46,9 +46,10 @@ class HomeFragment : Fragment() {
 
     }
 
-    fun changeDay(day:String){
+    lateinit var date:String
+    fun changeDay(day:Date){
+        date=SimpleDateFormat("yyyy-MM-dd").format(day)
         items.clear()
-        items.add(HomeItem(day,"hi","HI","Nothing","non","20:00","Sleep","20,0000","How areyouuu",null))
         binding.recycler.adapter = HomeAdapter(requireActivity(), items)
     }//changeDay(..)
 

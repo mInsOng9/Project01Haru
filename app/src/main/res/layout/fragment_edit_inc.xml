@@ -92,20 +92,33 @@ android:padding="16dp">
     android:inputType="numberDecimal"
     android:textSize="22sp"/>
 
-<EditText
-    android:id="@+id/et_account"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="8dp"
-    android:layout_below="@id/et_amount"
-    android:layout_alignLeft="@id/tv_date"
-    android:inputType="text"/>
+    <TextView
+        android:id="@+id/tv_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_below="@id/et_amount"
+        android:layout_alignLeft="@id/tv_date"
+        android:text="card"
+        android:textSize="22sp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/halant_regular"/>
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_alignLeft="@id/tv_account"
+        android:layout_height="1dp"
+        android:layout_marginLeft="4dp"
+        android:layout_below="@id/tv_account"
+        android:background="@color/black"
+        android:layout_marginBottom="4dp"/>
 <EditText
     android:id="@+id/et_category"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="4dp"
-    android:layout_below="@id/et_account"
+    android:layout_below="@id/line"
     android:layout_alignLeft="@id/tv_date"
     android:inputType="text"/>
 <EditText
@@ -116,6 +129,47 @@ android:padding="16dp">
     android:layout_below="@id/et_category"
     android:layout_alignLeft="@id/tv_date"
     android:inputType="text"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp">
+
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="60dp"
+            android:layout_marginBottom="50dp"
+            android:layout_toLeftOf="@id/verline"
+            android:fontFamily="@font/halant_regular"
+            android:text="CANCEL"
+            android:textColor="@color/black"
+            android:textSize="24sp" />
+
+        <View
+            android:id="@+id/verline"
+            android:layout_width="2dp"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="50dp"
+            android:background="@color/black" />
+
+        <TextView
+            android:id="@+id/tv_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="80dp"
+            android:layout_marginBottom="50dp"
+            android:layout_toRightOf="@id/verline"
+            android:fontFamily="@font/halant_regular"
+            android:text="OK"
+            android:textColor="@color/black"
+            android:textSize="24sp" />
+    </RelativeLayout>
 
 
 </RelativeLayout>

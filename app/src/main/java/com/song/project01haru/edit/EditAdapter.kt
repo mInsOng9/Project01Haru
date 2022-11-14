@@ -18,7 +18,7 @@ class EditAdapter(fragmentActivity: FragmentActivity,var frag:String) : Fragment
 
     init{
         if(frag.equals("expinc")) {
-            fragments= mutableListOf<Fragment>(EditExpFragment(),EditIncFragment())
+            fragments= mutableListOf<Fragment>(EditIncFragment(),EditExpFragment())
         }
         if(frag.equals("todo")){
             fragments= mutableListOf<Fragment>( EditTodoFragment())

@@ -25,10 +25,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.text.SimpleDateFormat
 import java.util.*
 
-//import com.song.project01haru.main.todo.TodoItem
-//import retrofit2.Call
-//import retrofit2.Retrofit
-//import retrofit2.converter.scalars.ScalarsConverterFactory
+
 
 class EditActivity : AppCompatActivity() {
 
@@ -76,39 +73,7 @@ class EditActivity : AppCompatActivity() {
         tabLayoutMediator.attach()
 
 
-
-
     }
-
-
-
-//        if(intent.getStringExtra("frag").toString().equals("expinc")){
-//            val binding = FragmentEditExpBinding.inflate(layoutInflater)
-//            val incBinding = FragmentEditIncBinding.inflate(layoutInflater)
-////            var incTotal= +incBinding.etAmount.toString().toInt()
-////            var expTotal= +binding.etAmount.toString().toInt()
-//            val call: Call<String> = builder.setExpincItem(
-//                binding.tvDate.text.toString(),"kjghkj","23","23","sdkfj","skdfj","sdjk","jiji","kjlkj"
-////                incTotal.toString(),
-////                expTotal.toString(),
-////                (incTotal-expTotal).toString(),
-////                binding.etAccount.text.toString(),
-////                " ",
-////                binding.etCategory.text.toString(),
-////                binding.etNotes.text.toString(),
-////                binding.etAmount.text.toString()
-//            )
-//            call.enqueue(object : Callback<String> {
-//                override fun onResponse(call: Call<String>, response: Response<String>) {
-//                    var a: String? = response.body()
-//                    Toast.makeText(this@EditActivity, "" + a, Toast.LENGTH_SHORT).show()
-//                }
-//
-//                override fun onFailure(call: Call<String>, t: Throwable) {
-//                    Toast.makeText(this@EditActivity, "fail : ${t.message}", Toast.LENGTH_SHORT).show()
-//                }
-//            })
-//        }
 
 
     override fun onSupportNavigateUp(): Boolean {
