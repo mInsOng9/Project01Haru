@@ -8,6 +8,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.shuhart.materialcalendarview.MaterialCalendarView
 import com.song.project01haru.G
 import com.song.project01haru.R
@@ -55,6 +56,8 @@ class EditIncFragment : Fragment() {
         binding.tvDate.text=date
         binding.tvDate.setOnClickListener { calDialog() }
 
+        binding.tvAccount.setOnClickListener { selectAct() }
+
         inc=" "
         total=" "
         amount=" "
@@ -65,6 +68,12 @@ class EditIncFragment : Fragment() {
         binding.tvOk.setOnClickListener { uploadDB() }
         binding.tvCancel.setOnClickListener { requireActivity().finish() }
 
+    }
+    fun selectAct(){
+        var bottomSheetDialog= BottomSheetDialog(requireContext())
+        bottomSheetDialog.setContentView(R.layout.bottomsheet_dialog)
+        bottomSheetDialog.setCanceledOnTouchOutside(true)
+        bottomSheetDialog.show()
     }
 
     fun uploadDB() {

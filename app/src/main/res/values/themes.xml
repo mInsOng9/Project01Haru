@@ -15,17 +15,29 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="CalenderViewCustom" parent="Theme.AppCompat">
-        <item name="colorAccent">#D1D1D1</item>
-        <item name="colorPrimary">@color/black</item>
+
+
+    <!-- bottom sheet dialog round corner    -->
+    <style name="EditExpIncFragment" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:statusBarColor" tools:targetApi="l">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="colorControlNormal">@color/black</item>
+        <item name="colorPrimary"> @color/black</item>
+        <item name="bottomSheetDialogTheme">@style/MyBottomSheetDialogTheme</item>
+    </style>
+    <style name="MyBottomSheetDialogTheme" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/MyBottomSheetStyle</item>
     </style>
 
-    <style name="CalenderViewDateCustomText" parent="android:TextAppearance.DeviceDefault.Small">
-        <item name="android:textColor">@color/black</item>
-        <item name="android:weekNumberColor">@color/black</item>
+    <style name="MyBottomSheetStyle" parent="Widget.MaterialComponents.BottomSheet">
+        <!-- 배경색 -->
+        <item name="backgroundTint">@color/white</item>
+        <item name="shapeAppearanceOverlay">@style/MyRoundCorneredBottomSheetShape</item>
     </style>
 
-    <style name="CalenderViewWeekCustomText" parent="android:TextAppearance.DeviceDefault.Small">
-        <item name="android:textColor">@color/black</item>
+    <style name="MyRoundCorneredBottomSheetShape">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">16dp</item>
+        <item name="cornerSizeTopRight">16dp</item>
     </style>
 </resources>

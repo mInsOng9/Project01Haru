@@ -1,14 +1,12 @@
 package com.song.project01haru.main
 
-import android.app.Dialog
-import android.content.DialogInterface
 import android.content.Intent
+import android.content.res.AssetManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
 import android.view.MotionEvent
 import android.view.View
-import android.widget.CalendarView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -21,7 +19,6 @@ import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.navigation.NavigationView
 import com.shuhart.materialcalendarview.CalendarDay
 import com.shuhart.materialcalendarview.MaterialCalendarView
-import com.shuhart.materialcalendarview.MaterialCalendarView.Companion.SELECTION_MODE_MULTIPLE
 import com.shuhart.materialcalendarview.MaterialCalendarView.Companion.SELECTION_MODE_RANGE
 import com.shuhart.materialcalendarview.OnDateSelectedListener
 import com.shuhart.materialcalendarview.OnRangeSelectedListener
@@ -34,11 +31,15 @@ import com.song.project01haru.main.expinc.ExpIncFragment
 import com.song.project01haru.main.home.HomeFragment
 import com.song.project01haru.main.skd.SkdFragment
 import com.song.project01haru.main.todo.TodoFragment
-import org.w3c.dom.Text
+import org.json.JSONArray
+import org.json.JSONObject
+import java.io.BufferedReader
+import java.io.InputStream
+import java.io.InputStreamReader
+import java.net.URL
 import java.text.SimpleDateFormat
-import java.time.Year.from
 import java.util.*
-import java.util.Date.from
+import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
@@ -233,6 +234,43 @@ class MainActivity : AppCompatActivity() {
         calendar.selectionMode= SELECTION_MODE_RANGE
 
 
+
+
+
+        //json parsing
+//        var restItems:MutableList<RestItem> = mutableListOf()
+//        val url:URL= URL("http://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getHoliDeInfo?" +
+//                "ServiceKey="+"ree7QcEjSF8SAguLrEw9p1nb5SEGKDvhb8PnvaPqJP7N8meanZVpJsQNxDlrGDTzprvGOrbs%2Fv%2FTsELdXsuF5w%3D%3D"+
+//                "&solYear=2015" +
+//                "&solMonth=09" +
+//                "&_type=json")
+//        var reader:BufferedReader= BufferedReader(InputStreamReader(url.openStream(),"UTF-8"))
+//        var buffer:StringBuffer=StringBuffer()
+//        while(true){
+//            var line=reader.readLine()
+//            if(line==null) break;
+//            buffer.append(line+"\n")
+//        }
+//
+//        var jsonArray:JSONArray= JSONArray(buffer.toString())
+//
+//        for( i in 0 until jsonArray.length()){
+//            var jo:JSONObject=jsonArray.getJSONObject(i)
+//
+//            var body:JSONObject=jo.getJSONObject("body")
+//            var items:JSONObject=body.getJSONObject("items")
+//            var item:JSONObject=items.getJSONObject("item")
+//            var locdate:String=item.get("locdate").toString()
+//            var dateName:String=item.get("dateName").toString()
+//
+//            var restItem=RestItem(locdate,dateName)
+//            restItems.add(restItem)
+//        }
+//
+//        Toast.makeText(this, restItems.toString(), Toast.LENGTH_SHORT).show()
+//
+
+
     }
 
 
@@ -250,7 +288,7 @@ class MainActivity : AppCompatActivity() {
         val calendarView=dialog.findViewById<MaterialCalendarView>(R.id.calDialog)
 
         tvOk?.setOnClickListener {
-            binding.tvTitleDate.text=calendarView?.selectedDate?.year.toString()+"."+calendarView?.selectedDate?.month.toString()
+            binding.tvTitleDate.text=sdf.format(calendar.selectedDate?.date!!)
             dialog.dismiss()
         }
 

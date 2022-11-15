@@ -8,6 +8,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.shuhart.materialcalendarview.MaterialCalendarView
 import com.song.project01haru.G
 import com.song.project01haru.R
@@ -67,7 +69,17 @@ class EditExpFragment : Fragment() {
     }
 
     fun selectAct(){
+        var bottomSheetDialog=BottomSheetDialog(requireContext())
+        bottomSheetDialog.setContentView(R.layout.bottomsheet_dialog)
+        bottomSheetDialog.setCanceledOnTouchOutside(true)
+        bottomSheetDialog.show()
 
+        bottomSheetDialog.findViewById<TextView>(R.id.tv_card)?.setOnClickListener {binding.tvAccount.setText("card") }
+        bottomSheetDialog.findViewById<TextView>(R.id.tv_cash)?.setOnClickListener {binding.tvAccount.setText("cash") }
+
+//        bottomSheetDialog.findViewById<TextView>(R.id.tv_add)?.setOnClickListener {
+//            var dialog=AlertDialog.Builder(requireContext()).setView()
+//        }
     }
 
     fun uploadDB() {

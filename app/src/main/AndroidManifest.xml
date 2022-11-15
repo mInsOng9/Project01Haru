@@ -27,7 +27,8 @@
             android:exported="false" />
         <activity
             android:name=".edit.EditActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/EditExpIncFragment"/>
         <activity
             android:name=".ProfileActivity"
             android:exported="false" />
