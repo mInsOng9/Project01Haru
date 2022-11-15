@@ -184,7 +184,9 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("frag","skd")
             startActivity(intent)
         })
-        binding.fabAddDiary.setOnClickListener({startActivity(Intent(this, EditDiaryActivity::class.java))})
+        binding.fabAddDiary.setOnClickListener({
+            startActivity(Intent(this, EditDiaryActivity::class.java))
+        })
 
 
         //range Listener
@@ -217,13 +219,12 @@ class MainActivity : AppCompatActivity() {
             ) {
                 this@MainActivity.date=Date()
                 binding.tvTitleDate.text=sdf.format(calendar.selectedDate?.date)
-                val weekdaySdf=SimpleDateFormat("dd EE")
-                //bundle.putString("date",weekdaySdf.format(calendar.selectedDate?.date))
-                (fragments[0] as ExpIncFragment).changeDay(weekdaySdf.format(calendar.selectedDate?.date))
+
+                (fragments[0] as ExpIncFragment).changeDay(calendar.selectedDate?.date!!)
                 (fragments[1] as TodoFragment).changeDay(calendar.selectedDate?.date!!)
-                (fragments[2] as HomeFragment).changeDay(weekdaySdf.format(calendar.selectedDate?.date))
-                (fragments[3] as SkdFragment).changeDay(weekdaySdf.format(calendar.selectedDate?.date))
-                (fragments[4] as DiaryFragment).changeDay(weekdaySdf.format(calendar.selectedDate?.date))
+                (fragments[2] as HomeFragment).changeDay(calendar.selectedDate?.date!!)
+                (fragments[3] as SkdFragment).changeDay(calendar.selectedDate?.date!!)
+                (fragments[4] as DiaryFragment).changeDay(calendar.selectedDate?.date!!)
 
             }
         })
@@ -241,8 +242,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun calDialog(){
-        val dialog : AlertDialog=AlertDialog.Builder(this)
-            .setView(R.layout.dialog_date).create()
+        val dialog : AlertDialog=AlertDialog.Builder(this).setView(R.layout.dialog_date).create()
         dialog.show()
 
         val tvOk:TextView?=dialog.findViewById<TextView>(R.id.tv_ok)

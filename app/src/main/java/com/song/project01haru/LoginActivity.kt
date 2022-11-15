@@ -9,21 +9,6 @@ import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
 import com.song.project01haru.databinding.ActivityLoginBinding
-import com.song.project01haru.databinding.FragmentEditTodoBinding
-import com.song.project01haru.edit.EditActivity
-import com.song.project01haru.edit.RetrofitService
-import com.song.project01haru.main.MainActivity
-import com.song.project01haru.main.todo.TodoAdapter
-import com.song.project01haru.main.todo.TodoItem
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.converter.scalars.ScalarsConverterFactory
-import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.collections.ArrayList
 
 class LoginActivity : AppCompatActivity() {
 
@@ -46,20 +31,14 @@ class LoginActivity : AppCompatActivity() {
         //callback function by login request
         val callback:(OAuthToken?,Throwable?) -> Unit = { token, error ->
             if(token != null){
-                Toast.makeText(this, "login success", Toast.LENGTH_SHORT).show()
                 loadUserInfo()
-
             }
         }
-
         //check whether kakaotalk is installed in device or not
         if( UserApiClient.instance.isKakaoTalkLoginAvailable(this)){
-
             //request kakaotalk login
             UserApiClient.instance.loginWithKakaoTalk(this,callback= callback)
-
         }else{
-
             //request kakao account login
             UserApiClient.instance.loginWithKakaoAccount(this,callback=callback)
         }
@@ -70,9 +49,8 @@ class LoginActivity : AppCompatActivity() {
             if(user!=null){
                 intent.putExtra("name",user.kakaoAccount?.profile?.nickname)
                 intent.putExtra("email",user.kakaoAccount?.email)
-                intent.putExtra("id",user.id)
+                G.act= user.id.toString()
                 intent.putExtra("img",user.kakaoAccount?.profile?.profileImageUrl)
-                Toast.makeText(this, ""+user.id.toString(), Toast.LENGTH_SHORT).show()
                 startActivity(intent)
             }
         }

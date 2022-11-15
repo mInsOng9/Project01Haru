@@ -5,10 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import com.song.project01haru.G
 import com.song.project01haru.databinding.FragmentTodoBinding
-import com.song.project01haru.edit.RetrofitService
+import com.song.project01haru.RetrofitService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -49,19 +49,7 @@ class TodoFragment : Fragment() {
         val builder=Retrofit.Builder().baseUrl("http://mins22.dothome.co.kr").addConverterFactory(ScalarsConverterFactory.create()).addConverterFactory(GsonConverterFactory.create()).build()
         val retrofitService: RetrofitService = builder.create(RetrofitService::class.java)
 
-//        val call:Call<String> =retrofitService.getTodoItem2(date)
-//        call.enqueue(object:Callback<String>{
-//            override fun onResponse(call: Call<String>, response: Response<String>) {
-//                val s=response.body()
-//                AlertDialog.Builder(requireContext()).setMessage(s).show()
-//            }
-//
-//            override fun onFailure(call: Call<String>, t: Throwable) {
-//                Toast.makeText(requireContext(), "${t.message}", Toast.LENGTH_SHORT).show()
-//            }
-//
-//        })
-        val call: Call<ArrayList<TodoItem>> = retrofitService.getTodoItem(date)
+        val call: Call<ArrayList<TodoItem>> = retrofitService.getTodoItem(G.act,date)
         call.enqueue(object : Callback<ArrayList<TodoItem>> {
             override fun onResponse(
                 call: Call<ArrayList<TodoItem>>,
@@ -74,10 +62,9 @@ class TodoFragment : Fragment() {
                     val a:GregorianCalendar = GregorianCalendar(aaa[0].toInt(), aaa[1].toInt(), aaa[2].toInt())
                     item.date= SimpleDateFormat("dd EE").format( a.time )
 
-                    Toast.makeText(requireActivity(), ""+date+"Dfsd  "+item.date, Toast.LENGTH_SHORT).show()
                    // todoItems.add(TodoItem(item.date, item.time,item.todo ))
                     //if(item.date.equals(date)){
-                        todoItems.add(TodoItem(item.date,item.time,item.todo))
+                        todoItems.add(TodoItem(G.act,item.date,item.time,item.todo))
                     //}
                 }
 
@@ -85,7 +72,6 @@ class TodoFragment : Fragment() {
 
             }
             override fun onFailure(call: Call<ArrayList<TodoItem>>, t: Throwable) {
-                Toast.makeText(requireContext(), "${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
     }

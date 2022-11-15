@@ -6,12 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.TimePicker
-import android.widget.TimePicker.OnTimeChangedListener
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.shuhart.materialcalendarview.MaterialCalendarView
+import com.song.project01haru.G
 import com.song.project01haru.R
+import com.song.project01haru.RetrofitService
 import com.song.project01haru.databinding.FragmentEditTodoBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -66,6 +67,7 @@ class EditTodoFragment():Fragment() {
 
 
     fun uploadDB() {
+        time=binding.tvTime.text.toString()
         todo=binding.etTask.text.toString()
         val builder = Retrofit.Builder().baseUrl("http://mins22.dothome.co.kr")
             .addConverterFactory(ScalarsConverterFactory.create())
@@ -73,9 +75,8 @@ class EditTodoFragment():Fragment() {
             .build()
             .create(RetrofitService::class.java)
 
-            //var binding = FragmentEditTodoBinding.inflate(layoutInflater)
-            //Toast.makeText(this, ""+dates, Toast.LENGTH_SHORT).show()
             val call: Call<String> = builder.setTodoItem(
+                G.act,
                 date,
                 time,
                 todo
@@ -83,12 +84,11 @@ class EditTodoFragment():Fragment() {
             call.enqueue(object : Callback<String> {
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     var a: String? = response.body()
-                    Toast.makeText(requireContext(), "" + a, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), ""+a, Toast.LENGTH_SHORT).show()
+
                 }
 
                 override fun onFailure(call: Call<String>, t: Throwable) {
-                    Toast.makeText(requireContext(), "fail : ${t.message}", Toast.LENGTH_SHORT)
-                        .show()
                 }
             })
     }
@@ -102,6 +102,7 @@ class EditTodoFragment():Fragment() {
 
         tvOk?.setOnClickListener {
             binding.tvDate.text=sdf.format(calendarView?.selectedDate?.date)
+            date=binding.tvDate.text.toString()
             dialog.dismiss()
         }
         tvCancel?.setOnClickListener { dialog.dismiss() }

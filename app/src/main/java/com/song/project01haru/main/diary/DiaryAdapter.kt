@@ -22,9 +22,9 @@ class DiaryAdapter constructor(var context: Context, var items:MutableList<Diary
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
-        holder.binding.tvDay.setText(items[position].day )
-        Glide.with(context).load(items[position].feels).into(holder.binding.ivDiaryFeels)
-        holder.binding.etDiary.setText(items[position].contents )
+        holder.binding.tvDay.setText(items[position].date )
+        //Glide.with(context).load(items[position].feels).into(holder.binding.ivDiaryFeels)
+        holder.binding.etDiary.setText(items[position].content )
 //        Glide.with(context).load(items[position].photos).into(holder.binding.ivDiaryPhoto)
     }
 

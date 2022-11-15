@@ -7,8 +7,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.song.project01haru.R
 import com.song.project01haru.databinding.TodoRecyclerItemBinding
+import com.song.project01haru.main.expinc.ExpIncItem
 
-class TodoAdapter constructor(var context: Context, var items:MutableList<TodoItem> ) : RecyclerView.Adapter<TodoAdapter.VH>() {
+class TodoAdapter(var context: Context, var items: MutableList<TodoItem>) : RecyclerView.Adapter<TodoAdapter.VH>() {
 
 
 

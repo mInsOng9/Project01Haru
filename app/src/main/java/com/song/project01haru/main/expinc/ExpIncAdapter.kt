@@ -21,7 +21,7 @@ class ExpIncAdapter constructor(var context:Context, var items:MutableList<ExpIn
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
-        holder.binding.tvDay.setText(items[position].day)
+        holder.binding.tvDay.setText(items[position].date)
         holder.binding.tvMosInc.setText("+"+items[position].totalInc)
         holder.binding.tvMosExp.setText("-"+items[position].totalExp)
         holder.binding.tvMosTotal.setText(items[position].total)
