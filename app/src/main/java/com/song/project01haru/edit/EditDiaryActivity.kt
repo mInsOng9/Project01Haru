@@ -52,9 +52,10 @@ class EditDiaryActivity : AppCompatActivity() {
         map_lat=0.0
         map_long=0.0
 
+
         binding.tvOk.setOnClickListener { uploadDB() }
         binding.tvCancel.setOnClickListener { finish() }
-
+        binding.ivDiaryPhoto.setOnClickListener {  }
     }
 
     fun uploadDB() {

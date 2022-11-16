@@ -1,5 +1,7 @@
 package com.song.project01haru.edit
 
+import android.content.ClipData
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +9,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.shuhart.materialcalendarview.MaterialCalendarView
@@ -38,6 +43,8 @@ class EditExpFragment : Fragment() {
     lateinit var category:String
     lateinit var note:String
 
+    var items:MutableList<BsdItem> = mutableListOf()
+
 
     override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?) : View? {
         super.onCreate(savedInstanceState)
@@ -53,7 +60,8 @@ class EditExpFragment : Fragment() {
         date=sdf.format(Date())
         binding.tvDate.text=date
         binding.tvDate.setOnClickListener { calDialog() }
-
+        items.add(BsdItem("cash"))
+        items.add(BsdItem("card"))
         binding.tvAccount.setOnClickListener { selectAct() }
 
         exp=" "
@@ -66,20 +74,47 @@ class EditExpFragment : Fragment() {
         binding.tvOk.setOnClickListener { uploadDB() }
         binding.tvCancel.setOnClickListener { requireActivity().finish() }
 
+
+
     }
 
     fun selectAct(){
+        val adapter=BsdAdapter(requireActivity(),items)
         var bottomSheetDialog=BottomSheetDialog(requireContext())
         bottomSheetDialog.setContentView(R.layout.bottomsheet_dialog)
         bottomSheetDialog.setCanceledOnTouchOutside(true)
+        items.add(items.size,BsdItem("  +  "))
+
+        bottomSheetDialog.findViewById<RecyclerView>(R.id.recycler)?.adapter=adapter
         bottomSheetDialog.show()
 
-        bottomSheetDialog.findViewById<TextView>(R.id.tv_card)?.setOnClickListener {binding.tvAccount.setText("card") }
-        bottomSheetDialog.findViewById<TextView>(R.id.tv_cash)?.setOnClickListener {binding.tvAccount.setText("cash") }
+       adapter.setOnItemclickListner(object: BsdAdapter.OnItemClickListner{
+            override fun onItemClick(view: View, position: Int) {
+                if (position==items.size-1){
+                    var dialog=AlertDialog.Builder(requireActivity()).setView(R.layout.dialog_account).create()
+                    dialog.show()
 
-//        bottomSheetDialog.findViewById<TextView>(R.id.tv_add)?.setOnClickListener {
-//            var dialog=AlertDialog.Builder(requireContext()).setView()
-//        }
+                    dialog.findViewById<TextView>(R.id.tv_ok)?.setOnClickListener {
+                        if(dialog.findViewById<TextView>(R.id.tv_type)!!.text!=null){
+                            binding.tvAccount.text= dialog.findViewById<TextView>(R.id.tv_type)!!.text.toString()
+                            items.add(items.size-1,BsdItem(binding.tvAccount.text.toString()))
+                            adapter.notifyDataSetChanged()
+                            dialog.dismiss()
+                        }
+                    }
+
+                }
+                else{
+                    binding.tvAccount.text=items[position].act
+                    bottomSheetDialog.dismiss()
+
+                }
+                if(binding.tvAccount.text.equals("card") || binding.tvAccount.text.equals("cash")) type=""
+                else type=binding.tvAccount.text.toString()
+
+            }
+        })
+
     }
 
     fun uploadDB() {

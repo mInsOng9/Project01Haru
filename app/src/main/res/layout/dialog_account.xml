@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp">
 
     <TextView
+        android:id="@+id/tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/halant_regular"
@@ -13,6 +13,51 @@
         android:textSize="24sp"
         android:text="ADD"/>
 
+    <TextView
+        android:id="@+id/tv_card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bg_et"
+        android:text="card"
+        android:textColor="@color/black"
+        android:fontFamily="@font/halant_regular"
+        android:layout_below="@id/tv"
+        android:layout_marginLeft="40dp"
+        android:layout_marginBottom="20dp"
+        android:textSize="20sp"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="4dp"/>
+
+    <EditText
+        android:id="@+id/tv_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv"
+        android:layout_toRightOf="@id/tv_card"
+        android:layout_marginLeft="20dp"
+        android:inputType="text"
+        android:maxEms="7"
+        android:hint="type"
+        android:ems="6"
+        android:fontFamily="@font/halant_regular"/>
 
 
-</LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="30dp"
+        android:layout_marginRight="50dp"
+        android:fontFamily="@font/halant_regular"
+        android:outlineAmbientShadowColor="@color/black"
+        android:text="OK"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:layout_below="@id/tv_card"/>
+
+
+
+</RelativeLayout>
