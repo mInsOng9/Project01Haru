@@ -86,6 +86,7 @@ android:padding="16dp">
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="8dp"
+    android:fontFamily="@font/halant_regular"
 
     android:layout_below="@id/tv_date"
     android:layout_alignLeft="@id/tv_date"
@@ -120,6 +121,8 @@ android:padding="16dp">
     android:layout_marginBottom="4dp"
     android:layout_below="@id/line"
     android:layout_alignLeft="@id/tv_date"
+    android:fontFamily="@font/halant_regular"
+
     android:inputType="text"/>
 <EditText
     android:id="@+id/et_notes"
@@ -127,6 +130,8 @@ android:padding="16dp">
     android:layout_height="wrap_content"
     android:layout_marginBottom="2dp"
     android:layout_below="@id/et_category"
+    android:fontFamily="@font/halant_regular"
+
     android:layout_alignLeft="@id/tv_date"
     android:inputType="text"/>
 

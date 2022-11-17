@@ -85,11 +85,12 @@
         android:id="@+id/et_diary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:lines="20"
+        android:lines="15"
         android:background="@drawable/bg_et"
         android:layout_below="@id/tv"
         android:layout_marginRight="16dp"
         android:layout_marginLeft="16dp"
+        android:fontFamily="@font/halant_regular"
         android:inputType="textMultiLine"
         android:maxEms="50"/>
     <ImageView

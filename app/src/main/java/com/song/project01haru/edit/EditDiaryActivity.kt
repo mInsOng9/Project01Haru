@@ -1,10 +1,16 @@
 package com.song.project01haru.edit
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultCallback
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
+import com.bumptech.glide.Glide
 import com.shuhart.materialcalendarview.MaterialCalendarView
 import com.song.project01haru.G
 import com.song.project01haru.R
@@ -55,9 +61,23 @@ class EditDiaryActivity : AppCompatActivity() {
 
         binding.tvOk.setOnClickListener { uploadDB() }
         binding.tvCancel.setOnClickListener { finish() }
-        binding.ivDiaryPhoto.setOnClickListener {  }
+        binding.ivDiaryPhoto.setOnClickListener {
+            var intent=Intent(Intent.ACTION_PICK)
+            intent.setType("image/*")
+            resultLauncher.launch(intent)
+        }
     }
 
+    val resultLauncher: ActivityResultLauncher<Intent> =registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult(),
+        ActivityResultCallback<ActivityResult>(){ result ->
+        if(result.resultCode!= RESULT_CANCELED){
+            var intent=result.data
+            var uri=intent?.data
+
+            Glide.with(this).load(uri).into(binding.ivDiaryPhoto)
+        }
+    })
     fun uploadDB() {
 
         content=binding.etDiary.text.toString()

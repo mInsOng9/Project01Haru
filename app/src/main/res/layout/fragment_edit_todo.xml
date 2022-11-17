@@ -63,6 +63,7 @@
         android:layout_alignLeft="@id/tv_date"
         android:layout_marginRight="70dp"
         android:inputType="text"
+        android:fontFamily="@font/halant_regular"
         android:textSize="22sp"/>
     <ImageView
         android:id="@+id/iv_color"

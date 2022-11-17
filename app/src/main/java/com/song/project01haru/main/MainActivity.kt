@@ -244,7 +244,8 @@ class MainActivity : AppCompatActivity() {
 //                "&solYear=2015" +
 //                "&solMonth=09" +
 //                "&_type=json")
-//        var reader:BufferedReader= BufferedReader(InputStreamReader(url.openStream(),"UTF-8"))
+//
+//        var reader:BufferedReader= BufferedReader(InputStreamReader(url.openStream()))
 //        var buffer:StringBuffer=StringBuffer()
 //        while(true){
 //            var line=reader.readLine()
@@ -268,7 +269,7 @@ class MainActivity : AppCompatActivity() {
 //        }
 //
 //        Toast.makeText(this, restItems.toString(), Toast.LENGTH_SHORT).show()
-//
+
 
 
     }

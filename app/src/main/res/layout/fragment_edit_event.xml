@@ -51,6 +51,7 @@
         android:layout_alignLeft="@id/tv_date"
         android:inputType="text"
         android:maxEms="6"
+        android:fontFamily="@font/halant_regular"
         android:textSize="22sp"/>
 
         <TextView

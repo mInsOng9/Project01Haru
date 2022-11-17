@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import com.song.project01haru.G
 import com.song.project01haru.databinding.FragmentSchdBinding
 import com.song.project01haru.RetrofitService
+import com.song.project01haru.main.expinc.ExpIncItem
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -63,7 +64,7 @@ class SkdFragment :Fragment() {
                     val a: GregorianCalendar = GregorianCalendar(aaa[0].toInt(), aaa[1].toInt(), aaa[2].toInt())
                     item.date= SimpleDateFormat("dd EE").format( a.time )
 
-                    skdevtItems.add(SkdEvtItem(G.act,item.date,item.time,item.skd,item.note," ",""))
+                    skdevtItems.add(SkdEvtItem(G.act,item.date,item.time,item.skd,item.note,"",""))
 
                 }
                 recycler.adapter= SkdAdapter(requireActivity(),skdevtItems)
@@ -73,6 +74,9 @@ class SkdFragment :Fragment() {
             }
         })
     }//loadDB()
+
+
+
 
     lateinit var date:String
     fun changeDay(day:Date){

@@ -71,6 +71,7 @@
         android:layout_below="@id/tv_date"
         android:layout_alignLeft="@id/tv_date"
         android:inputType="text"
+        android:fontFamily="@font/halant_regular"
         android:textSize="22sp"/>
 
     <EditText
@@ -80,7 +81,9 @@
         android:layout_marginBottom="8dp"
         android:layout_below="@id/et_skd"
         android:layout_alignLeft="@id/tv_date"
-        android:inputType="text"/>
+        android:inputType="text"
+        android:fontFamily="@font/halant_regular"
+        />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -52,7 +52,9 @@
                             app:mcv_showOtherDates="all"
                             app:mcv_selectionColor="@color/gray"
                             app:mcv_selectionRangeColor="@color/light_gray"
+
                             />
+
                 </com.google.android.material.appbar.AppBarLayout>
 
                 <!-- fragment-->

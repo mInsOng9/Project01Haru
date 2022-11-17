@@ -3,11 +3,13 @@ package com.song.project01haru
 import com.song.project01haru.ProfileItem
 import com.song.project01haru.main.diary.DiaryItem
 import com.song.project01haru.main.expinc.ExpIncItem
+import com.song.project01haru.main.home.HomeItem
 import com.song.project01haru.main.skd.EventItem
 import com.song.project01haru.main.skd.SkdEvtItem
 import com.song.project01haru.main.skd.SkdItem
 import com.song.project01haru.main.todo.TodoItem
 import retrofit2.Call
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -24,6 +26,11 @@ interface RetrofitService {
 
     @GET("haru/login/loadDB.php")
     fun getLoginItem(): Call<ArrayList<ProfileItem>>
+
+
+    //Home
+    @GET("haru/loadHome.php")
+    fun getHomeItem(@Query("act") act:String?,@Query("date") date:String?): Call<String>
 
     //ExpInc
     @GET("haru/exp/insertDB.php")
@@ -72,6 +79,8 @@ interface RetrofitService {
     @GET("haru/skd/loadDB.php")
     fun getSkdItem(@Query("act") act:String?,@Query("date") date:String?):Call <ArrayList<SkdEvtItem>>
 
+    @DELETE("haru/skd/deleteDB.php")
+    fun deleteSkdItem(@Query("act") act: String?, @Query("date") date: String?):Call<String>
     //event
     @GET("haru/event/insertDB.php")
     fun setEvtItem(
