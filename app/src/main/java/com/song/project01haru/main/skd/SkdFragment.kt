@@ -8,9 +8,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.song.project01haru.G
+import com.song.project01haru.RestItem
 import com.song.project01haru.databinding.FragmentSchdBinding
 import com.song.project01haru.RetrofitService
 import com.song.project01haru.main.expinc.ExpIncItem
+import org.json.JSONArray
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -18,6 +20,9 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
+import java.io.BufferedReader
+import java.io.InputStreamReader
+import java.net.URL
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -28,6 +33,8 @@ class SkdFragment :Fragment() {
     var skdevtItems:MutableList<SkdEvtItem> = mutableListOf()
     val recycler by lazy { binding.recycler }
     val daySdf=SimpleDateFormat("dd EE")
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +53,9 @@ class SkdFragment :Fragment() {
         date=SimpleDateFormat("yyyy-MM-dd").format(Date())
         loadDB(date)
         recycler.adapter= SkdAdapter(requireActivity(),skdevtItems)
+
+
+//
     }
 
     fun loadDB(date:String){
