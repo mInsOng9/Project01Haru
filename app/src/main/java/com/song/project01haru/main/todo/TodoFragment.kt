@@ -37,13 +37,14 @@ class TodoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding=FragmentTodoBinding.inflate(inflater,container,false)
+        date=SimpleDateFormat("yyyy-MM-dd").format(Date())
+        loadDB()
+        recyclerView.adapter= TodoAdapter(requireActivity(),todoItems)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        date=SimpleDateFormat("yyyy-MM-dd").format(Date())
-        loadDB()
-        recyclerView.adapter= TodoAdapter(requireActivity(),todoItems)
+
     }
 
     fun loadDB(){

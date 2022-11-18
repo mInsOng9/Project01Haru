@@ -140,7 +140,7 @@ class EditExpFragment : Fragment() {
             "80000",
             exp,
             total,
-            amount,
+            "-"+amount,
             account,
             type,
             category,

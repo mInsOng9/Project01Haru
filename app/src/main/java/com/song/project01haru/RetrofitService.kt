@@ -77,7 +77,7 @@ interface RetrofitService {
     ):Call<String>
 
     @GET("haru/skd/loadDB.php")
-    fun getSkdItem(@Query("act") act:String?,@Query("date") date:String?):Call <ArrayList<SkdEvtItem>>
+    fun getSkdItem(@Query("act") act:String?,@Query("date") date:String?):Call <String>
 
     @DELETE("haru/skd/deleteDB.php")
     fun deleteSkdItem(@Query("act") act: String?, @Query("date") date: String?):Call<String>

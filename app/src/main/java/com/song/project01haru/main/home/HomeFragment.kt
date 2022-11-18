@@ -1,6 +1,7 @@
 package com.song.project01haru.main.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,18 +48,15 @@ class HomeFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        //add items
-//        items.add(HomeItem("24 MON","hi","HI","Nothing","non","20:00","Sleep","20,0000","How areyouuu",null))
-//        items.add(HomeItem("24 MON","hi","HI","Nothing","non","20:00","Sleep","20,0000","How areyouuu",null))
-       items.add(HomeItem(daySdf.format(Date()),"hi","HI","Nothing","non","20:00","Sleep","20,0000","How areyouuu",null))
-
+        date=SimpleDateFormat("yyyy-MM-dd").format(Date())
+        loadDB(date)
         recyclerView.adapter= HomeAdapter(requireActivity(),items)
         recyclerView.layoutManager= LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL,false)
 
     }
 
 
-    fun loadDB(){
+    fun loadDB(date:String){
         val builder=Retrofit.Builder().baseUrl("http://mins22.dothome.co.kr")
             .addConverterFactory(ScalarsConverterFactory.create())
             .build()
@@ -69,26 +67,55 @@ class HomeFragment : Fragment() {
         call.enqueue(object: Callback<String>{
             override fun onResponse(call: Call<String>, response: Response<String>) {
 
-                var jsonArray: JSONArray = JSONArray(response.body())
+                Log.e("res",response.body().toString())
 
-                for( i in 0 until jsonArray.length()){
-                    var jo: JSONObject =jsonArray.getJSONObject(i)
-                    var aaa:List<String> = jo.get("date").toString().split("-")
-                    val a:GregorianCalendar = GregorianCalendar(aaa[0].toInt(), aaa[1].toInt(), aaa[2].toInt())
-                    var date= SimpleDateFormat("dd EE").format( a.time )
-
-                    var event:String=jo.get("event").toString()
-                    var skd:String=jo.get("skd").toString()
-                    var skdNote:String = jo.get("note").toString()
-//                    var skdTime:String = jo.getJSONObject("")
-                    var todo:String=jo.get("todo").toString()
-                    var exp:String=jo.get("expTotal").toString()
-                    var diary:String=jo.get("content").toString()
-//                    var feels:String=jo.get("locdate").toString()
-                    items.add(HomeItem(date,"",event,skd,skdNote,"",todo,exp,diary,""))
-                    Toast.makeText(requireContext(), ""+skd+"  "+event, Toast.LENGTH_SHORT).show()
+                var exp:String="0"
+                var diary:String=""
+                var jo:JSONObject= JSONObject(response.body())
+                if(!jo.isNull("exp")) {
+                    val expJo=jo.getJSONObject("exp")
+                    exp=expJo.get("expTotal") as String
                 }
-                recyclerView.adapter= HomeAdapter(requireActivity(),items)
+                var todoJo=jo.getJSONArray("todo")
+                var skdJo=jo.getJSONArray("skd")
+                if(!jo.isNull("diary")){
+                    var diaryJo=jo.getJSONObject("diary")
+                    diary=diaryJo.get("content").toString()
+
+                }
+
+
+                var todo:String =" "
+                var time:String =" "
+                for(i in 0 until todoJo.length()){
+                    var todoJo2= todoJo.getJSONObject(i)
+
+                    todo= todoJo2.get("todo") as String
+                    time= todoJo2.get("time") as String
+                }
+
+                var skd:String=" "
+                var skdTime:String=" "
+                var note:String=" "
+
+                for(i in 0 until skdJo.length()){
+                    var skdJo2=skdJo.getJSONObject(i)
+//                    if(skdJo2.equals("")) {
+//                        todo=" "
+//                        time=""
+//                        break;
+//                    }
+                    skd=skdJo2.get("skd") as String
+                    skdTime=skdJo2.get("time") as String
+                    note= skdJo2.get("note") as String
+                }
+
+                var aaa:List<String> = date.split("-")
+                val a:GregorianCalendar = GregorianCalendar(aaa[0].toInt(), aaa[1].toInt(), aaa[2].toInt())
+
+                items.add(HomeItem(daySdf.format(a.time)," ", " ", skd,note, skdTime,todo,exp,diary," "))
+
+                binding.recycler.adapter = HomeAdapter(requireActivity(), items)
 
             }
 
@@ -104,7 +131,7 @@ class HomeFragment : Fragment() {
     fun changeDay(day:Date){
         date=SimpleDateFormat("yyyy-MM-dd").format(day)
         items.clear()
-        loadDB()
+        loadDB(date)
         binding.recycler.adapter = HomeAdapter(requireActivity(), items)
     }//changeDay(..)
 
@@ -112,7 +139,7 @@ class HomeFragment : Fragment() {
         items.clear()
         days.forEach{ day->
             date=day
-            loadDB()
+            loadDB(date)
         }
         binding.recycler.adapter = HomeAdapter(requireActivity(), items)
 

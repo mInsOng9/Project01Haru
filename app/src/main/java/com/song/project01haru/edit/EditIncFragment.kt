@@ -99,8 +99,8 @@ class EditIncFragment : Fragment() {
             inc,
             "9000",
             total,
-            amount,
-            account,
+            "+"+amount,
+            20,
             type,
             category,
             note

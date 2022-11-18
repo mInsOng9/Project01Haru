@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.song.project01haru.G
 import com.song.project01haru.databinding.FragmentDiaryBinding
 import com.song.project01haru.RetrofitService
@@ -43,6 +44,7 @@ class DiaryFragment : Fragment(){
         date=SimpleDateFormat("yyyy-MM-dd").format(Date())
         loadDB()
         recyclerView.adapter= DiaryAdapter(requireActivity(),diaryItems)
+
     }
 
     fun loadDB(){

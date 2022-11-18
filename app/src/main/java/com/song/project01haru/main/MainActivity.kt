@@ -5,6 +5,7 @@ import android.content.res.AssetManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.TextView
@@ -17,12 +18,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.navigation.NavigationView
-import com.shuhart.materialcalendarview.CalendarDay
-import com.shuhart.materialcalendarview.MaterialCalendarView
+import com.shuhart.materialcalendarview.*
 import com.shuhart.materialcalendarview.MaterialCalendarView.Companion.SELECTION_MODE_RANGE
-import com.shuhart.materialcalendarview.OnDateSelectedListener
-import com.shuhart.materialcalendarview.OnRangeSelectedListener
 import com.song.project01haru.*
+import com.song.project01haru.R
 import com.song.project01haru.databinding.*
 import com.song.project01haru.edit.EditActivity
 import com.song.project01haru.edit.EditDiaryActivity
@@ -190,6 +189,13 @@ class MainActivity : AppCompatActivity() {
         })
 
 
+        calendar.addOnMonthChangedListener(object:OnMonthChangedListener{
+            override fun onMonthChanged(widget: MaterialCalendarView, date: CalendarDay) {
+                binding.tvTitleDate.text=date.year.toString()+"."+(date.month+1).toString()
+            }
+
+        })
+
         //range Listener
         calendar.addOnRangeSelectedListener(object :OnRangeSelectedListener{
             override fun onRangeSelected(widget: MaterialCalendarView, dates: List<CalendarDay>) {
@@ -234,16 +240,14 @@ class MainActivity : AppCompatActivity() {
         calendar.selectionMode= SELECTION_MODE_RANGE
 
 
-
-
-
-        //json parsing
-//        var restItems:MutableList<RestItem> = mutableListOf()
-//        val url:URL= URL("http://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getHoliDeInfo?" +
+//        var urlAddress:String="http://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getHoliDeInfo?"+
 //                "ServiceKey="+"ree7QcEjSF8SAguLrEw9p1nb5SEGKDvhb8PnvaPqJP7N8meanZVpJsQNxDlrGDTzprvGOrbs%2Fv%2FTsELdXsuF5w%3D%3D"+
 //                "&solYear=2015" +
 //                "&solMonth=09" +
-//                "&_type=json")
+//                "&_type=json"
+//        //json parsing
+//        var restItems:MutableList<RestItem> = mutableListOf()
+//        val url:URL= URL(urlAddress)
 //
 //        var reader:BufferedReader= BufferedReader(InputStreamReader(url.openStream()))
 //        var buffer:StringBuffer=StringBuffer()
@@ -268,8 +272,8 @@ class MainActivity : AppCompatActivity() {
 //            restItems.add(restItem)
 //        }
 //
-//        Toast.makeText(this, restItems.toString(), Toast.LENGTH_SHORT).show()
-
+//        Log.e("rest", restItems.toString())
+////
 
 
     }
