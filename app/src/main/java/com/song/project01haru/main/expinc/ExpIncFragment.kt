@@ -46,7 +46,8 @@ class ExpIncFragment:Fragment() {
 //
         date=SimpleDateFormat("yyyy-MM-dd").format(Date())
         loadDB()
-       recyclerView.adapter = ExpIncAdapter(requireActivity(), expincItems)
+
+        recyclerView.adapter = ExpIncAdapter(requireActivity(), expincItems)
 
     }
     fun loadDB(){
@@ -69,8 +70,8 @@ class ExpIncFragment:Fragment() {
                     val a:GregorianCalendar = GregorianCalendar(aaa[0].toInt(), aaa[1].toInt(), aaa[2].toInt())
                     item.date= daySdf.format( a.time )
 
-
                     expincItems.add(ExpIncItem(G.act,item.date,item.totalInc,item.totalExp,item.total,item.amount,item.account,item.type,item.category,item.note))
+
 
                 }
 
