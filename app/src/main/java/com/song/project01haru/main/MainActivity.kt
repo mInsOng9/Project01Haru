@@ -239,7 +239,48 @@ class MainActivity : AppCompatActivity() {
 
         calendar.monthIndicatorVisible=false
         calendar.selectionMode= SELECTION_MODE_RANGE
+        thread(start=true) {
+            var urlAddress: String =
+                "http://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getHoliDeInfo?" +
+                        "ServiceKey=" + "ree7QcEjSF8SAguLrEw9p1nb5SEGKDvhb8PnvaPqJP7N8meanZVpJsQNxDlrGDTzprvGOrbs%2Fv%2FTsELdXsuF5w%3D%3D" +
+                        "&solYear=2015" +
+                        "&solMonth=09" +
+                        "&_type=json"
+            lateinit var restItem: RestItem
+            lateinit var restItems: MutableList<RestItem>
+            lateinit var locdate: String
+            lateinit var dateName: String
 
+
+            //json parsing
+            restItems = mutableListOf()
+            val url: URL = URL(urlAddress)
+            Log.e("url", urlAddress)
+
+            var reader: BufferedReader = BufferedReader(InputStreamReader(url.openStream()))
+            var buffer: StringBuffer = StringBuffer()
+            while (true) {
+                var line = reader.readLine()
+                if (line == null) break;
+                buffer.append(line + "\n")
+            }
+
+            runOnUiThread {
+                var jsonArray: JSONArray = JSONArray(buffer.toString())
+
+                for (i in 0 until jsonArray.length()) {
+                    var jo: JSONObject = jsonArray.getJSONObject(i)
+
+                    var body: JSONObject = jo.getJSONObject("body")
+                    var items: JSONObject = body.getJSONObject("items")
+                    var item: JSONObject = items.getJSONObject("item")
+                    locdate = item.get("locdate").toString()
+                    dateName = item.get("dateName").toString()
+
+                }
+                Toast.makeText(this@MainActivity, "" + locdate + "df:" + dateName, Toast.LENGTH_SHORT).show()
+            }
+        }
 
     }
 
