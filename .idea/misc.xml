@@ -43,6 +43,7 @@
         <entry key="..\:/Users/songm/AndroidStudioProjects/Project01Haru/app/src/main/res/layout/calendar_day_layout.xml" value="0.1" />
         <entry key="..\:/Users/songm/AndroidStudioProjects/Project01Haru/app/src/main/res/layout/dialog_account.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/songm/AndroidStudioProjects/Project01Haru/app/src/main/res/layout/dialog_date.xml" value="0.1" />
+        <entry key="..\:/Users/songm/AndroidStudioProjects/Project01Haru/app/src/main/res/layout/drawer_header.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/songm/AndroidStudioProjects/Project01Haru/app/src/main/res/layout/expinc_recycler_item.xml" value="0.17980072463768115" />
         <entry key="..\:/Users/songm/AndroidStudioProjects/Project01Haru/app/src/main/res/layout/fragment_diary.xml" value="0.11865942028985507" />
         <entry key="..\:/Users/songm/AndroidStudioProjects/Project01Haru/app/src/main/res/layout/fragment_edit_diary.xml" value="0.1431159420289855" />
@@ -60,6 +61,7 @@
         <entry key="..\:/Users/songm/AndroidStudioProjects/Project01Haru/app/src/main/res/layout/todo_2nd_recycler_item.xml" value="0.17760416666666667" />
         <entry key="..\:/Users/songm/AndroidStudioProjects/Project01Haru/app/src/main/res/layout/todo_recycler_item.xml" value="0.17760416666666667" />
         <entry key="..\:/Users/songm/AndroidStudioProjects/Project01Haru/app/src/main/res/menu/bnv.xml" value="0.175" />
+        <entry key="..\:/Users/songm/AndroidStudioProjects/Project01Haru/app/src/main/res/menu/dnav.xml" value="0.19947916666666668" />
         <entry key="..\:/Users/songm/AndroidStudioProjects/Project01Haru/app/src/main/res/menu/item.xml" value="0.19947916666666668" />
       </map>
     </option>
