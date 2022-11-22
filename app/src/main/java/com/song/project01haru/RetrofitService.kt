@@ -27,6 +27,12 @@ interface RetrofitService {
     @GET("haru/login/loadDB.php")
     fun getLoginItem(): Call<ArrayList<ProfileItem>>
 
+    //contact us
+    @GET("haru/contact/insertDB.php")
+    fun setContactUsItem(
+        @Query("act") act: String?,
+        @Query("comment") comment: String?
+    ): Call<String>
 
     //Home
     @GET("haru/loadHome.php")
