@@ -8,12 +8,14 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.shuhart.materialcalendarview.MaterialCalendarView
 import com.song.project01haru.G
 import com.song.project01haru.R
 import com.song.project01haru.RetrofitService
 import com.song.project01haru.databinding.FragmentEditIncBinding
+import com.song.project01haru.main.expinc.ExpIncItem
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,7 +31,7 @@ class EditIncFragment : Fragment() {
     val sdf: SimpleDateFormat = SimpleDateFormat("yyyy.MM.dd")
     lateinit var date:String
     lateinit var inc:String
-    //lateinit var exp:String
+    lateinit var exp:String
     lateinit var total:String
     lateinit var amount:String
     var account:Int = R.drawable.type_card
@@ -37,9 +39,12 @@ class EditIncFragment : Fragment() {
     lateinit var category:String
     lateinit var note:String
 
+    lateinit var mosInc:String
+
+    var items:MutableList<BsdItem> = mutableListOf()
+
     override fun onCreate(savedInstanceState: Bundle?)  {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) : View?{
@@ -57,28 +62,90 @@ class EditIncFragment : Fragment() {
         binding.tvDate.setOnClickListener { calDialog() }
 
         binding.tvAccount.setOnClickListener { selectAct() }
-
-        inc=" "
-        total=" "
-        amount=" "
+        items.add(BsdItem("cash"))
+        items.add(BsdItem("card"))
+        exp="0"
+        inc="0"
+        total="0"
+        amount="0"
         account=R.drawable.type_card
         type=" "
         category=" "
         note=" "
+
+        mosInc="0"
+
         binding.tvOk.setOnClickListener { uploadDB() }
         binding.tvCancel.setOnClickListener { requireActivity().finish() }
 
-    }
+    }//onCreateView(..)
     fun selectAct(){
         var bottomSheetDialog= BottomSheetDialog(requireContext())
         bottomSheetDialog.setContentView(R.layout.bottomsheet_dialog)
         bottomSheetDialog.setCanceledOnTouchOutside(true)
         bottomSheetDialog.show()
-    }
+        val adapter=BsdAdapter(requireActivity(),items)
 
+        items.add(items.size,BsdItem("  +  "))
+
+        bottomSheetDialog.findViewById<RecyclerView>(R.id.recycler)?.adapter=adapter
+        bottomSheetDialog.show()
+
+        adapter.setOnItemclickListner(object: BsdAdapter.OnItemClickListner{
+            override fun onItemClick(view: View, position: Int) {
+                if (position==items.size-1){
+                    var dialog=AlertDialog.Builder(requireActivity()).setView(R.layout.dialog_account).create()
+                    dialog.show()
+
+                    dialog.findViewById<TextView>(R.id.tv_ok)?.setOnClickListener {
+                        if(dialog.findViewById<TextView>(R.id.tv_type)!!.text!=null){
+                            binding.tvAccount.text= dialog.findViewById<TextView>(R.id.tv_type)!!.text.toString()
+                            items.add(items.size-1,BsdItem(binding.tvAccount.text.toString()))
+                            adapter.notifyDataSetChanged()
+                            dialog.dismiss()
+                        }
+                    }
+
+                }
+                else{
+                    binding.tvAccount.text=items[position].act
+                    bottomSheetDialog.dismiss()
+
+                }
+                if(binding.tvAccount.text.equals("card") || binding.tvAccount.text.equals("cash")) type=""
+                else type=binding.tvAccount.text.toString()
+
+            }
+        })
+
+    }//selectAct()
+    fun loadDB(){
+        val builder= Retrofit.Builder().baseUrl("http://mins22.dothome.co.kr")
+            .addConverterFactory(ScalarsConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create()).build()
+            .create(RetrofitService::class.java)
+
+        val call: Call<ArrayList<ExpIncItem>> = builder.getExpIncItem(G.act,date)
+
+        call.enqueue(object : Callback<ArrayList<ExpIncItem>> {
+            override fun onResponse(
+                call: Call<ArrayList<ExpIncItem>>,
+                response: Response<ArrayList<ExpIncItem>>
+            ) {
+                val items: ArrayList<ExpIncItem> = response.body()!!
+
+                for (item in items) {
+                    exp=item.totalExp
+                }
+            }
+            override fun onFailure(call: Call<ArrayList<ExpIncItem>>, t: Throwable) {
+            }
+        })
+    }//loadDB()
     fun uploadDB() {
+        loadDB()
         inc =binding.etAmount.text.toString()
-        total= "6000"//(toInt()+inc.toInt()).toString()
+        total= (exp.toInt()+inc.toInt()).toString()
         amount=binding.etAmount.text.toString()
 
         if(binding.tvAccount.text.toString().equals("card")) account= R.drawable.type_card
@@ -97,7 +164,7 @@ class EditIncFragment : Fragment() {
             G.act,
             date,
             inc,
-            "9000",
+            exp,
             total,
             "+"+amount,
             20,
@@ -134,5 +201,6 @@ class EditIncFragment : Fragment() {
         }
         tvCancel?.setOnClickListener { dialog.dismiss() }
 
-    }//calDialog
-}
+    }//calDialog()
+
+}//EditIncFragment

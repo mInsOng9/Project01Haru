@@ -25,15 +25,16 @@ class ProfileActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         loadDB()
-        binding.etEmail.hint = intent.getStringExtra("email").toString()
-        binding.etName.hint = intent.getStringExtra("name").toString()
+        binding.etEmail.setText(intent.getStringExtra("email").toString())
+        binding.etName.setText(intent.getStringExtra("name").toString())
 
         Glide.with(this).load(intent.getStringExtra("img")).into(binding.ivProfile)
         img=intent.getStringExtra("img").toString()
 
         binding.tvOk.setOnClickListener {
             uploadDB()
-            startActivity(Intent(this, MainActivity::class.java))
+
+            startActivity(Intent(this,MainActivity::class.java))
         }
         binding.tvCancel.setOnClickListener { finish() }
     }
@@ -45,11 +46,10 @@ class ProfileActivity : AppCompatActivity() {
     val retrofitService = builder.create(RetrofitService::class.java)
 
     fun uploadDB(){
-
         val call: Call<String> = retrofitService.setLoginItem(
             G.act,
-            binding.etEmail.hint.toString(),
-            binding.etName.hint.toString(),
+            binding.etEmail.text.toString(),
+            binding.etName.text.toString(),
             img
         )
 
@@ -72,8 +72,8 @@ class ProfileActivity : AppCompatActivity() {
                 val items: ArrayList<ProfileItem> = response.body()!!
 
                 for (item in items) {
-                    binding.etEmail.hint=item.email
-                    binding.etName.hint=item.name
+                    binding.etEmail.setText(item.email)
+                    binding.etName.setText(item.name)
                     Glide.with(this@ProfileActivity ).load(item.img).error(R.drawable.profile).into(binding.ivProfile)
                 }
             }
