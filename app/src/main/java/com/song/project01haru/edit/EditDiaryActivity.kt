@@ -1,8 +1,9 @@
 package com.song.project01haru.edit
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
@@ -10,18 +11,24 @@ import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.loader.content.CursorLoader
 import com.bumptech.glide.Glide
 import com.shuhart.materialcalendarview.MaterialCalendarView
 import com.song.project01haru.G
 import com.song.project01haru.R
 import com.song.project01haru.RetrofitService
 import com.song.project01haru.databinding.ActivityEditDiaryBinding
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -61,12 +68,20 @@ class EditDiaryActivity : AppCompatActivity() {
 
         binding.tvOk.setOnClickListener { uploadDB() }
         binding.tvCancel.setOnClickListener { finish() }
-        binding.ivDiaryPhoto.setOnClickListener {
-            var intent=Intent(Intent.ACTION_PICK)
-            intent.setType("image/*")
-            resultLauncher.launch(intent)
+        binding.ivAddPhoto.setOnClickListener {
+            if(binding.ivPhoto1!=null && binding.ivPhoto2!=null){
+                photoDialog.show()
+            }
+            else{
+                var intent=Intent(Intent.ACTION_PICK)
+                intent.setType("image/*")
+                resultLauncher.launch(intent)
+            }
         }
+        binding.ivPhoto1.setOnClickListener { photoDialog.show() }
+        binding.ivPhoto2.setOnClickListener { photoDialog.show() }
     }
+    val photoDialog:AlertDialog= AlertDialog.Builder(this).setView(R.layout.dialog_photo).create()
 
     val resultLauncher: ActivityResultLauncher<Intent> =registerForActivityResult(
         ActivityResultContracts.StartActivityForResult(),
@@ -74,10 +89,42 @@ class EditDiaryActivity : AppCompatActivity() {
         if(result.resultCode!= RESULT_CANCELED){
             var intent=result.data
             var uri=intent?.data
+            if(binding.ivPhoto1==null){
+                Glide.with(this).load(uri).into(binding.ivPhoto1)
+                Glide.with(this).load(uri).into(photoDialog.findViewById<>())
+            }
+            else{
+                if(binding.ivPhoto2==null){
+                    Glide.with(this).load(uri).into(binding.ivPhoto2)
+                    Glide.with(this).load(uri).into(photoDialog.findViewById<>())
 
-            Glide.with(this).load(uri).into(binding.ivDiaryPhoto)
+                }
+                else{
+                    photoDialog.show()
+
+                }
+            }
+            imgPath= getRealPathFromUri(uri).toString()
         }
     })
+
+    lateinit var imgPath:String
+
+    fun getRealPathFromUri(uri: Uri?): String? {
+        val proj = arrayOf(MediaStore.Images.Media.DATA)
+        val loader = CursorLoader(
+            this,
+            uri!!, proj, null, null, null
+        )
+        val cursor = loader.loadInBackground()
+        val column_index = cursor!!.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+        cursor.moveToFirst()
+        val result = cursor.getString(column_index)
+        cursor.close()
+        return result
+
+    }//getRealPathFromUri
+
     fun uploadDB() {
 
         content=binding.etDiary.text.toString()
@@ -88,12 +135,16 @@ class EditDiaryActivity : AppCompatActivity() {
             .build()
             .create(RetrofitService::class.java)
 
+        var file= File(imgPath)
+        var requestBody=RequestBody.create(MediaType.parse("image/*"),file)
+        var part:MultipartBody.Part=MultipartBody.Part.createFormData("img",file.name,requestBody)
+
         val call: Call<String> = builder.setDiaryItem(
             G.act,
             date,
             icon,
             content,
-            img,
+            part,
             map_lat,
             map_long
         )

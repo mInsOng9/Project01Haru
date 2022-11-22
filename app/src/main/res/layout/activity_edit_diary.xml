@@ -94,8 +94,25 @@
         android:layout_marginLeft="16dp"
         android:inputType="textMultiLine"
         android:maxEms="50"/>
+
     <ImageView
-        android:id="@+id/iv_diary_photo"
+        android:id="@+id/iv_photo1"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_below="@id/et_diary"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="-15dp"
+        android:layout_toLeftOf="@id/iv_photo2" />
+    <ImageView
+        android:id="@+id/iv_photo2"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginRight="-15dp"
+        android:layout_below="@id/et_diary"
+        android:layout_toLeftOf="@id/iv_add_photo"
+        android:layout_marginTop="8dp"/>
+    <ImageView
+        android:id="@+id/iv_add_photo"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginRight="16dp"

@@ -8,9 +8,11 @@ import com.song.project01haru.main.skd.EventItem
 import com.song.project01haru.main.skd.SkdEvtItem
 import com.song.project01haru.main.skd.SkdItem
 import com.song.project01haru.main.todo.TodoItem
+import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.Part
 import retrofit2.http.Query
 
 interface RetrofitService {
@@ -105,7 +107,7 @@ interface RetrofitService {
         @Query("date") date:String?,
         @Query("icon") icon:String?,
         @Query("content") content:String?,
-        @Query("img") img:String?,
+        @Part ("img") img:MultipartBody.Part,
         @Query("map_lat") map_lat:Double?,
         @Query("map_long") map_long:Double?,
     ):Call<String>
