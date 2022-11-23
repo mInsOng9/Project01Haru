@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
@@ -13,6 +14,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.loader.content.CursorLoader
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.shuhart.materialcalendarview.MaterialCalendarView
 import com.song.project01haru.G
@@ -44,6 +46,8 @@ class EditDiaryActivity : AppCompatActivity() {
     var map_lat:Double = 0.0
     var map_long:Double = 0.0
 
+    var items:MutableList<String> = mutableListOf()
+    lateinit var pagerAdapter:DiaryPagerAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,19 +73,19 @@ class EditDiaryActivity : AppCompatActivity() {
         binding.tvOk.setOnClickListener { uploadDB() }
         binding.tvCancel.setOnClickListener { finish() }
         binding.ivAddPhoto.setOnClickListener {
-            if(binding.ivPhoto1!=null && binding.ivPhoto2!=null){
-                photoDialog.show()
-            }
-            else{
+
                 var intent=Intent(Intent.ACTION_PICK)
                 intent.setType("image/*")
                 resultLauncher.launch(intent)
-            }
+
         }
         binding.ivPhoto1.setOnClickListener { photoDialog.show() }
-        binding.ivPhoto2.setOnClickListener { photoDialog.show() }
+        binding.ivPhoto2.setOnClickListener { photoDialog.show()}
+
+        photoDialog=AlertDialog.Builder(this).setView(R.layout.dialog_photo).create()
+
     }
-    val photoDialog:AlertDialog= AlertDialog.Builder(this).setView(R.layout.dialog_photo).create()
+    lateinit var photoDialog:AlertDialog
 
     val resultLauncher: ActivityResultLauncher<Intent> =registerForActivityResult(
         ActivityResultContracts.StartActivityForResult(),
@@ -89,21 +93,19 @@ class EditDiaryActivity : AppCompatActivity() {
         if(result.resultCode!= RESULT_CANCELED){
             var intent=result.data
             var uri=intent?.data
-            if(binding.ivPhoto1==null){
+            var pager: ViewPager2? =photoDialog.findViewById<ViewPager2>(R.id.vp)
+            //viewpager
+            pagerAdapter= DiaryPagerAdapter(this,items)
+            pager?.adapter=pagerAdapter
+
+            //if(binding.ivPhoto1==null){
                 Glide.with(this).load(uri).into(binding.ivPhoto1)
-                Glide.with(this).load(uri).into(photoDialog.findViewById<>())
-            }
-            else{
-                if(binding.ivPhoto2==null){
-                    Glide.with(this).load(uri).into(binding.ivPhoto2)
-                    Glide.with(this).load(uri).into(photoDialog.findViewById<>())
+                items.add(uri.toString())
 
-                }
-                else{
+                //if(binding.ivPhoto2==null){
+//                    Glide.with(this).load(uri).into(binding.ivPhoto2)
+//                    items.add(uri.toString())
                     photoDialog.show()
-
-                }
-            }
             imgPath= getRealPathFromUri(uri).toString()
         }
     })
