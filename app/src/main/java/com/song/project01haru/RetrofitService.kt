@@ -112,4 +112,21 @@ interface RetrofitService {
 
     @GET("haru/diary/loadDB.php")
     fun getDiaryItem(@Query("act") act:String?,@Query("date") date:String?):Call <ArrayList<DiaryItem>>
+
+    @GET("getHoliDeInfo")
+    fun getHoliday(
+        @Query("ServiceKey")apiKey:String,
+        @Query("solYear")year:String,
+        @Query("solMonth") month:String,
+        @Query("_type") type:String="json"
+    ):Call<RestItem>
+
+    @GET("getHoliDeInfo")
+    fun getHoliday2(
+        @Query("ServiceKey")apiKey:String,
+        @Query("solYear")year:String,
+        @Query("solMonth") month:String,
+        @Query("_type") type:String="json"
+    ):Call<String>
+
 }

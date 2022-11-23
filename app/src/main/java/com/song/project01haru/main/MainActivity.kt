@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.navigation.NavigationView
+import com.google.gson.GsonBuilder
 import com.shuhart.materialcalendarview.*
 import com.shuhart.materialcalendarview.MaterialCalendarView.Companion.SELECTION_MODE_RANGE
 import com.song.project01haru.*
@@ -32,6 +33,12 @@ import com.song.project01haru.main.skd.SkdFragment
 import com.song.project01haru.main.todo.TodoFragment
 import org.json.JSONArray
 import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.io.BufferedReader
 import java.io.InputStream
 import java.io.InputStreamReader
@@ -240,8 +247,87 @@ class MainActivity : AppCompatActivity() {
 
         calendar.monthIndicatorVisible=false
         calendar.selectionMode= SELECTION_MODE_RANGE
+        val apiKey="ree7QcEjSF8SAguLrEw9p1nb5SEGKDvhb8PnvaPqJP7N8meanZVpJsQNxDlrGDTzprvGOrbs/v/TsELdXsuF5w=="
+        var urlAddress: String =
+                "http://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/"
+//        +"ServiceKey=" + "ree7QcEjSF8SAguLrEw9p1nb5SEGKDvhb8PnvaPqJP7N8meanZVpJsQNxDlrGDTzprvGOrbs%2Fv%2FTsELdXsuF5w%3D%3D" +
+//                        "&solYear=2015" +
+//                        "&solMonth=09" +
+//                        "&_type=json"
+        val builder= Retrofit.Builder().baseUrl(urlAddress)
+            .addConverterFactory(ScalarsConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
+            .build()
+            .create(RetrofitService::class.java)
 
+        builder.getHoliday(
+            apiKey,
+            "2019",
+            "03"
+        ).enqueue(object : Callback<RestItem>{
 
+            override fun onResponse(call: Call<RestItem>, response: Response<RestItem>) {
+                response.body()?.locdate?.let { Log.e("date", it) }
+                response.body()?.dateName?.let{Log.e("name",it)
+                    Toast.makeText(this@MainActivity, "adsf"+it, Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<RestItem>, t: Throwable) {
+                Log.e("err",t.message.toString())
+            }
+        })
+//        builder.getHoliday2(
+//            apiKey,
+//            SimpleDateFormat("yyyy").format(date),
+//            SimpleDateFormat("MM").format(date)
+//        ).enqueue(object :Callback<String>{
+//            override fun onResponse(call: Call<String>, response: Response<String>) {
+//                Log.e("res",response.body().toString())
+//            }
+//
+//            override fun onFailure(call: Call<String>, t: Throwable) {
+//                Log.e("err",t.message.toString())
+//            }
+//
+//        })
+//        thread(start=true) {
+//
+//            lateinit var restItem: RestItem
+//            lateinit var restItems: MutableList<RestItem>
+//            lateinit var locdate: String
+//            lateinit var dateName: String
+//
+
+//            //json parsing
+//            restItems = mutableListOf()
+//            val url: URL = URL(urlAddress)
+//            Log.e("url", urlAddress)
+//
+//            var reader: BufferedReader = BufferedReader(InputStreamReader(url.openStream()))
+//            var buffer: StringBuffer = StringBuffer()
+//            while (true) {
+//                var line = reader.readLine()
+//                if (line == null) break;
+//                buffer.append(line + "\n")
+//            }
+//
+//            runOnUiThread {
+//                var jsonArray: JSONArray = JSONArray(buffer.toString())
+//
+//                for (i in 0 until jsonArray.length()) {
+//                    var jo: JSONObject = jsonArray.getJSONObject(i)
+//
+//                    var body: JSONObject = jo.getJSONObject("body")
+//                    var items: JSONObject = body.getJSONObject("items")
+//                    var item: JSONObject = items.getJSONObject("item")
+//                    locdate = item.get("locdate").toString()
+//                    dateName = item.get("dateName").toString()
+//
+//                }
+//                Toast.makeText(this@MainActivity, "" + locdate + "df:" + dateName, Toast.LENGTH_SHORT).show()
+//            }
+//        }
     }
 
 
