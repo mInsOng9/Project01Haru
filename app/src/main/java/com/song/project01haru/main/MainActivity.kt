@@ -260,7 +260,7 @@ class MainActivity : AppCompatActivity() {
 //            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
 //            .build()
 //            .create(RetrofitService::class.java)
-
+//https://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getHoliDeInfo?solYear=2019&solMonth=05&ServiceKey=ree7QcEjSF8SAguLrEw9p1nb5SEGKDvhb8PnvaPqJP7N8meanZVpJsQNxDlrGDTzprvGOrbs%2Fv%2FTsELdXsuF5w%3D%3D&_type=json
 //        builder.getHoliday(
 //            apiKey,
 //            "2019",
