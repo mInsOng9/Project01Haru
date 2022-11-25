@@ -48,7 +48,8 @@ class EditDiaryActivity : AppCompatActivity() {
 
     var items:MutableList<String> = mutableListOf()
     lateinit var pagerAdapter:DiaryPagerAdapter
-
+    lateinit var photoDialog:AlertDialog
+    var pager: ViewPager2? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,13 +80,17 @@ class EditDiaryActivity : AppCompatActivity() {
                 resultLauncher.launch(intent)
 
         }
-        binding.ivPhoto1.setOnClickListener { photoDialog.show() }
-        binding.ivPhoto2.setOnClickListener { photoDialog.show()}
 
+        //photodialog with ViewPager2
         photoDialog=AlertDialog.Builder(this).setView(R.layout.dialog_photo).create()
+//        items.add(R.drawable.profile.toString())
+        binding.ivPhoto2.setOnClickListener {
+            photoDialog.findViewById<ViewPager2>(R.id.vp)?.adapter=DiaryPagerAdapter(this,items)
+            photoDialog.show()
+        }
+
 
     }
-    lateinit var photoDialog:AlertDialog
 
     val resultLauncher: ActivityResultLauncher<Intent> =registerForActivityResult(
         ActivityResultContracts.StartActivityForResult(),
@@ -93,19 +98,10 @@ class EditDiaryActivity : AppCompatActivity() {
         if(result.resultCode!= RESULT_CANCELED){
             var intent=result.data
             var uri=intent?.data
-            var pager: ViewPager2? =photoDialog.findViewById<ViewPager2>(R.id.vp)
-            //viewpager
-            pagerAdapter= DiaryPagerAdapter(this,items)
-            pager?.adapter=pagerAdapter
 
-            //if(binding.ivPhoto1==null){
-                Glide.with(this).load(uri).into(binding.ivPhoto1)
-                items.add(uri.toString())
+            Glide.with(this).load(uri).into(binding.ivPhoto1)
+            items.add(uri.toString())
 
-                //if(binding.ivPhoto2==null){
-//                    Glide.with(this).load(uri).into(binding.ivPhoto2)
-//                    items.add(uri.toString())
-                    photoDialog.show()
             imgPath= getRealPathFromUri(uri).toString()
         }
     })

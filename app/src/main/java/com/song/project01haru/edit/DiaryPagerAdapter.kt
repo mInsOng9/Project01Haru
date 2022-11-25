@@ -16,16 +16,16 @@ class DiaryPagerAdapter(var context: Context, var items:MutableList<String>):
     RecyclerView.Adapter<DiaryPagerAdapter.VH>() {
 
     inner class VH(itemView: View):RecyclerView.ViewHolder(itemView){
-        var binding=DialogPhotoBinding.bind(itemView)
+        var binding=DialogPhotoPagerBinding.bind(itemView)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
-        var view=LayoutInflater.from(context).inflate(R.layout.dialog_photo,parent,false)
+        var view=LayoutInflater.from(context).inflate(R.layout.dialog_photo_pager,parent,false)
         return VH(view)
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
-        Glide.with(context).load(items.get(position)).into(holder.binding.ivPager)
+        Glide.with(context).load(R.drawable.icon).into(holder.binding.ivPager)
     }
 
     override fun getItemCount(): Int = items.size
