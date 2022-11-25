@@ -70,17 +70,6 @@
         android:textColor="@color/black"
         android:textSize="24sp"/>
 
-    <TextView
-        android:id="@+id/tv_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/tv_date"
-        android:layout_marginLeft="12dp"
-        android:layout_toRightOf="@id/tv_date"
-        android:fontFamily="@font/halant_regular"
-        android:text="10:00 pm"
-        android:textColor="@color/black"
-        android:textSize="22sp" />
 
     <EditText
         android:id="@+id/et_amount"
