@@ -23,7 +23,7 @@ interface RetrofitService {
         @Query("act") act: String?,
         @Query("email") email: String?,
         @Query("name") name: String?,
-        @Query("img") img: String?
+        @Query("img") img: MultipartBody.Part
     ): Call<String>
 
     @GET("haru/login/loadDB.php")

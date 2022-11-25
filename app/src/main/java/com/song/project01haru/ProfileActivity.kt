@@ -1,18 +1,29 @@
 package com.song.project01haru
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultCallback
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.loader.content.CursorLoader
 import com.bumptech.glide.Glide
 import com.song.project01haru.databinding.ActivityProfileBinding
 import com.song.project01haru.main.MainActivity
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
+import java.io.File
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -27,7 +38,11 @@ class ProfileActivity : AppCompatActivity() {
         loadDB()
         binding.etEmail.hint = intent.getStringExtra("email").toString()
         binding.etName.hint = intent.getStringExtra("name").toString()
-
+        binding.ivProfile.setOnClickListener {
+            var intent=Intent(Intent.ACTION_PICK)
+            intent.setType("image/*")
+            resultLauncher.launch(intent)
+        }
         Glide.with(this).load(intent.getStringExtra("img")).into(binding.ivProfile)
         img=intent.getStringExtra("img").toString()
 
@@ -36,7 +51,37 @@ class ProfileActivity : AppCompatActivity() {
             startActivity(Intent(this, MainActivity::class.java))
         }
         binding.tvCancel.setOnClickListener { finish() }
-    }
+    }//onCreate
+
+    val resultLauncher: ActivityResultLauncher<Intent> =registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult(),
+        ActivityResultCallback<ActivityResult>(){ result ->
+            if(result.resultCode!= RESULT_CANCELED){
+                var intent=result.data
+                var uri=intent?.data
+
+                Glide.with(this).load(uri).into(binding.ivProfile)
+
+                imgPath= getRealPathFromUri(uri).toString()
+            }
+    })//resultLauncher
+
+    lateinit var imgPath:String
+
+    fun getRealPathFromUri(uri: Uri?): String? {
+        val proj = arrayOf(MediaStore.Images.Media.DATA)
+        val loader = CursorLoader(
+            this,
+            uri!!, proj, null, null, null
+        )
+        val cursor = loader.loadInBackground()
+        val column_index = cursor!!.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+        cursor.moveToFirst()
+        val result = cursor.getString(column_index)
+        cursor.close()
+        return result
+
+    }//getRealPathFromUri
 
     val builder = Retrofit.Builder().baseUrl("http://mins22.dothome.co.kr")
         .addConverterFactory(ScalarsConverterFactory.create())
@@ -45,12 +90,14 @@ class ProfileActivity : AppCompatActivity() {
     val retrofitService = builder.create(RetrofitService::class.java)
 
     fun uploadDB(){
-
+        var file= File(imgPath)
+        var requestBody=RequestBody.create(MediaType.parse("image/*"),file)
+        var part=MultipartBody.Part.createFormData("img",file.getName(),requestBody)
         val call: Call<String> = retrofitService.setLoginItem(
             G.act,
             binding.etEmail.hint.toString(),
             binding.etName.hint.toString(),
-            img
+            part
         )
 
         call.enqueue(object : Callback<String> {
