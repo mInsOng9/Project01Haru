@@ -74,7 +74,7 @@ class ProfileActivity : AppCompatActivity() {
                 for (item in items) {
                     binding.etEmail.hint=item.email
                     binding.etName.hint=item.name
-                    Glide.with(this@ProfileActivity ).load(item.img).error(R.drawable.profile).into(binding.ivProfile)
+                    Glide.with(this@ProfileActivity ).load(item.img).error(R.drawable.ic_baseline_account_circle_24).into(binding.ivProfile)
                 }
             }
             override fun onFailure(call: Call<ArrayList<ProfileItem>>, t: Throwable) {

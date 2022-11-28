@@ -69,6 +69,7 @@ class MainActivity : AppCompatActivity() {
         binding=ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.tvTitleDate.setText(sdf.format(Date()))
         //toolbar
         val toolbar: androidx.appcompat.widget.Toolbar =binding.toolbar
         setSupportActionBar(toolbar)

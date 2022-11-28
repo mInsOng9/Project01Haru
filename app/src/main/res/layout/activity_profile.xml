@@ -10,6 +10,7 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_centerHorizontal="true"
+        android:src="@drawable/ic_baseline_account_circle_24"
         android:layout_marginTop="120dp"/>
 
     <TextView
@@ -55,17 +56,7 @@
         android:layout_marginRight="50dp"
         android:textColorHint="@color/black"
         android:maxLines="1"/>
-    <TextView
-        android:id="@+id/tv_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="50dp"
-        android:text="User No."
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:layout_below="@id/et_name"
-        android:fontFamily="@font/halant_regular"/>
+
 
     <TextView
         android:id="@+id/tv_cancel"
