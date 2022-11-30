@@ -29,7 +29,7 @@ class ExpIncAdapter constructor(var context:Context, var items:MutableList<ExpIn
         holder.binding.tvType.setText(items[position].type)
         holder.binding.tvCategory.setText(items[position].category)
         holder.binding.tvExpincNote.setText(items[position].note)
-        holder.binding.tvAmount.setText(items[position].amount)
+        holder.binding.tvAmount.setText(items[position].amount.toString())
     }
 
     override fun getItemCount(): Int =items.size

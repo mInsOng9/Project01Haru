@@ -1,6 +1,7 @@
 package com.song.project01haru.edit
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,10 +31,8 @@ class EditIncFragment : Fragment() {
     lateinit var binding: FragmentEditIncBinding
     val sdf: SimpleDateFormat = SimpleDateFormat("yyyy.MM.dd")
     lateinit var date:String
-    lateinit var inc:String
-    lateinit var exp:String
-    lateinit var total:String
-    lateinit var amount:String
+
+    var amount=0.0
     var account:Int = R.drawable.type_card
     lateinit var type:String
     lateinit var category:String
@@ -64,10 +63,6 @@ class EditIncFragment : Fragment() {
         binding.tvAccount.setOnClickListener { selectAct() }
         items.add(BsdItem("cash"))
         items.add(BsdItem("card"))
-        exp="0"
-        inc="0"
-        total="0"
-        amount="0"
         account=R.drawable.type_card
         type=" "
         category=" "
@@ -119,55 +114,26 @@ class EditIncFragment : Fragment() {
         })
 
     }//selectAct()
-    fun loadDB(){
-        val builder= Retrofit.Builder().baseUrl("http://mins22.dothome.co.kr")
-            .addConverterFactory(ScalarsConverterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create()).build()
-            .create(RetrofitService::class.java)
 
-        val call: Call<ArrayList<ExpIncItem>> = builder.getExpIncItem(G.act,date)
-
-        call.enqueue(object : Callback<ArrayList<ExpIncItem>> {
-            override fun onResponse(
-                call: Call<ArrayList<ExpIncItem>>,
-                response: Response<ArrayList<ExpIncItem>>
-            ) {
-                val items: ArrayList<ExpIncItem> = response.body()!!
-
-                for (item in items) {
-                    exp=item.totalExp
-                }
-            }
-            override fun onFailure(call: Call<ArrayList<ExpIncItem>>, t: Throwable) {
-            }
-        })
-    }//loadDB()
     fun uploadDB() {
-        loadDB()
-        inc =binding.etAmount.text.toString()
-        total= (exp.toInt()+inc.toInt()).toString()
-        amount=binding.etAmount.text.toString()
 
         if(binding.tvAccount.text.toString().equals("card")) account= R.drawable.type_card
         else if(binding.tvAccount.text.toString().equals("cash")) account=R.drawable.type_cash
 
         category=binding.etCategory.text.toString()
         note=binding.etNotes.text.toString()
-
+        amount=binding.etAmount.text as Double
         val builder = Retrofit.Builder().baseUrl("http://mins22.dothome.co.kr")
             .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(RetrofitService::class.java)
 
-        val call: Call<String> = builder.setExpincItem(
+        val call: Call<String> = builder.setIncItem(
             G.act,
             date,
-            inc,
-            exp,
-            total,
-            "+"+amount,
-            20,
+            amount,
+            account,
             type,
             category,
             note
@@ -175,7 +141,7 @@ class EditIncFragment : Fragment() {
         call.enqueue(object: Callback<String> {
             override fun onResponse(call: Call<String>, response: Response<String>) {
                 var a:String?=response.body()
-                Toast.makeText(requireContext(), ""+a, Toast.LENGTH_SHORT).show()
+                Log.e("hi",a.toString())
 
             }
 

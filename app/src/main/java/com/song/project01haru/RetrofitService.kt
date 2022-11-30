@@ -38,15 +38,23 @@ interface RetrofitService {
     @GET("haru/loadHome.php")
     fun getHomeItem(@Query("act") act:String?,@Query("date") date:String?): Call<String>
 
-    //ExpInc
+    //Exp
     @GET("haru/exp/insertDB.php")
-    fun setExpincItem(
+    fun setExpItem(
         @Query("act") act:String?,
         @Query("date") date: String?,
-        @Query("incTotal") inc: String?,
-        @Query("expTotal") exp: String?,
-        @Query("total") total: String?,
-        @Query("amount") amount: String?,
+        @Query("amount") amount: Double?,
+        @Query("account") account: Int?,
+        @Query("type") type: String?,
+        @Query("category") category: String?,
+        @Query("note") note: String?
+    ): Call<String>
+    //Income
+    @GET("haru/exp/insertIncDB.php")
+    fun setIncItem(
+        @Query("act") act:String?,
+        @Query("date") date: String?,
+        @Query("amount") amount: Double?,
         @Query("account") account: Int?,
         @Query("type") type: String?,
         @Query("category") category: String?,
@@ -54,7 +62,7 @@ interface RetrofitService {
     ): Call<String>
 
     @GET("haru/exp/loadDB.php")
-    fun getExpIncItem(@Query("act") act:String?,@Query("date") date:String?): Call<ArrayList<ExpIncItem>>
+    fun getExpIncItem(@Query("act") act:String?,@Query("date") date:String?): Call<String>
 
     //TodoList
     @GET("haru/todo/insertDB.php")

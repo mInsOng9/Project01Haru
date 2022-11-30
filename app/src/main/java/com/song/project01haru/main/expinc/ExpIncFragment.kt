@@ -1,14 +1,19 @@
 package com.song.project01haru.main.expinc
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.song.project01haru.G
+import com.song.project01haru.R
 import com.song.project01haru.databinding.FragmentExpIncBinding
 import com.song.project01haru.RetrofitService
+import com.song.project01haru.main.home.HomeAdapter
+import com.song.project01haru.main.home.HomeItem
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -21,7 +26,7 @@ import java.util.*
 class ExpIncFragment:Fragment() {
 
     lateinit var binding:FragmentExpIncBinding
-    var expincItems = mutableListOf<ExpIncItem>()
+    var items = mutableListOf<ExpIncItem>()
     val recyclerView by lazy {binding.recycler}
 
     val daySdf= SimpleDateFormat("dd EE")
@@ -45,59 +50,84 @@ class ExpIncFragment:Fragment() {
 //        day = arguments?.getString("date").toString()
 //
         date=SimpleDateFormat("yyyy-MM-dd").format(Date())
-        loadDB()
+        loadDB(date)
 
-        recyclerView.adapter = ExpIncAdapter(requireActivity(), expincItems)
+        recyclerView.adapter = ExpIncAdapter(requireActivity(), items)
 
     }
-    fun loadDB(){
-        val builder= Retrofit.Builder().baseUrl("http://mins22.dothome.co.kr")
+    fun loadDB(date:String){
+        val builder=Retrofit.Builder().baseUrl("http://mins22.dothome.co.kr")
             .addConverterFactory(ScalarsConverterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create()).build()
+            .build()
             .create(RetrofitService::class.java)
 
-        val call: Call<ArrayList<ExpIncItem>> = builder.getExpIncItem(G.act,date)
+        val call: Call<String> = builder.getExpIncItem(G.act,date)
 
-        call.enqueue(object : Callback<ArrayList<ExpIncItem>> {
-            override fun onResponse(
-                call: Call<ArrayList<ExpIncItem>>,
-                response: Response<ArrayList<ExpIncItem>>
-            ) {
-                val items: ArrayList<ExpIncItem> = response.body()!!
+        call.enqueue(object: Callback<String>{
+            override fun onResponse(call: Call<String>, response: Response<String>) {
 
-                for (item in items) {
-                    var aaa:List<String> = item.date.split("-")
-                    val a:GregorianCalendar = GregorianCalendar(aaa[0].toInt(), aaa[1].toInt(), aaa[2].toInt())
-                    item.date= daySdf.format( a.time )
+                Log.e("res",response.body().toString())
 
-                    expincItems.add(ExpIncItem(G.act,item.date,item.totalInc,item.totalExp,item.total,item.amount,item.account,item.type,item.category,item.note))
+                var expTotal:Double=0.0
+                var incTotal:Double=0.0
+                var exp:Double=0.0
+                var inc=0.0
+                var category=""
+                var type=""
+                var account= R.drawable.type_card
+                var note=""
 
+                var jo: JSONObject = JSONObject(response.body())
 
+                var expJo=jo.getJSONArray("exp")
+                for( i in 0 until expJo.length()){
+                    val expJo2=expJo.getJSONObject(i)
+                    expTotal+=expJo2.get("amount") as Double
+                    exp=expJo2.get("amount") as Double
+                    category=expJo2.get("category") as String
+                    type=expJo2.get("type") as String
+                    account=expJo2.get("account") as Int
+                    note=expJo2.get("note") as String
                 }
 
-                recyclerView.adapter= ExpIncAdapter(requireActivity(), expincItems)
+                var incJo=jo.getJSONArray("inc")
+                for( i in 0 until incJo.length()){
+                    val incJo2=incJo.getJSONObject(i)
+                    incTotal+=incJo2.get("amount") as Double
+                    inc=incJo2.get("amount") as Double
+                }
+
+                var aaa:List<String> = date.split("-")
+                val a:GregorianCalendar = GregorianCalendar(aaa[0].toInt(), aaa[1].toInt(), aaa[2].toInt())
+
+                items.add(ExpIncItem(daySdf.format(a.time),"-"+incTotal.toString(),"+"+expTotal.toString(), (incTotal-expTotal).toString(),exp,account,type,category,note))
+
+                binding.recycler.adapter = ExpIncAdapter(requireActivity(), items)
 
             }
-            override fun onFailure(call: Call<ArrayList<ExpIncItem>>, t: Throwable) {
+
+            override fun onFailure(call: Call<String>, t: Throwable) {
+                Toast.makeText(requireContext(), "${t.message}", Toast.LENGTH_SHORT).show()
             }
+
         })
     }
 
     lateinit var date:String
     fun changeDay(day:Date){
-        expincItems.clear()
+        items.clear()
         date=SimpleDateFormat("yyyy-MM-dd").format(day)
-        loadDB()
-        recyclerView.adapter = ExpIncAdapter(requireActivity(), expincItems)
+        loadDB(date)
+        recyclerView.adapter = ExpIncAdapter(requireActivity(), items)
     }
 
     fun changeDays(days:MutableList<String>){
-        expincItems.clear()
+        items.clear()
         days.forEach{ day->
             date=day
-            loadDB()
+            loadDB(date)
         }
-        recyclerView.adapter = ExpIncAdapter(requireActivity(), expincItems)
+        recyclerView.adapter = ExpIncAdapter(requireActivity(), items)
 
     }
 }

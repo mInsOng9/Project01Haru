@@ -28,6 +28,7 @@ android:padding="16dp">
         android:layout_marginBottom="24dp"
         android:fontFamily="@font/halant_regular"
         android:text="AMOUNT"
+        android:inputType="numberDecimal"
         android:textColor="@color/black"
         android:textSize="20sp" />
 
