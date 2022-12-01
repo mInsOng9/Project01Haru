@@ -69,12 +69,12 @@ class HomeFragment : Fragment() {
 
                 Log.e("res",response.body().toString())
 
-                var exp:String="0"
+                var exp=0.0
                 var diary:String=""
                 var jo:JSONObject= JSONObject(response.body())
                 if(!jo.isNull("exp")) {
                     val expJo=jo.getJSONObject("exp")
-                    exp=expJo.get("expTotal") as String
+                    exp=expJo.get("amount").toString().toDouble()
                 }
                 var todoJo=jo.getJSONArray("todo")
                 var skdJo=jo.getJSONArray("skd")

@@ -51,7 +51,6 @@ class ExpIncFragment:Fragment() {
 //
         date=SimpleDateFormat("yyyy-MM-dd").format(Date())
         loadDB(date)
-
         recyclerView.adapter = ExpIncAdapter(requireActivity(), items)
 
     }
@@ -82,25 +81,25 @@ class ExpIncFragment:Fragment() {
                 var expJo=jo.getJSONArray("exp")
                 for( i in 0 until expJo.length()){
                     val expJo2=expJo.getJSONObject(i)
-                    expTotal+=expJo2.get("amount") as Double
-                    exp=expJo2.get("amount") as Double
+                    expTotal+=expJo2.get("amount").toString().toDouble()
+                    exp=expJo2.get("amount").toString().toDouble()
                     category=expJo2.get("category") as String
                     type=expJo2.get("type") as String
-                    account=expJo2.get("account") as Int
+                    account=expJo2.get("account").toString().toInt()
                     note=expJo2.get("note") as String
                 }
 
                 var incJo=jo.getJSONArray("inc")
                 for( i in 0 until incJo.length()){
                     val incJo2=incJo.getJSONObject(i)
-                    incTotal+=incJo2.get("amount") as Double
-                    inc=incJo2.get("amount") as Double
+                    incTotal+=incJo2.get("amount").toString().toDouble()
+                    inc=incJo2.get("amount").toString().toDouble()
                 }
 
                 var aaa:List<String> = date.split("-")
                 val a:GregorianCalendar = GregorianCalendar(aaa[0].toInt(), aaa[1].toInt(), aaa[2].toInt())
 
-                items.add(ExpIncItem(daySdf.format(a.time),"-"+incTotal.toString(),"+"+expTotal.toString(), (incTotal-expTotal).toString(),exp,account,type,category,note))
+                items.add(ExpIncItem(daySdf.format(a.time),incTotal.toString(),expTotal.toString(), (incTotal-expTotal).toString(),exp,account,type,category,note))
 
                 binding.recycler.adapter = ExpIncAdapter(requireActivity(), items)
 

@@ -118,7 +118,7 @@ class EditExpFragment : Fragment() {
 
         category=binding.etCategory.text.toString()
         note=binding.etNotes.text.toString()
-        amount=binding.etAmount.text as Double
+        amount=binding.etAmount.text.toString().toDouble()
         val builder = Retrofit.Builder().baseUrl("http://mins22.dothome.co.kr")
             .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())

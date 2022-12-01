@@ -122,7 +122,7 @@ class EditIncFragment : Fragment() {
 
         category=binding.etCategory.text.toString()
         note=binding.etNotes.text.toString()
-        amount=binding.etAmount.text as Double
+        amount=binding.etAmount.text.toString().toDouble()
         val builder = Retrofit.Builder().baseUrl("http://mins22.dothome.co.kr")
             .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
@@ -141,8 +141,7 @@ class EditIncFragment : Fragment() {
         call.enqueue(object: Callback<String> {
             override fun onResponse(call: Call<String>, response: Response<String>) {
                 var a:String?=response.body()
-                Log.e("hi",a.toString())
-
+                Toast.makeText(requireContext(), ""+a, Toast.LENGTH_SHORT).show()
             }
 
             override fun onFailure(call: Call<String>, t: Throwable) {

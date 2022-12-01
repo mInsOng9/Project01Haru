@@ -42,7 +42,7 @@ class HomeAdapter constructor(val context: Context,var items:MutableList<HomeIte
         holder.schdNote.setText(item.schdNote)
         holder.schdTime.setText(item.schdTime)
         holder.todo.setText(item.todo)
-        holder.exp.setText(item.exp)
+        holder.exp.setText(item.exp.toString())
         holder.diary.setText(item.diary)
         Glide.with(context).load(item.feels).into(holder.feels)
     }
