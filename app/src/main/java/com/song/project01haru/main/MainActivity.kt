@@ -197,15 +197,14 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, EditDiaryActivity::class.java))
         })
 
-
+        //calendar listener to change title date
         calendar.addOnMonthChangedListener(object:OnMonthChangedListener{
             override fun onMonthChanged(widget: MaterialCalendarView, date: CalendarDay) {
                 binding.tvTitleDate.text=date.year.toString()+"."+(date.month+1).toString()
             }
 
         })
-
-        //range Listener
+        //calendar range selection Listener
         calendar.addOnRangeSelectedListener(object :OnRangeSelectedListener{
             override fun onRangeSelected(widget: MaterialCalendarView, dates: List<CalendarDay>) {
                 binding.tvTitleDate.text =sdf.format(calendar.selectedDates?.get(0).date)
@@ -226,7 +225,7 @@ class MainActivity : AppCompatActivity() {
 
             }
         })
-
+        //calendar oneday selection listener
         calendar.addOnDateChangedListener(object : OnDateSelectedListener{
             override fun onDateSelected(
                 widget: MaterialCalendarView,
@@ -247,6 +246,9 @@ class MainActivity : AppCompatActivity() {
 
         calendar.monthIndicatorVisible=false
         calendar.selectionMode= SELECTION_MODE_RANGE
+
+
+
         val apiKey="ree7QcEjSF8SAguLrEw9p1nb5SEGKDvhb8PnvaPqJP7N8meanZVpJsQNxDlrGDTzprvGOrbs/v/TsELdXsuF5w=="
         var urlAddress: String =
                 "http://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/"
@@ -264,16 +266,29 @@ class MainActivity : AppCompatActivity() {
             apiKey,
             "2019",
             "03"
-        ).enqueue(object : Callback<RestItem>{
+        ).enqueue(object : Callback<String>{
 
-            override fun onResponse(call: Call<RestItem>, response: Response<RestItem>) {
-                response.body()?.locdate?.let { Log.e("date", it) }
-                response.body()?.dateName?.let{Log.e("name",it)
-                    Toast.makeText(this@MainActivity, "adsf"+it, Toast.LENGTH_SHORT).show()
+
+
+            //            override fun onResponse(call: Call<RestItem>, response: Response<RestItem>) {
+//                response.body()?.locdate?.let { Log.e("date", it) }
+//                response.body()?.dateName?.let{Log.e("name",it)
+//                    Toast.makeText(this@MainActivity, "adsf"+it, Toast.LENGTH_SHORT).show()
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<RestItem>, t: Throwable) {
+//                Log.e("err",t.message.toString())
+//            }
+
+            override fun onResponse(call: Call<String>, response: Response<String>) {
+                response?.body()?.let{
+
+
                 }
             }
 
-            override fun onFailure(call: Call<RestItem>, t: Throwable) {
+            override fun onFailure(call: Call<String>, t: Throwable) {
                 Log.e("err",t.message.toString())
             }
         })

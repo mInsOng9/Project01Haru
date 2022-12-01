@@ -119,7 +119,7 @@ interface RetrofitService {
         @Query("solYear")year:String,
         @Query("solMonth") month:String,
         @Query("_type") type:String="json"
-    ):Call<RestItem>
+    ):Call<String>
 
     @GET("getHoliDeInfo")
     fun getHoliday2(
