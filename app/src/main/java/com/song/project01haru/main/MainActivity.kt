@@ -1,12 +1,10 @@
 package com.song.project01haru.main
 
 import android.content.Intent
-import android.content.res.AssetManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
-import android.view.MotionEvent
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -18,6 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.navigation.NavigationView
+import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.shuhart.materialcalendarview.*
 import com.shuhart.materialcalendarview.MaterialCalendarView.Companion.SELECTION_MODE_RANGE
@@ -31,22 +30,14 @@ import com.song.project01haru.main.expinc.ExpIncFragment
 import com.song.project01haru.main.home.HomeFragment
 import com.song.project01haru.main.skd.SkdFragment
 import com.song.project01haru.main.todo.TodoFragment
-import org.json.JSONArray
-import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
-import java.io.BufferedReader
-import java.io.InputStream
-import java.io.InputStreamReader
-import java.net.URL
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity() {
 
@@ -269,7 +260,6 @@ class MainActivity : AppCompatActivity() {
         ).enqueue(object : Callback<String>{
 
 
-
             //            override fun onResponse(call: Call<RestItem>, response: Response<RestItem>) {
 //                response.body()?.locdate?.let { Log.e("date", it) }
 //                response.body()?.dateName?.let{Log.e("name",it)
@@ -280,12 +270,33 @@ class MainActivity : AppCompatActivity() {
 //            override fun onFailure(call: Call<RestItem>, t: Throwable) {
 //                Log.e("err",t.message.toString())
 //            }
-
+//            {"response":
+//                {"header":
+//                    {"resultCode":"00","resultMsg":"NORMAL SERVICE."},
+//                    "body":{"items":
+//                        {"item":[{"dateKind":"01","dateName":"어린이날","isHoliday":"Y","locdate":20190505,"seq":1},{"dateKind":"01","dateName":"대체공휴일","isHoliday":"Y","locdate":20190506,"seq":1},{"dateKind":"01","dateName":"부처님오신날","isHoliday":"Y","locdate":20190512,"seq":1}]},
+//                        "numOfRows":10,
+//                        "pageNo":1,
+//                        "totalCount":3
+//                    }
+//                }
+//            }
+//
+//            {"response":
+//                {"header":
+//                    {"resultCode":"00","resultMsg":"NORMAL SERVICE."},
+//                    "body":{
+//                        "items":{"item":{"dateKind":"01","dateName":"삼일절","isHoliday":"Y","locdate":20190301,"seq":1}},
+//                        "numOfRows":10,
+//                        "pageNo":1,
+//                        "totalCount":1
+//                    }
+//                }
+//            }
             override fun onResponse(call: Call<String>, response: Response<String>) {
-                response?.body()?.let{
-
-
-                }
+                Log.e("holi",response?.body().toString())
+                var holi=Gson().fromJson(response.body(),HoliResponse::class.java)
+                Log.e("holiday",holi.items.toString())
             }
 
             override fun onFailure(call: Call<String>, t: Throwable) {

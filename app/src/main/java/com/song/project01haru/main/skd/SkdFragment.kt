@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.song.project01haru.G
-import com.song.project01haru.RestItem
 import com.song.project01haru.databinding.FragmentSchdBinding
 import com.song.project01haru.RetrofitService
 import com.song.project01haru.main.expinc.ExpIncItem
