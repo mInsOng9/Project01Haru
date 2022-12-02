@@ -13,8 +13,6 @@
         <entry key="..\:/Android/Projects/Project01Haru/app/src/main/res/layout/activity_edit_exp_frag.xml" value="0.29010416666666666" />
         <entry key="..\:/Android/Projects/Project01Haru/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Android/Projects/Project01Haru/app/src/main/res/layout/activity_profile.xml" value="0.36614583333333334" />
-        <entry key="..\:/Android/Projects/Project01Haru/app/src/main/res/layout/dialog_photo.xml" value="0.18535681186283595" />
-        <entry key="..\:/Android/Projects/Project01Haru/app/src/main/res/layout/dialog_photo_pager.xml" value="0.30572916666666666" />
         <entry key="..\:/Android/Projects/Project01Haru/app/src/main/res/layout/diary_recycler_item.xml" value="0.3651041666666667" />
         <entry key="..\:/Android/Projects/Project01Haru/app/src/main/res/layout/drawer_header.xml" value="0.33" />
         <entry key="..\:/Android/Projects/Project01Haru/app/src/main/res/layout/expinc_recycler_item.xml" value="0.2890625" />
@@ -37,7 +35,7 @@
         <entry key="..\:/Android/Projects/Project01Haru/app/src/main/res/menu/dnav.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/songm/AndroidStudioProjects/Project01Haru/app/src/main/res/layout/activity_contact_us.xml" value="0.11005434782608696" />
         <entry key="..\:/Users/songm/AndroidStudioProjects/Project01Haru/app/src/main/res/layout/activity_edit.xml" value="0.17028985507246377" />
-        <entry key="..\:/Users/songm/AndroidStudioProjects/Project01Haru/app/src/main/res/layout/activity_edit_diary.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/songm/AndroidStudioProjects/Project01Haru/app/src/main/res/layout/activity_edit_diary.xml" value="0.1" />
         <entry key="..\:/Users/songm/AndroidStudioProjects/Project01Haru/app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="..\:/Users/songm/AndroidStudioProjects/Project01Haru/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/songm/AndroidStudioProjects/Project01Haru/app/src/main/res/layout/activity_profile.xml" value="0.17028985507246377" />
@@ -46,6 +44,8 @@
         <entry key="..\:/Users/songm/AndroidStudioProjects/Project01Haru/app/src/main/res/layout/calendar_day_layout.xml" value="0.1" />
         <entry key="..\:/Users/songm/AndroidStudioProjects/Project01Haru/app/src/main/res/layout/dialog_account.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/songm/AndroidStudioProjects/Project01Haru/app/src/main/res/layout/dialog_date.xml" value="0.1" />
+        <entry key="..\:/Users/songm/AndroidStudioProjects/Project01Haru/app/src/main/res/layout/dialog_photo.xml" value="0.1" />
+        <entry key="..\:/Users/songm/AndroidStudioProjects/Project01Haru/app/src/main/res/layout/dialog_photo_pager.xml" value="0.1" />
         <entry key="..\:/Users/songm/AndroidStudioProjects/Project01Haru/app/src/main/res/layout/expinc_recycler_item.xml" value="0.17980072463768115" />
         <entry key="..\:/Users/songm/AndroidStudioProjects/Project01Haru/app/src/main/res/layout/fragment_diary.xml" value="0.11865942028985507" />
         <entry key="..\:/Users/songm/AndroidStudioProjects/Project01Haru/app/src/main/res/layout/fragment_edit_diary.xml" value="0.1431159420289855" />

@@ -85,7 +85,8 @@ class EditDiaryActivity : AppCompatActivity() {
         photoDialog=AlertDialog.Builder(this).setView(R.layout.dialog_photo).create()
 //        items.add(R.drawable.profile.toString())
         binding.ivPhoto2.setOnClickListener {
-            photoDialog.findViewById<ViewPager2>(R.id.vp)?.adapter=DiaryPagerAdapter(this,items)
+            pagerAdapter=DiaryPagerAdapter(this,items)
+            photoDialog.findViewById<ViewPager2>(R.id.vp)?.adapter=pagerAdapter
             photoDialog.show()
         }
 
