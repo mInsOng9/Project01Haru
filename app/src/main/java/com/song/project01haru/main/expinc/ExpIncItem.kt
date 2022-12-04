@@ -1,16 +1,13 @@
 package com.song.project01haru.main.expinc
 
+import java.util.*
+
 data class ExpIncItem(
-    var date:String,
+    var date: String,
     var totalInc:String,
     var totalExp:String,
     var total:String,
-    var amount:Double,
-    var account: Int?,
-    var type:String,
-    var category:String,
-    var note:String,
-
+    var detailItems:MutableList<ExpIncDetailItem>?
     ) {
-    constructor() : this("","","","",0.0,null,"","","")
+    constructor() : this("","","","",null)
 }
