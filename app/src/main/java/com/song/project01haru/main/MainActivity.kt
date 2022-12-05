@@ -30,6 +30,7 @@ import com.song.project01haru.main.expinc.ExpIncFragment
 import com.song.project01haru.main.home.HomeFragment
 import com.song.project01haru.main.skd.SkdFragment
 import com.song.project01haru.main.todo.TodoFragment
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -259,19 +260,26 @@ class MainActivity : AppCompatActivity() {
             "03"
         ).enqueue(object : Callback<String>{
 
+            override fun onResponse(call: Call<String>, response: Response<String>) {
+                var year:String
+                var month:String
+                var holiday:String
 
-            //            override fun onResponse(call: Call<RestItem>, response: Response<RestItem>) {
-//                response.body()?.locdate?.let { Log.e("date", it) }
-//                response.body()?.dateName?.let{Log.e("name",it)
-//                    Toast.makeText(this@MainActivity, "adsf"+it, Toast.LENGTH_SHORT).show()
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<RestItem>, t: Throwable) {
-//                Log.e("err",t.message.toString())
-//            }
-//            {"response":
-//                {"header":
+                Log.e("holi",response?.body().toString())
+                var jo= JSONObject(response.body())
+                var resJo=jo.getJSONObject("response")
+                var headJo=resJo.getJSONObject("header")
+                var bodyJo=headJo.getJSONObject("body")
+                var items= bodyJo.getJSONObject("item")
+
+                if(bodyJo.get("totalCount").toString()=="1"){
+                    var item=items.getJSONObject("item")
+                    var date=item.get("locdate").toString()
+                    holiday=item.get("dateName").toString()
+                }
+            }
+            //   {"response":
+         //                {"header":
 //                    {"resultCode":"00","resultMsg":"NORMAL SERVICE."},
 //                    "body":{"items":
 //                        {"item":[{"dateKind":"01","dateName":"어린이날","isHoliday":"Y","locdate":20190505,"seq":1},{"dateKind":"01","dateName":"대체공휴일","isHoliday":"Y","locdate":20190506,"seq":1},{"dateKind":"01","dateName":"부처님오신날","isHoliday":"Y","locdate":20190512,"seq":1}]},
@@ -281,6 +289,21 @@ class MainActivity : AppCompatActivity() {
 //                    }
 //                }
 //            }
+            override fun onFailure(call: Call<String>, t: Throwable) {
+                Log.e("err",t.message.toString())
+            }
+        })
+        //            override fun onResponse(call: Call<RestItem>, response: Response<RestItem>) {
+//                response.body()?.locdate?.let { Log.e("date", it) }
+//                response.body()?.dateName?.let{Log.e("name",it)
+//                    Toast.makeText(this@MainActivity, "adsf"+it, Toast.LENGTH_SHORT).show()
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<RestItem>, t: Throwable) {
+//                Log.e("err",t.message.toString())
+//            }
+//
 //
 //            {"response":
 //                {"header":
@@ -293,16 +316,7 @@ class MainActivity : AppCompatActivity() {
 //                    }
 //                }
 //            }
-            override fun onResponse(call: Call<String>, response: Response<String>) {
-                Log.e("holi",response?.body().toString())
-                var holi=Gson().fromJson(response.body(),HoliResponse::class.java)
-                Log.e("holiday",holi.items.toString())
-            }
 
-            override fun onFailure(call: Call<String>, t: Throwable) {
-                Log.e("err",t.message.toString())
-            }
-        })
 //        builder.getHoliday2(
 //            apiKey,
 //            SimpleDateFormat("yyyy").format(date),
