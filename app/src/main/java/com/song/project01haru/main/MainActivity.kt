@@ -241,58 +241,9 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        val apiKey="ree7QcEjSF8SAguLrEw9p1nb5SEGKDvhb8PnvaPqJP7N8meanZVpJsQNxDlrGDTzprvGOrbs/v/TsELdXsuF5w=="
-        var urlAddress: String =
-                "http://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/"
-//        +"ServiceKey=" + "ree7QcEjSF8SAguLrEw9p1nb5SEGKDvhb8PnvaPqJP7N8meanZVpJsQNxDlrGDTzprvGOrbs%2Fv%2FTsELdXsuF5w%3D%3D" +
-//                        "&solYear=2015" +
-//                        "&solMonth=09" +
-//                        "&_type=json"
-        val builder= Retrofit.Builder().baseUrl(urlAddress)
-            .addConverterFactory(ScalarsConverterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
-            .build()
-            .create(RetrofitService::class.java)
 
-        builder.getHoliday(
-            apiKey,
-            "2019",
-            "03"
-        ).enqueue(object : Callback<String>{
 
-            override fun onResponse(call: Call<String>, response: Response<String>) {
-                var year:String
-                var month:String
-                var holiday:String
 
-                Log.e("holi",response?.body().toString())
-                var jo= JSONObject(response.body())
-                var resJo=jo.getJSONObject("response")
-                var headJo=resJo.getJSONObject("header")
-                var bodyJo=headJo.getJSONObject("body")
-                var items= bodyJo.getJSONObject("item")
-
-                if(bodyJo.get("totalCount").toString()=="1"){
-                    var item=items.getJSONObject("item")
-                    var date=item.get("locdate").toString()
-                    holiday=item.get("dateName").toString()
-                }
-            }
-            //   {"response":
-         //                {"header":
-//                    {"resultCode":"00","resultMsg":"NORMAL SERVICE."},
-//                    "body":{"items":
-//                        {"item":[{"dateKind":"01","dateName":"어린이날","isHoliday":"Y","locdate":20190505,"seq":1},{"dateKind":"01","dateName":"대체공휴일","isHoliday":"Y","locdate":20190506,"seq":1},{"dateKind":"01","dateName":"부처님오신날","isHoliday":"Y","locdate":20190512,"seq":1}]},
-//                        "numOfRows":10,
-//                        "pageNo":1,
-//                        "totalCount":3
-//                    }
-//                }
-//            }
-            override fun onFailure(call: Call<String>, t: Throwable) {
-                Log.e("err",t.message.toString())
-            }
-        })
         //            override fun onResponse(call: Call<RestItem>, response: Response<RestItem>) {
 //                response.body()?.locdate?.let { Log.e("date", it) }
 //                response.body()?.dateName?.let{Log.e("name",it)
@@ -305,17 +256,7 @@ class MainActivity : AppCompatActivity() {
 //            }
 //
 //
-//            {"response":
-//                {"header":
-//                    {"resultCode":"00","resultMsg":"NORMAL SERVICE."},
-//                    "body":{
-//                        "items":{"item":{"dateKind":"01","dateName":"삼일절","isHoliday":"Y","locdate":20190301,"seq":1}},
-//                        "numOfRows":10,
-//                        "pageNo":1,
-//                        "totalCount":1
-//                    }
-//                }
-//            }
+
 
 //        builder.getHoliday2(
 //            apiKey,

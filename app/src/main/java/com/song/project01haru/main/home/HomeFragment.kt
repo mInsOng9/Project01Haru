@@ -9,6 +9,7 @@ import android.widget.CalendarView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.gson.GsonBuilder
 import com.song.project01haru.G
 import com.song.project01haru.R
 import com.song.project01haru.RetrofitService
@@ -21,6 +22,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.text.SimpleDateFormat
 import java.time.Year
@@ -34,6 +36,7 @@ class HomeFragment : Fragment() {
     val daySdf= SimpleDateFormat("dd EE")
     //recyclerview
     val recyclerView by lazy {binding.recycler}
+    var holiday: String=""
 
 
     override fun onCreate(savedInstanceState: Bundle?)  {
@@ -74,7 +77,7 @@ class HomeFragment : Fragment() {
                 var jo:JSONObject= JSONObject(response.body())
                 if(!jo.isNull("exp")) {
                     val expJo=jo.getJSONObject("exp")
-                    exp=expJo.get("expTotal") as String
+                    exp=expJo.get("amount") as String
                 }
                 var todoJo=jo.getJSONArray("todo")
                 var skdJo=jo.getJSONArray("skd")
@@ -113,7 +116,8 @@ class HomeFragment : Fragment() {
                 var aaa:List<String> = date.split("-")
                 val a:GregorianCalendar = GregorianCalendar(aaa[0].toInt(), aaa[1].toInt(), aaa[2].toInt())
 
-                items.add(HomeItem(daySdf.format(a.time)," ", " ", skd,note, skdTime,todo,exp,diary," "))
+                items.add(HomeItem(daySdf.format(a.time),holiday, " ", skd,note, skdTime,todo,exp,diary," "))
+                holiday=""
 
                 binding.recycler.adapter = HomeAdapter(requireActivity(), items)
 
@@ -127,10 +131,74 @@ class HomeFragment : Fragment() {
     }
 
 
+    fun loadHoliday(day:String){
+        var urlAddress: String =
+            "http://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/"
+        val apiKey="ree7QcEjSF8SAguLrEw9p1nb5SEGKDvhb8PnvaPqJP7N8meanZVpJsQNxDlrGDTzprvGOrbs/v/TsELdXsuF5w=="
+
+        val builder= Retrofit.Builder().baseUrl(urlAddress)
+            .addConverterFactory(ScalarsConverterFactory.create())
+            .build()
+            .create(RetrofitService::class.java)
+
+        builder.getHoliday(
+            apiKey,
+            day.substring(0,4),
+            day.substring(4,6)
+        ).enqueue(object : Callback<String>{
+
+            override fun onResponse(call: Call<String>, response: Response<String>) {
+
+                var holiDate:String=""
+
+                Toast.makeText(requireContext(), "day: "+day, Toast.LENGTH_SHORT).show()
+
+                Log.e("holi", response?.body().toString())
+                var jo = JSONObject(response.body())
+                var resJo = jo.getJSONObject("response")
+                var bodyJo = resJo.getJSONObject("body")
+                if(bodyJo.get("items")=="") return
+                var items = bodyJo.getJSONObject("items")
+
+
+                if (bodyJo.get("totalCount").toString() == "1") {
+                    var item = items.getJSONObject("item")
+                    Toast.makeText(requireContext(), "date: "+item.get("locdate"), Toast.LENGTH_SHORT).show()
+
+                    if(item.get("locdate").toString()==day){
+                        holiday = item.get("dateName").toString()
+                    }
+                    Log.e("holiday", holiday)
+                }
+                else{
+                    var item=items.getJSONArray("item")
+                    for(i in 0 until item.length()){
+                        var item2=item.getJSONObject(i)
+
+                        if(item2.get("locdate").toString()==day){
+                            holiday=item2.get("dateName") as String
+                        }
+
+                        Log.e("holiday",  holiday)
+
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<String>, t: Throwable) {
+                Log.e("err",t.message.toString())
+            }
+        })
+
+    }
+
     lateinit var date:String
     fun changeDay(day:Date){
         date=SimpleDateFormat("yyyy-MM-dd").format(day)
         items.clear()
+        loadHoliday(date.replace("-",""))
+        Toast.makeText(requireContext(), ""+holiday, Toast.LENGTH_SHORT).show()
+
         loadDB(date)
         binding.recycler.adapter = HomeAdapter(requireActivity(), items)
     }//changeDay(..)
@@ -139,8 +207,12 @@ class HomeFragment : Fragment() {
         items.clear()
         days.forEach{ day->
             date=day
+            loadHoliday(date.replace("-",""))
+            Toast.makeText(requireContext(), ""+holiday, Toast.LENGTH_SHORT).show()
             loadDB(date)
+
         }
+
         binding.recycler.adapter = HomeAdapter(requireActivity(), items)
 
     }//changeDays(..)
