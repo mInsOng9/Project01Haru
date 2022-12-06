@@ -149,8 +149,6 @@ class HomeFragment : Fragment() {
 
             override fun onResponse(call: Call<String>, response: Response<String>) {
 
-                var holiDate:String=""
-
                 Toast.makeText(requireContext(), "day: "+day, Toast.LENGTH_SHORT).show()
 
                 Log.e("holi", response?.body().toString())
@@ -210,7 +208,7 @@ class HomeFragment : Fragment() {
             loadHoliday(date.replace("-",""))
             Toast.makeText(requireContext(), ""+holiday, Toast.LENGTH_SHORT).show()
             loadDB(date)
-
+            holiday=""
         }
 
         binding.recycler.adapter = HomeAdapter(requireActivity(), items)
