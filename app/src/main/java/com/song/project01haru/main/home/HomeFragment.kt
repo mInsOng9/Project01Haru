@@ -52,6 +52,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         date=SimpleDateFormat("yyyy-MM-dd").format(Date())
+        loadHoliday(date.replace("-",""))
         loadDB(date)
         recyclerView.adapter= HomeAdapter(requireActivity(),items)
         recyclerView.layoutManager= LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL,false)
@@ -117,7 +118,6 @@ class HomeFragment : Fragment() {
                 val a:GregorianCalendar = GregorianCalendar(aaa[0].toInt(), aaa[1].toInt(), aaa[2].toInt())
 
                 items.add(HomeItem(daySdf.format(a.time),holiday, " ", skd,note, skdTime,todo,exp,diary," "))
-                holiday=""
 
                 binding.recycler.adapter = HomeAdapter(requireActivity(), items)
 
@@ -165,6 +165,7 @@ class HomeFragment : Fragment() {
 
                     if(item.get("locdate").toString()==day){
                         holiday = item.get("dateName").toString()
+
                     }
                     Log.e("holiday", holiday)
                 }
@@ -194,10 +195,11 @@ class HomeFragment : Fragment() {
     fun changeDay(day:Date){
         date=SimpleDateFormat("yyyy-MM-dd").format(day)
         items.clear()
+        holiday=""
         loadHoliday(date.replace("-",""))
+        loadDB(date)
         Toast.makeText(requireContext(), ""+holiday, Toast.LENGTH_SHORT).show()
 
-        loadDB(date)
         binding.recycler.adapter = HomeAdapter(requireActivity(), items)
     }//changeDay(..)
 
@@ -206,8 +208,9 @@ class HomeFragment : Fragment() {
         days.forEach{ day->
             date=day
             loadHoliday(date.replace("-",""))
-            Toast.makeText(requireContext(), ""+holiday, Toast.LENGTH_SHORT).show()
             loadDB(date)
+            Toast.makeText(requireContext(), ""+holiday, Toast.LENGTH_SHORT).show()
+
             holiday=""
         }
 
