@@ -150,7 +150,7 @@ class HomeFragment : Fragment() {
 
                 Toast.makeText(requireContext(), "day: "+day, Toast.LENGTH_SHORT).show()
 
-                Log.e("holi", response?.body().toString())
+                Log.i("holi", response?.body().toString())
                 var jo = JSONObject(response.body())
                 var resJo = jo.getJSONObject("response")
                 var bodyJo = resJo.getJSONObject("body")
@@ -164,9 +164,8 @@ class HomeFragment : Fragment() {
 
                     if(item.get("locdate").toString()==day){
                         holiday = item.get("dateName").toString()
-
-                    }
-                    Log.e("holiday", holiday)
+                    }else holiday=""
+                    Log.i("holiday", holiday)
                 }
                 else{
                     var item=items.getJSONArray("item")
@@ -175,9 +174,9 @@ class HomeFragment : Fragment() {
 
                         if(item2.get("locdate").toString()==day){
                             holiday=item2.get("dateName") as String
-                        }
+                        }else holiday=""
 
-                        Log.e("holiday",  holiday)
+                        Log.i("holiday",  holiday)
 
                     }
                 }
@@ -194,7 +193,6 @@ class HomeFragment : Fragment() {
     fun changeDay(day:Date){
         date=SimpleDateFormat("yyyy-MM-dd").format(day)
         items.clear()
-        holiday=""
         loadHoliday(date.replace("-",""))
         loadDB(date)
         Toast.makeText(requireContext(), ""+holiday, Toast.LENGTH_SHORT).show()
@@ -209,8 +207,6 @@ class HomeFragment : Fragment() {
             loadHoliday(date.replace("-",""))
             loadDB(date)
             Toast.makeText(requireContext(), ""+holiday, Toast.LENGTH_SHORT).show()
-
-            holiday=""
         }
 
         binding.recycler.adapter = HomeAdapter(requireActivity(), items)
