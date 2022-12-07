@@ -44,7 +44,6 @@ class HomeFragment : Fragment() {
 
     }
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) : View?{
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
@@ -115,7 +114,7 @@ class HomeFragment : Fragment() {
                 }
 
                 var aaa:List<String> = date.split("-")
-                val a:GregorianCalendar = GregorianCalendar(aaa[0].toInt(), aaa[1].toInt(), aaa[2].toInt())
+                val a:GregorianCalendar = GregorianCalendar(aaa[0].toInt(), aaa[1].toInt()-1, aaa[2].toInt())
 
                 items.add(HomeItem(daySdf.format(a.time),holiday, " ", skd,note, skdTime,todo,exp,diary," "))
 

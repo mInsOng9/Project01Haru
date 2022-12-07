@@ -201,11 +201,11 @@ class MainActivity : AppCompatActivity() {
             override fun onRangeSelected(widget: MaterialCalendarView, dates: List<CalendarDay>) {
                 binding.tvTitleDate.text =sdf.format(calendar.selectedDates?.get(0).date)
 
-                val weekdaySdf=SimpleDateFormat("yyyy-MM-dd")
+                val daySdf=SimpleDateFormat("yyyy-MM-dd")
                 val days:MutableList<String> = mutableListOf()
 
                 dates.forEach {
-                   val s= weekdaySdf.format( it.date )
+                   val s= daySdf.format( it.date )
                     days.add(s)
                 }
 
