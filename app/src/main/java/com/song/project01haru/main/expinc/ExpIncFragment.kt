@@ -133,6 +133,7 @@ class ExpIncFragment:Fragment() {
     lateinit var date:String
     fun changeDay(day:Date){
         items.clear()
+        detailItems.clear()
         date=SimpleDateFormat("yyyy-MM-dd").format(day)
         loadDB(date)
         recyclerView.adapter = ExpIncAdapter(requireActivity(), items)
@@ -140,6 +141,7 @@ class ExpIncFragment:Fragment() {
 
     fun changeDays(days:MutableList<String>){
         items.clear()
+        detailItems.clear()
         days.forEach{ day->
             date=day
             loadDB(date)
