@@ -16,8 +16,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.navigation.NavigationView
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import com.shuhart.materialcalendarview.*
 import com.shuhart.materialcalendarview.MaterialCalendarView.Companion.SELECTION_MODE_RANGE
 import com.song.project01haru.*
@@ -35,7 +33,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.text.SimpleDateFormat
 import java.util.*
@@ -62,6 +59,7 @@ class MainActivity : AppCompatActivity() {
     //bundle (to send data to fragments)
     lateinit var bundle:Bundle
 
+    var holidays:MutableList<JSONObject> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -193,6 +191,9 @@ class MainActivity : AppCompatActivity() {
         calendar.addOnMonthChangedListener(object:OnMonthChangedListener{
             override fun onMonthChanged(widget: MaterialCalendarView, date: CalendarDay) {
                 binding.tvTitleDate.text=date.year.toString()+"."+(date.month+1).toString()
+
+                loadHoliday(date.year.toString()+(date.month+1).toString())
+
             }
 
         })
@@ -203,6 +204,7 @@ class MainActivity : AppCompatActivity() {
 
                 val weekdaySdf=SimpleDateFormat("yyyy-MM-dd")
                 val days:MutableList<String> = mutableListOf()
+                loadHoliday(SimpleDateFormat("yyyymm").format(calendar.selectedDate?.date!!))
 
                 dates.forEach {
                    val s= weekdaySdf.format( it.date )
@@ -226,6 +228,7 @@ class MainActivity : AppCompatActivity() {
             ) {
                 this@MainActivity.date=Date()
                 binding.tvTitleDate.text=sdf.format(calendar.selectedDate?.date)
+                loadHoliday(SimpleDateFormat("yyyymm").format(calendar.selectedDate?.date!!))
 
                 (fragments[0] as ExpIncFragment).changeDay(calendar.selectedDate?.date!!)
                 (fragments[1] as TodoFragment).changeDay(calendar.selectedDate?.date!!)
@@ -322,12 +325,69 @@ class MainActivity : AppCompatActivity() {
 
         tvOk?.setOnClickListener {
             binding.tvTitleDate.text=sdf.format(calendar.selectedDate?.date!!)
+            loadHoliday(SimpleDateFormat("yyyymm").format(calendar.selectedDate?.date!!))
+
             dialog.dismiss()
         }
 
         tvCancel?.setOnClickListener { dialog.dismiss() }
 
     }//calDialog
+
+    fun loadHoliday(day:String){
+        var urlAddress: String =
+            "http://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/"
+        val apiKey="ree7QcEjSF8SAguLrEw9p1nb5SEGKDvhb8PnvaPqJP7N8meanZVpJsQNxDlrGDTzprvGOrbs/v/TsELdXsuF5w=="
+
+        val builder= Retrofit.Builder().baseUrl(urlAddress)
+            .addConverterFactory(ScalarsConverterFactory.create())
+            .build()
+            .create(RetrofitService::class.java)
+
+        builder.getHoliday(
+            apiKey,
+            day.substring(0,4),
+            day.substring(4,6)
+        ).enqueue(object : Callback<String>{
+
+            override fun onResponse(call: Call<String>, response: Response<String>) {
+
+                Toast.makeText(this@MainActivity, "day: "+day, Toast.LENGTH_SHORT).show()
+
+                Log.i("holi", response?.body().toString())
+                var jo = JSONObject(response.body())
+                var resJo = jo.getJSONObject("response")
+                var bodyJo = resJo.getJSONObject("body")
+                if(bodyJo.get("items")=="") return
+                var items = bodyJo.getJSONObject("items")
+
+
+                if (bodyJo.get("totalCount").toString() == "1") {
+                    var item = items.getJSONObject("item")
+                    Toast.makeText(this@MainActivity, "date: "+item, Toast.LENGTH_SHORT).show()
+
+                    holidays[0] = item
+
+                    Log.i("holiday", holidays[0].toString())
+                }
+                else{
+                    var item=items.getJSONArray("item")
+                    for(i in 0 until item.length()){
+                        var item2=item.getJSONObject(i)
+
+                        holidays[i]=item2
+                        Log.i("holiday", holidays.toString())
+
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<String>, t: Throwable) {
+                Log.e("err",t.message.toString())
+            }
+        })
+
+    }//loadHoliday()
 }
 
 
