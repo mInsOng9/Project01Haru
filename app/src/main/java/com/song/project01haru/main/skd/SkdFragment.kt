@@ -95,7 +95,7 @@ class SkdFragment :Fragment() {
 
                 //Date
                 var aaa:List<String> = date.split("-")
-                val a:GregorianCalendar = GregorianCalendar(aaa[0].toInt(), aaa[1].toInt(), aaa[2].toInt())
+                val a:GregorianCalendar = GregorianCalendar(aaa[0].toInt(), aaa[1].toInt()-1, aaa[2].toInt())
 
                 skdevtItems.add(SkdEvtItem(G.act,daySdf.format(a.time),time, skd,note,evt,""))
 
@@ -116,7 +116,6 @@ class SkdFragment :Fragment() {
         date=SimpleDateFormat("yyyy-MM-dd").format(day)
         skdevtItems.clear()
         loadDB(date)
-        recycler.adapter= SkdAdapter(requireActivity(),skdevtItems)
     }
 
     fun changeDays(days:MutableList<String>){
@@ -125,7 +124,5 @@ class SkdFragment :Fragment() {
             date=day
             loadDB(date)
         }
-
-        recycler.adapter= SkdAdapter(requireActivity(),skdevtItems)
     }
 }

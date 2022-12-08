@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -52,67 +53,12 @@
             android:layout_centerVertical="true"/>
     </RelativeLayout>
 
-    <RelativeLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="16dp"
-        android:paddingTop="16dp">
-        <ImageView
-            android:id="@+id/iv_account"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/type_card"/>
-        <TextView
-            android:id="@+id/tv_type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="WOORI"
-            android:textSize="12sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/halant_regular"
-            android:layout_marginLeft="4dp"
-            android:layout_below="@id/iv_account" />
-        <TextView
-            android:id="@+id/tv_category"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Category"
-            android:textColor="@color/black"
-            android:fontFamily="@font/halant_regular"
-            android:textSize="22sp"
-            android:layout_toRightOf="@id/iv_account"
-            android:layout_marginLeft="20dp"/>
-        <TextView
-            android:id="@+id/tv_expinc_note"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="note"
-            android:textSize="14sp"
-            android:fontFamily="@font/halant_regular"
-            android:layout_alignLeft="@id/tv_category"
-            android:layout_below="@id/tv_category" />
-        <TextView
-            android:id="@+id/tv_amount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="+20,000"
-            android:textColor="@color/black"
-            android:textSize="24sp"
-            android:fontFamily="@font/halant_regular"
-            android:layout_toLeftOf="@id/iv_delete"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="40dp"
-            />
-
-        <ImageView
-            android:id="@+id/iv_delete"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="16dp"
-            android:src="@drawable/ic_baseline_remove_24" />
-
-    </RelativeLayout>
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="vertical"/>
 
 
 </LinearLayout>

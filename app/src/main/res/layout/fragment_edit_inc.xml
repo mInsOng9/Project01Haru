@@ -28,6 +28,7 @@ android:padding="16dp">
         android:layout_marginBottom="24dp"
         android:fontFamily="@font/halant_regular"
         android:text="AMOUNT"
+        android:inputType="numberDecimal"
         android:textColor="@color/black"
         android:textSize="20sp" />
 
@@ -76,7 +77,6 @@ android:padding="16dp">
     android:layout_height="wrap_content"
     android:layout_marginBottom="8dp"
     android:fontFamily="@font/halant_regular"
-
     android:layout_below="@id/tv_date"
     android:layout_alignLeft="@id/tv_date"
     android:inputType="numberDecimal"

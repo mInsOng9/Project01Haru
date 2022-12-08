@@ -61,7 +61,7 @@ class DiaryFragment : Fragment(){
 
                 for (item in items) {
                     var aaa:List<String> = item.date.split("-")
-                    val a:GregorianCalendar = GregorianCalendar(aaa[0].toInt(), aaa[1].toInt(), aaa[2].toInt())
+                    val a:GregorianCalendar = GregorianCalendar(aaa[0].toInt(), aaa[1].toInt()-1, aaa[2].toInt())
                     item.date= SimpleDateFormat("dd EE").format( a.time )
 
                     // todoItems.add(TodoItem(item.date, item.time,item.todo ))
@@ -78,11 +78,10 @@ class DiaryFragment : Fragment(){
         })
     }
     lateinit var date:String
-    fun changeDay(day:Date){
-        date=SimpleDateFormat("yyyy-MM-dd").format(day)
+    fun changeDay(day:Date) {
+        date = SimpleDateFormat("yyyy-MM-dd").format(day)
         diaryItems.clear()
         loadDB()
-        recyclerView.adapter= DiaryAdapter(requireActivity(),diaryItems)
     }
 
     fun changeDays(days:MutableList<String>){
@@ -91,6 +90,5 @@ class DiaryFragment : Fragment(){
             date=day
             loadDB()
         }
-        recyclerView.adapter= DiaryAdapter(requireActivity(),diaryItems)
     }
 }

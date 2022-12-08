@@ -23,7 +23,6 @@ class TodoFragment : Fragment() {
 
     lateinit var binding:FragmentTodoBinding
     var todoItems:MutableList<TodoItem> = mutableListOf()
-    val recyclerView by lazy{binding.recycler}
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,13 +36,12 @@ class TodoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding=FragmentTodoBinding.inflate(inflater,container,false)
-        date=SimpleDateFormat("yyyy-MM-dd").format(Date())
-        loadDB()
-        recyclerView.adapter= TodoAdapter(requireActivity(),todoItems)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        date=SimpleDateFormat("yyyy-MM-dd").format(Date())
+        loadDB()
 
     }
 
@@ -61,7 +59,7 @@ class TodoFragment : Fragment() {
 
                 for (item in items) {
                     var aaa:List<String> = item.date.split("-")
-                    val a:GregorianCalendar = GregorianCalendar(aaa[0].toInt(), aaa[1].toInt(), aaa[2].toInt())
+                    val a:GregorianCalendar = GregorianCalendar(aaa[0].toInt(), aaa[1].toInt()-1, aaa[2].toInt())
                     item.date= SimpleDateFormat("dd EE").format( a.time )
 
                    // todoItems.add(TodoItem(item.date, item.time,item.todo ))
@@ -70,7 +68,7 @@ class TodoFragment : Fragment() {
                     //}
                 }
 
-               recyclerView.adapter= TodoAdapter(requireActivity(),todoItems)
+               binding.recycler.adapter= TodoAdapter(requireActivity(),todoItems)
 
             }
             override fun onFailure(call: Call<ArrayList<TodoItem>>, t: Throwable) {
@@ -85,7 +83,6 @@ class TodoFragment : Fragment() {
         todoItems.clear()
        //todoItems.add(TodoItem(day,time,todo))
         loadDB()
-        recyclerView.adapter= TodoAdapter(requireActivity(),todoItems)
     }
 
     fun changeDays(days:MutableList<String>){
@@ -94,7 +91,5 @@ class TodoFragment : Fragment() {
             date=day
             loadDB()
         }
-
-        recyclerView.adapter= TodoAdapter(requireActivity(),todoItems)
     }
 }

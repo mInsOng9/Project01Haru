@@ -69,12 +69,12 @@ class HomeFragment : Fragment() {
 
                 Log.e("res",response.body().toString())
 
-                var exp:String="0"
+                var exp=0.0
                 var diary:String=""
                 var jo:JSONObject= JSONObject(response.body())
                 if(!jo.isNull("exp")) {
                     val expJo=jo.getJSONObject("exp")
-                    exp=expJo.get("expTotal") as String
+                    exp=expJo.get("amount").toString().toDouble()
                 }
                 var todoJo=jo.getJSONArray("todo")
                 var skdJo=jo.getJSONArray("skd")
@@ -111,7 +111,7 @@ class HomeFragment : Fragment() {
                 }
 
                 var aaa:List<String> = date.split("-")
-                val a:GregorianCalendar = GregorianCalendar(aaa[0].toInt(), aaa[1].toInt(), aaa[2].toInt())
+                val a:GregorianCalendar = GregorianCalendar(aaa[0].toInt(), aaa[1].toInt()-1, aaa[2].toInt())
 
                 items.add(HomeItem(daySdf.format(a.time)," ", " ", skd,note, skdTime,todo,exp,diary," "))
 
@@ -132,7 +132,6 @@ class HomeFragment : Fragment() {
         date=SimpleDateFormat("yyyy-MM-dd").format(day)
         items.clear()
         loadDB(date)
-        binding.recycler.adapter = HomeAdapter(requireActivity(), items)
     }//changeDay(..)
 
     fun changeDays(days:MutableList<String>){
@@ -141,7 +140,6 @@ class HomeFragment : Fragment() {
             date=day
             loadDB(date)
         }
-        binding.recycler.adapter = HomeAdapter(requireActivity(), items)
 
     }//changeDays(..)
 }
