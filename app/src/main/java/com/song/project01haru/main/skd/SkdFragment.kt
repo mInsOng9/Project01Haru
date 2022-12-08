@@ -116,7 +116,6 @@ class SkdFragment :Fragment() {
         date=SimpleDateFormat("yyyy-MM-dd").format(day)
         skdevtItems.clear()
         loadDB(date)
-        recycler.adapter= SkdAdapter(requireActivity(),skdevtItems)
     }
 
     fun changeDays(days:MutableList<String>){
@@ -125,7 +124,5 @@ class SkdFragment :Fragment() {
             date=day
             loadDB(date)
         }
-
-        recycler.adapter= SkdAdapter(requireActivity(),skdevtItems)
     }
 }

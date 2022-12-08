@@ -132,7 +132,6 @@ class HomeFragment : Fragment() {
         date=SimpleDateFormat("yyyy-MM-dd").format(day)
         items.clear()
         loadDB(date)
-        binding.recycler.adapter = HomeAdapter(requireActivity(), items)
     }//changeDay(..)
 
     fun changeDays(days:MutableList<String>){
@@ -141,7 +140,6 @@ class HomeFragment : Fragment() {
             date=day
             loadDB(date)
         }
-        binding.recycler.adapter = HomeAdapter(requireActivity(), items)
 
     }//changeDays(..)
 }

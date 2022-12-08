@@ -28,8 +28,6 @@ class ExpIncFragment:Fragment() {
 
     lateinit var binding:FragmentExpIncBinding
     var items = mutableListOf<ExpIncItem>()
-    val recyclerView by lazy {binding.recycler}
-    public var detailItems=mutableListOf<ExpIncDetailItem>()
 
 
     val daySdf= SimpleDateFormat("dd EE")
@@ -54,11 +52,12 @@ class ExpIncFragment:Fragment() {
 //
         date=SimpleDateFormat("yyyy-MM-dd").format(Date())
         loadDB(date)
-        recyclerView.adapter = ExpIncAdapter(requireActivity(), items)
+        binding.recycler.adapter = ExpIncAdapter(requireActivity(), items)
 
     }
 
     fun loadDB(date:String){
+
         val builder=Retrofit.Builder().baseUrl("http://mins22.dothome.co.kr")
             .addConverterFactory(ScalarsConverterFactory.create())
             .build()
@@ -80,7 +79,9 @@ class ExpIncFragment:Fragment() {
                 var account= R.drawable.type_card
                 var note=""
                 var aaa:List<String> = date.split("-")
-                val a:GregorianCalendar = GregorianCalendar(aaa[0].toInt(), aaa[1].toInt(), aaa[2].toInt())
+                val a:GregorianCalendar = GregorianCalendar(aaa[0].toInt(), aaa[1].toInt()-1, aaa[2].toInt())
+
+                var detailItems:MutableList<ExpIncDetailItem>?= mutableListOf()
 
 
                 var jo: JSONObject = JSONObject(response.body())
@@ -95,11 +96,11 @@ class ExpIncFragment:Fragment() {
                         type = expJo2.get("type") as String
                         account = expJo2.get("account").toString().toInt()
                         note = expJo2.get("note") as String
-                        detailItems.add(ExpIncDetailItem(daySdf.format(a.time),exp,account,type,category,note))
+
+                        detailItems?.add(ExpIncDetailItem(daySdf.format(a.time),exp,account,type,category,note))
                     }
 
                 }
-
                 if(!jo.isNull("inc")){
                     var incJo=jo.getJSONArray("inc")
                     for( i in 0 until incJo.length()){
@@ -110,15 +111,17 @@ class ExpIncFragment:Fragment() {
                         type=incJo2.get("type") as String
                         account=incJo2.get("account").toString().toInt()
                         note=incJo2.get("note") as String
-                        detailItems.add(ExpIncDetailItem(daySdf.format(a.time),inc,account,type,category,note))
+                        detailItems?.add(ExpIncDetailItem(daySdf.format(a.time),inc,account,type,category,note))
 
                     }
                 }
 
 
+
                 items.add(ExpIncItem(daySdf.format(a.time),incTotal.toString(),expTotal.toString(), (incTotal-expTotal).toString(),detailItems))
                 Toast.makeText(requireActivity(), ""+detailItems, Toast.LENGTH_SHORT).show()
 //                recyclerView.findViewById<RecyclerView>(R.id.recycler_detail).adapter=ExpIncDetailAdapter(requireActivity(),detailItems)
+
                 binding.recycler.adapter = ExpIncAdapter(requireActivity(), items)
 
             }
@@ -133,20 +136,18 @@ class ExpIncFragment:Fragment() {
     lateinit var date:String
     fun changeDay(day:Date){
         items.clear()
-        detailItems.clear()
         date=SimpleDateFormat("yyyy-MM-dd").format(day)
         loadDB(date)
-        recyclerView.adapter = ExpIncAdapter(requireActivity(), items)
+        binding.recycler.adapter = ExpIncAdapter(requireActivity(), items)
     }
 
     fun changeDays(days:MutableList<String>){
         items.clear()
-        detailItems.clear()
         days.forEach{ day->
             date=day
             loadDB(date)
         }
-        recyclerView.adapter = ExpIncAdapter(requireActivity(), items)
+        binding.recycler.adapter = ExpIncAdapter(requireActivity(), items)
 
     }
 }

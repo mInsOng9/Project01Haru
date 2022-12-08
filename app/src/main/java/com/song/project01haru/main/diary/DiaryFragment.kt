@@ -78,11 +78,10 @@ class DiaryFragment : Fragment(){
         })
     }
     lateinit var date:String
-    fun changeDay(day:Date){
-        date=SimpleDateFormat("yyyy-MM-dd").format(day)
+    fun changeDay(day:Date) {
+        date = SimpleDateFormat("yyyy-MM-dd").format(day)
         diaryItems.clear()
         loadDB()
-        recyclerView.adapter= DiaryAdapter(requireActivity(),diaryItems)
     }
 
     fun changeDays(days:MutableList<String>){
@@ -91,6 +90,5 @@ class DiaryFragment : Fragment(){
             date=day
             loadDB()
         }
-        recyclerView.adapter= DiaryAdapter(requireActivity(),diaryItems)
     }
 }

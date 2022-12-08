@@ -8,6 +8,4 @@ data class ExpIncItem(
     var totalExp:String,
     var total:String,
     var detailItems:MutableList<ExpIncDetailItem>?
-    ) {
-    constructor() : this("","","","",null)
-}
+    )
