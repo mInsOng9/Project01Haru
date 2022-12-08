@@ -111,7 +111,7 @@ class HomeFragment : Fragment() {
                 }
 
                 var aaa:List<String> = date.split("-")
-                val a:GregorianCalendar = GregorianCalendar(aaa[0].toInt(), aaa[1].toInt(), aaa[2].toInt())
+                val a:GregorianCalendar = GregorianCalendar(aaa[0].toInt(), aaa[1].toInt()-1, aaa[2].toInt())
 
                 items.add(HomeItem(daySdf.format(a.time)," ", " ", skd,note, skdTime,todo,exp,diary," "))
 
