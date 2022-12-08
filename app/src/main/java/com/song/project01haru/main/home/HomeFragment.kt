@@ -97,7 +97,12 @@ class HomeFragment : Fragment() {
                 var skd:String=" "
                 var skdTime:String=" "
                 var note:String=" "
+                var evt:String=""
 
+                if(!jo.isNull("evt")){
+                    var evtJo=jo.getJSONObject("evt")
+                    evt=evtJo.get("event") as String
+                }
                 for(i in 0 until skdJo.length()){
                     var skdJo2=skdJo.getJSONObject(i)
 //                    if(skdJo2.equals("")) {
@@ -113,7 +118,7 @@ class HomeFragment : Fragment() {
                 var aaa:List<String> = date.split("-")
                 val a:GregorianCalendar = GregorianCalendar(aaa[0].toInt(), aaa[1].toInt()-1, aaa[2].toInt())
 
-                items.add(HomeItem(daySdf.format(a.time)," ", " ", skd,note, skdTime,todo,exp,diary," "))
+                items.add(HomeItem(daySdf.format(a.time)," ", evt, skd,note, skdTime,todo,exp,diary," "))
 
                 binding.recycler.adapter = HomeAdapter(requireActivity(), items)
 

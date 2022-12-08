@@ -119,7 +119,6 @@ class ExpIncFragment:Fragment() {
 
 
                 items.add(ExpIncItem(daySdf.format(a.time),incTotal.toString(),expTotal.toString(), (incTotal-expTotal).toString(),detailItems))
-                Toast.makeText(requireActivity(), ""+detailItems, Toast.LENGTH_SHORT).show()
 //                recyclerView.findViewById<RecyclerView>(R.id.recycler_detail).adapter=ExpIncDetailAdapter(requireActivity(),detailItems)
 
                 binding.recycler.adapter = ExpIncAdapter(requireActivity(), items)
