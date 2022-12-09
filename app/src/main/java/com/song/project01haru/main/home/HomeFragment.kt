@@ -104,7 +104,7 @@ class HomeFragment : Fragment() {
                 }
 
                 var aaa:List<String> = date.split("-")
-                val a:GregorianCalendar = GregorianCalendar(aaa[0].toInt(), aaa[1].toInt(), aaa[2].toInt())
+                val a:GregorianCalendar = GregorianCalendar(aaa[0].toInt(), aaa[1].toInt()-1,aaa[2].toInt())
 
                 var holiday:String=""
                 MainActivity().holidays.forEach { days->
@@ -132,7 +132,6 @@ class HomeFragment : Fragment() {
     fun changeDay(day:Date){
         date=SimpleDateFormat("yyyy-MM-dd").format(day)
         items.clear()
-        Toast.makeText(requireContext(), ""+MainActivity().holidays, Toast.LENGTH_SHORT).show()
         loadDB(date)
         binding.recycler.adapter = HomeAdapter(requireActivity(), items)
     }//changeDay(..)
@@ -141,7 +140,6 @@ class HomeFragment : Fragment() {
         items.clear()
         days.forEach{ day->
             date=day
-            Toast.makeText(requireContext(), ""+MainActivity().holidays, Toast.LENGTH_SHORT).show()
             loadDB(date)
         }
 

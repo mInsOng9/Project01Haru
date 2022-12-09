@@ -364,12 +364,13 @@ class MainActivity : AppCompatActivity() {
 
                 if (bodyJo.get("totalCount").toString() == "1") {
                     var item = items.getJSONObject("item")
-                    Toast.makeText(this@MainActivity, "date: "+item, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@MainActivity, "date: "+item.toString(), Toast.LENGTH_SHORT).show()
 
                     holidays[0] = item
 
                     Log.i("holiday", holidays[0].toString())
                 }
+                else if(bodyJo.get("totalCount").toString()=="0") return
                 else{
                     var item=items.getJSONArray("item")
                     for(i in 0 until item.length()){
