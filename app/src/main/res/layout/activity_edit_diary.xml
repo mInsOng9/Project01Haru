@@ -101,19 +101,10 @@
         android:layout_marginRight="16dp"
         android:src="@drawable/photo"
         android:layout_below="@id/et_diary"
-        android:layout_toLeftOf="@id/iv_diary_location"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"/>
-    <ImageView
-        android:id="@+id/iv_diary_location"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginRight="20dp"
-        android:src="@drawable/location"
-        android:layout_below="@id/et_diary"
         android:layout_alignParentRight="true"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"/>
+
 
 
     <TextView
