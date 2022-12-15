@@ -98,7 +98,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.menu_dnav_update -> {
                     val intent = Intent(Intent.ACTION_VIEW).apply {
                         data = Uri.parse(
-                            "https://play.google.com/store/apps/details?id=com.example.android")
+                            "https://play.google.com/store/apps/details?id=com.song.project01haru")
                         setPackage("com.android.vending")
                     }
                     startActivity(intent)
